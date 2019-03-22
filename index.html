@@ -326,7 +326,7 @@
       
         
           
-            <p>转载[这里][1]</p>
+            <p>转载<a href="http://c.biancheng.net/view/904.html" target="_blank" rel="noopener">这里</a></p>
 <p>System 类代表系统，系统级的很多属性和控制方法都放置在该类的内部。该类位于 java. lang 包。由于该类的构造方法是 private 的，所以无法创建该类的对象，也就是无法实例化该类。</p>
 <p>System 类内部的成员变量和成员方法都是 static 的，所以可以方便地进行调用。<br>System 类的成员变量<br>System 类有 3 个静态成员变量，分别是 PrintStream out、InputStream in 和 PrintStream err。</p>
 <h3 id="PrintStream-out"><a href="#PrintStream-out" class="headerlink" title="PrintStream out"></a>PrintStream out</h3><p>标准输出流。此流已打开并准备接收输出数据。通常，此流对应于显示器输出或者由主机环境或用户指定的另一个输出目标。<br>例如，编写一行输出数据的典型方式是</p>
@@ -344,7 +344,7 @@
 </ol>
 <p>该方法的作用是数组复制，即从指定源数组中复制一个数组，复制从指定的位置开始，到目标数组的指定位置结束。该方法的具体定义如下：<br><code>public static void arraycopy(Object src,int srcPos,Object dest,int destPos,int length)</code><br>其中，src 表示源数组，srcPos 表示从源数组中复制的起始位置，dest 表示目标数组，destPos 表示要复制到的目标数组的起始位置，length 表示复制的个数。<br>例 2<br>下面的示例代码演示了 arraycopy() 方法的使用：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">System_arrayCopy</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] srcArray=&#123;<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>&#125;;</span><br><span class="line">        <span class="keyword">char</span>[] destArray=&#123;<span class="string">'E'</span>,<span class="string">'F'</span>,<span class="string">'G'</span>,<span class="string">'H'</span>&#125;;</span><br><span class="line">        System.arraycopy(srcArray,<span class="number">1</span>,destArray,<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">        System.out.println(<span class="string">"源数组："</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;srcArray.length;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(srcArray[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"目标数组："</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;destArray.length;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(destArray[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如上述代码，将数组 srcArray 中，从下标 1 开始的数据复制到数组 destArray 从下标 1 开始的位置，总共复制两个。也就是将 srcArray[1] 复制给 destArray[1]，将 srcArray[2] 复制给 destArray[2]。这样经过复制之后，数组 srcArray 中的元素不发生变化，而数组 destArray 中的元素将变为 E、B、C、 H，下面为输出结果：</p>
+<p>如上述代码，将数组 srcArray 中，从下标 1 开始的数据复制到数组 destArray 从下标 1 开始的位置，总共复制两个。也就是将 srcArray<a href="http://c.biancheng.net/view/904.html" target="_blank" rel="noopener">1</a> 复制给 destArray<a href="http://c.biancheng.net/view/904.html" target="_blank" rel="noopener">1</a>，将 srcArray[2] 复制给 destArray[2]。这样经过复制之后，数组 srcArray 中的元素不发生变化，而数组 destArray 中的元素将变为 E、B、C、 H，下面为输出结果：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">源数组：</span><br><span class="line">A</span><br><span class="line">B</span><br><span class="line">C</span><br><span class="line">D</span><br><span class="line">目标数组：</span><br><span class="line">E</span><br><span class="line">B</span><br><span class="line">C</span><br><span class="line">H</span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>currentTimeMillis() 方法</li>
@@ -1406,6 +1406,20 @@
 <li>一个方法可以改变一个对象参数的状态</li>
 <li>一个方法不能让对象参数引用一个新的对象</li>
 </ul>
+<h2 id="包"><a href="#包" class="headerlink" title="包"></a>包</h2><p>在定义一个类时，要给类取名字，类名一般要根据类的作用来取，而不是毫无意义的字符；不过随着定义的类<br>越来越多，类名很有可能重复。为了解决这个问题，我们就采用包(package)</p>
+<h3 id="类的导入"><a href="#类的导入" class="headerlink" title="类的导入"></a>类的导入</h3><p>我们使用别的包中的公有类时，我们有两种方式来访问：第一种是通过每个类前面直接添加完整的包名。如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.time.LocalDate localDate = java.time.LocalDate.now();</span><br></pre></td></tr></table></figure>
+<p>第二种是导入类，导入类的关键字<code>import</code>,语法如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> 包名.类名;<span class="comment">//导入单个类</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> 包名.*;<span class="comment">//导入这个包中所有的文件</span></span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.LocalDate;</span><br><span class="line">...</span><br><span class="line"><span class="comment">//之后就可以直接使用LocalDate类了</span></span><br><span class="line">LocalDate localDate = LocalDate.now();</span><br></pre></td></tr></table></figure>
+<p>注意：如果一个类中出现重名的类，编译器无法确定使用哪个；那就必须在每一个（重名的）类名<br>前面加上完整的包名</p>
+<h3 id="静态导入"><a href="#静态导入" class="headerlink" title="静态导入"></a>静态导入</h3><p><code>import</code>不仅可以导入类，还可以导入静态方法和静态域</p>
+<p>例如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.System.*;<span class="comment">//之后就可以直接使用System的静态方法和静态变量</span></span><br></pre></td></tr></table></figure>
+<h3 id="将类放入包中"><a href="#将类放入包中" class="headerlink" title="将类放入包中"></a>将类放入包中</h3><p>要想将一个类放入包中，就必须将包的名字放在源文件的开头，包中定义类的代码之前。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.demo.core;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">People</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="包的作用域"><a href="#包的作用域" class="headerlink" title="包的作用域"></a>包的作用域</h3><p>如果类或类中变量，方法没有被<code>private</code>或<code>public</code>修饰，那么这个部分（类，方法和变量）可以被同一包中所有方法访问</p>
 
           
         
@@ -1629,6 +1643,7 @@
 <li>负无穷大</li>
 <li>NaN 表示0/0或负数的平方根，不是一个数字</li>
 </ul>
+<p>注意：不能用浮点型做精确运算；更不能使用<code>while( i == 浮点数)</code>作为循环条件，由于二进制本身的特性。</p>
 <h3 id="char"><a href="#char" class="headerlink" title="char"></a>char</h3><p><code>char</code>类型的值用’’表示，如<code>char a = &#39;a&#39;</code>.具体的关于<code>char</code>的说明请看后面的文章</p>
 <p><code>char</code>类型特殊字符的转义序列</p>
 <table>
@@ -1701,6 +1716,7 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组变量的声明，和创建数组可以用一条语句完成，如下所示：</span></span><br><span class="line">dataType[] arrayRefVar = <span class="keyword">new</span> dataType[arraySize];</span><br><span class="line"><span class="comment">//另外，你还可以使用如下的方式创建数组。</span></span><br><span class="line">dataType[] arrayRefVar = &#123;value0, value1, ..., valuek&#125;;</span><br></pre></td></tr></table></figure>
 <p>数组的元素是通过索引访问的。数组索引从 0 开始，所以索引值从 0 到 arrayRefVar.length-1。</p>
+<h3 id="数组的拷贝"><a href="#数组的拷贝" class="headerlink" title="数组的拷贝"></a>数组的拷贝</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//错误示例，这种方式两个数组变量将引用同一个数组</span></span><br><span class="line"><span class="keyword">int</span>[] a1 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>];</span><br><span class="line"><span class="keyword">int</span>[] a2 = a1</span><br><span class="line"></span><br><span class="line"><span class="comment">//正确示例</span></span><br><span class="line"><span class="keyword">int</span>[] a3 = Arrays.copyOf(a1,a1.length);</span><br></pre></td></tr></table></figure>
 <h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>在Java中有三种标记注释的方式</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//单行注释</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *多行注释</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Java doc,这里的注释会生成文档</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  */</span></span><br></pre></td></tr></table></figure>
 <h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="声明变量"><a href="#声明变量" class="headerlink" title="声明变量"></a>声明变量</h3><p>在Java中声明变量的语法是<code>类型 变量名</code>,例如</p>
@@ -1890,183 +1906,6 @@
 </ul>
 <p>示例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> grade = <span class="string">'C'</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">switch</span>(grade)</span><br><span class="line"> &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'A'</span> :</span><br><span class="line">       System.out.println(<span class="string">"优秀"</span>); </span><br><span class="line">       <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'B'</span> :</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'C'</span> :</span><br><span class="line">       System.out.println(<span class="string">"良好"</span>);</span><br><span class="line">       <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'D'</span> :</span><br><span class="line">       System.out.println(<span class="string">"及格"</span>);</span><br><span class="line">       <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'F'</span> :</span><br><span class="line">       System.out.println(<span class="string">"你需要再努力努力"</span>);</span><br><span class="line">       <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span> :</span><br><span class="line">       System.out.println(<span class="string">"未知等级"</span>);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/菜鸟话Java--java的安装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lichukuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/user.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/08/菜鸟话Java--java的安装/" itemprop="url">菜鸟话Java——Java安装</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-08T00:00:00+08:00">
-                2019-03-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="java的安装-windows版"><a href="#java的安装-windows版" class="headerlink" title="java的安装(windows版)"></a>java的安装(windows版)</h2><p><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">点击</a>进入Oracle的官网下载Java8 sdk,下载完成后进行安装.其他版本安装看<a href="http://www.runoob.com/java/java-environment-setup.html" target="_blank" rel="noopener">这里</a></p>
-<h2 id="Java目录文件介绍"><a href="#Java目录文件介绍" class="headerlink" title="Java目录文件介绍"></a>Java目录文件介绍</h2><p>安装好Java后，打开Java文件，目录结构如下</p>
-<p><img src="/2019/03/08/菜鸟话Java--java的安装/java_menu.PNG" alt></p>
-<p>如图有两个文件<code>jdk1.8.0_151</code>,<code>jre1.8.0_151</code>。其中<code>1.8.0_151</code>是版本号。<code>jdk</code>和<code>jre</code>在上一篇博客中介绍过，分别是<br>java开发工具包和Java运行环境。</p>
-<p>打开<code>jdk1.8.0_151</code>文件夹</p>
-<p><img src="/2019/03/08/菜鸟话Java--java的安装/java_menu1.png" alt></p>
-<p>目录介绍:</p>
-<ul>
-<li>bin ：最主要的是编译器(javac.exe)；</li>
-<li>db ：jdk从1.6之后内置了Derby数据库，它是一个纯用Java实现的内存数据库。用Java实现的，<br>所以可以在任何平台上运行；另外一个特点是体积小，免安装，只需要几个小jar包就可以运行了。</li>
-<li>include ：java和JVM交互用的头文件；</li>
-<li>lib ：常用类库</li>
-<li>jre ：java运行环境</li>
-<li>src.zip : 源码文件</li>
-<li>javafx-src.zip : javafx源码文件</li>
-<li>其他 ：配置文件</li>
-</ul>
-<p>为什么有两个jre</p>
-<p>之所以需要两套 jre ，是因为可以分担工作；当用户只需要执行 java 的程序时，那么<code>c:\program files\java\jre</code>下的 jre 就 ok ！当用户是 java 程序员，需要 java 开发环境，那么开发时，系统就会优先去找<code>“ java 、 javac ”</code>这些命令本身的目录或者他们的父目录的 jre ；这样开发时一般运行的是 jdk 下的 jre ；而运行外部程序时，一般运行的是<code>c:\program files\java\jre</code>，实现了分工，不同的 jre 负责各自范围的内容.<a href="https://blog.csdn.net/sjzs5590/article/details/7337404" target="_blank" rel="noopener">回答转自这里</a></p>
-<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><p>右击我的电脑-&gt;属性-&gt;高级系统设置-&gt;环境变量-&gt;系统变量</p>
-<p><img src="/2019/03/08/菜鸟话Java--java的安装/envior.PNG" alt></p>
-<p><img src="/2019/03/08/菜鸟话Java--java的安装/envior_2.PNG" alt></p>
-<p><img src="/2019/03/08/菜鸟话Java--java的安装/envior_3.PNG" alt></p>
-<p>在”系统变量”中设置3项属性</p>
-<p>变量名 : <code>JAVA_HOME</code><br><br>变量值 : C:\Program Files\Java\jdk1.8.0_151 //根据自己Java的安装目录<br>作用 : 设置Java所在的路径</p>
-<p>变量名 : <code>CLASSPATH</code><br>变量值 ：.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;   //记得前面有个”.”<br>作用 : classpath变量的含义是告诉jvm要使用或执行的class放在什么路径上，便于JVM加载class文件，.;表示当前路径，tools.jar和dt.jar为类库路径。<br>注意：jdk1.5以上不需要这个配置.</p>
-<p>变量名 : <code>Path</code><br>变量值 ：往已有的Path路径后添加 <code>%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;</code><br>作用 : path变量的含义就是系统在任何路径下都可以识别java,javac命令.</p>
-<h2 id="验证环境变量是否配置成功"><a href="#验证环境变量是否配置成功" class="headerlink" title="验证环境变量是否配置成功"></a>验证环境变量是否配置成功</h2><p>打开命令行键入命令: <code>java -version</code>、<code>java</code>、<code>javac</code>几个命令，<br>出现以下信息，说明环境变量配置成功；</p>
-<p><img src="/2019/03/08/菜鸟话Java--java的安装/result.PNG" alt></p>
-<p>Java简单的命令介绍</p>
-<ul>
-<li>java -version : 显示当前Java的版本</li>
-<li>javac 类名 : javac程序是一个编译器，将<code>.java</code>文件编译成<code>.class</code>文件.</li>
-<li>java 类名 : java程序启动Java虚拟机,虚拟机执行编译器放在class文件中的字节码</li>
-</ul>
-<h2 id="使用IDE-集成开发环境"><a href="#使用IDE-集成开发环境" class="headerlink" title="使用IDE(集成开发环境)"></a>使用IDE(集成开发环境)</h2><p>IntelliJ IDEA是目前最好的Java IDE,具体的安装教程可以看<a href="https://www.cnblogs.com/jajian/p/7989032.html" target="_blank" rel="noopener">这里</a></p>
 
           
         
@@ -2306,6 +2145,183 @@
 <p>jre : jre是Java运行环境。没有jre,java程序就不能运行。</p>
 <p>jvm : jvm是java虚拟机，负责执行编译后的.class文件</p>
 <p>简单的说：jdk包括jre,jre包括jvm。具体的区别可以看<a href="http://www.cnblogs.com/xiaofeixiang/p/4085159.html" target="_blank" rel="noopener">这篇博客</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/菜鸟话Java--java的安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lichukuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/08/菜鸟话Java--java的安装/" itemprop="url">菜鸟话Java——Java安装</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-08T00:00:00+08:00">
+                2019-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="java的安装-windows版"><a href="#java的安装-windows版" class="headerlink" title="java的安装(windows版)"></a>java的安装(windows版)</h2><p><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">点击</a>进入Oracle的官网下载Java8 sdk,下载完成后进行安装.其他版本安装看<a href="http://www.runoob.com/java/java-environment-setup.html" target="_blank" rel="noopener">这里</a></p>
+<h2 id="Java目录文件介绍"><a href="#Java目录文件介绍" class="headerlink" title="Java目录文件介绍"></a>Java目录文件介绍</h2><p>安装好Java后，打开Java文件，目录结构如下</p>
+<p><img src="/2019/03/08/菜鸟话Java--java的安装/java_menu.PNG" alt></p>
+<p>如图有两个文件<code>jdk1.8.0_151</code>,<code>jre1.8.0_151</code>。其中<code>1.8.0_151</code>是版本号。<code>jdk</code>和<code>jre</code>在上一篇博客中介绍过，分别是<br>java开发工具包和Java运行环境。</p>
+<p>打开<code>jdk1.8.0_151</code>文件夹</p>
+<p><img src="/2019/03/08/菜鸟话Java--java的安装/java_menu1.png" alt></p>
+<p>目录介绍:</p>
+<ul>
+<li>bin ：最主要的是编译器(javac.exe)；</li>
+<li>db ：jdk从1.6之后内置了Derby数据库，它是一个纯用Java实现的内存数据库。用Java实现的，<br>所以可以在任何平台上运行；另外一个特点是体积小，免安装，只需要几个小jar包就可以运行了。</li>
+<li>include ：java和JVM交互用的头文件；</li>
+<li>lib ：常用类库</li>
+<li>jre ：java运行环境</li>
+<li>src.zip : 源码文件</li>
+<li>javafx-src.zip : javafx源码文件</li>
+<li>其他 ：配置文件</li>
+</ul>
+<p>为什么有两个jre</p>
+<p>之所以需要两套 jre ，是因为可以分担工作；当用户只需要执行 java 的程序时，那么<code>c:\program files\java\jre</code>下的 jre 就 ok ！当用户是 java 程序员，需要 java 开发环境，那么开发时，系统就会优先去找<code>“ java 、 javac ”</code>这些命令本身的目录或者他们的父目录的 jre ；这样开发时一般运行的是 jdk 下的 jre ；而运行外部程序时，一般运行的是<code>c:\program files\java\jre</code>，实现了分工，不同的 jre 负责各自范围的内容.<a href="https://blog.csdn.net/sjzs5590/article/details/7337404" target="_blank" rel="noopener">回答转自这里</a></p>
+<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><p>右击我的电脑-&gt;属性-&gt;高级系统设置-&gt;环境变量-&gt;系统变量</p>
+<p><img src="/2019/03/08/菜鸟话Java--java的安装/envior.PNG" alt></p>
+<p><img src="/2019/03/08/菜鸟话Java--java的安装/envior_2.PNG" alt></p>
+<p><img src="/2019/03/08/菜鸟话Java--java的安装/envior_3.PNG" alt></p>
+<p>在”系统变量”中设置3项属性</p>
+<p>变量名 : <code>JAVA_HOME</code><br><br>变量值 : C:\Program Files\Java\jdk1.8.0_151 //根据自己Java的安装目录<br>作用 : 设置Java所在的路径</p>
+<p>变量名 : <code>CLASSPATH</code><br>变量值 ：.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;   //记得前面有个”.”<br>作用 : classpath变量的含义是告诉jvm要使用或执行的class放在什么路径上，便于JVM加载class文件，.;表示当前路径，tools.jar和dt.jar为类库路径。<br>注意：jdk1.5以上不需要这个配置.</p>
+<p>变量名 : <code>Path</code><br>变量值 ：往已有的Path路径后添加 <code>%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;</code><br>作用 : path变量的含义就是系统在任何路径下都可以识别java,javac命令.</p>
+<h2 id="验证环境变量是否配置成功"><a href="#验证环境变量是否配置成功" class="headerlink" title="验证环境变量是否配置成功"></a>验证环境变量是否配置成功</h2><p>打开命令行键入命令: <code>java -version</code>、<code>java</code>、<code>javac</code>几个命令，<br>出现以下信息，说明环境变量配置成功；</p>
+<p><img src="/2019/03/08/菜鸟话Java--java的安装/result.PNG" alt></p>
+<p>Java简单的命令介绍</p>
+<ul>
+<li>java -version : 显示当前Java的版本</li>
+<li>javac 类名 : javac程序是一个编译器，将<code>.java</code>文件编译成<code>.class</code>文件.</li>
+<li>java 类名 : java程序启动Java虚拟机,虚拟机执行编译器放在class文件中的字节码</li>
+</ul>
+<h2 id="使用IDE-集成开发环境"><a href="#使用IDE-集成开发环境" class="headerlink" title="使用IDE(集成开发环境)"></a>使用IDE(集成开发环境)</h2><p>IntelliJ IDEA是目前最好的Java IDE,具体的安装教程可以看<a href="https://www.cnblogs.com/jajian/p/7989032.html" target="_blank" rel="noopener">这里</a></p>
 
           
         

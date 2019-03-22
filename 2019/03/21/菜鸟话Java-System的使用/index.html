@@ -83,17 +83,17 @@
 
 
 
-<meta name="description" content="转载[这里][1] System 类代表系统，系统级的很多属性和控制方法都放置在该类的内部。该类位于 java. lang 包。由于该类的构造方法是 private 的，所以无法创建该类的对象，也就是无法实例化该类。 System 类内部的成员变量和成员方法都是 static 的，所以可以方便地进行调用。System 类的成员变量System 类有 3 个静态成员变量，分别是 PrintStrea">
+<meta name="description" content="转载这里 System 类代表系统，系统级的很多属性和控制方法都放置在该类的内部。该类位于 java. lang 包。由于该类的构造方法是 private 的，所以无法创建该类的对象，也就是无法实例化该类。 System 类内部的成员变量和成员方法都是 static 的，所以可以方便地进行调用。System 类的成员变量System 类有 3 个静态成员变量，分别是 PrintStream out">
 <meta property="og:type" content="article">
 <meta property="og:title" content="菜鸟话Java---System的使用">
 <meta property="og:url" content="http://yoursite.com/2019/03/21/菜鸟话Java-System的使用/index.html">
 <meta property="og:site_name" content="我的个人博客">
-<meta property="og:description" content="转载[这里][1] System 类代表系统，系统级的很多属性和控制方法都放置在该类的内部。该类位于 java. lang 包。由于该类的构造方法是 private 的，所以无法创建该类的对象，也就是无法实例化该类。 System 类内部的成员变量和成员方法都是 static 的，所以可以方便地进行调用。System 类的成员变量System 类有 3 个静态成员变量，分别是 PrintStrea">
+<meta property="og:description" content="转载这里 System 类代表系统，系统级的很多属性和控制方法都放置在该类的内部。该类位于 java. lang 包。由于该类的构造方法是 private 的，所以无法创建该类的对象，也就是无法实例化该类。 System 类内部的成员变量和成员方法都是 static 的，所以可以方便地进行调用。System 类的成员变量System 类有 3 个静态成员变量，分别是 PrintStream out">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-21T08:28:08.202Z">
+<meta property="og:updated_time" content="2019-03-21T08:35:57.865Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="菜鸟话Java---System的使用">
-<meta name="twitter:description" content="转载[这里][1] System 类代表系统，系统级的很多属性和控制方法都放置在该类的内部。该类位于 java. lang 包。由于该类的构造方法是 private 的，所以无法创建该类的对象，也就是无法实例化该类。 System 类内部的成员变量和成员方法都是 static 的，所以可以方便地进行调用。System 类的成员变量System 类有 3 个静态成员变量，分别是 PrintStrea">
+<meta name="twitter:description" content="转载这里 System 类代表系统，系统级的很多属性和控制方法都放置在该类的内部。该类位于 java. lang 包。由于该类的构造方法是 private 的，所以无法创建该类的对象，也就是无法实例化该类。 System 类内部的成员变量和成员方法都是 static 的，所以可以方便地进行调用。System 类的成员变量System 类有 3 个静态成员变量，分别是 PrintStream out">
 
 
 
@@ -325,7 +325,7 @@
       
 
       
-        <p>转载[这里][1]</p>
+        <p>转载<a href="http://c.biancheng.net/view/904.html" target="_blank" rel="noopener">这里</a></p>
 <p>System 类代表系统，系统级的很多属性和控制方法都放置在该类的内部。该类位于 java. lang 包。由于该类的构造方法是 private 的，所以无法创建该类的对象，也就是无法实例化该类。</p>
 <p>System 类内部的成员变量和成员方法都是 static 的，所以可以方便地进行调用。<br>System 类的成员变量<br>System 类有 3 个静态成员变量，分别是 PrintStream out、InputStream in 和 PrintStream err。</p>
 <h3 id="PrintStream-out"><a href="#PrintStream-out" class="headerlink" title="PrintStream out"></a>PrintStream out</h3><p>标准输出流。此流已打开并准备接收输出数据。通常，此流对应于显示器输出或者由主机环境或用户指定的另一个输出目标。<br>例如，编写一行输出数据的典型方式是</p>
@@ -343,7 +343,7 @@
 </ol>
 <p>该方法的作用是数组复制，即从指定源数组中复制一个数组，复制从指定的位置开始，到目标数组的指定位置结束。该方法的具体定义如下：<br><code>public static void arraycopy(Object src,int srcPos,Object dest,int destPos,int length)</code><br>其中，src 表示源数组，srcPos 表示从源数组中复制的起始位置，dest 表示目标数组，destPos 表示要复制到的目标数组的起始位置，length 表示复制的个数。<br>例 2<br>下面的示例代码演示了 arraycopy() 方法的使用：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">System_arrayCopy</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] srcArray=&#123;<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>&#125;;</span><br><span class="line">        <span class="keyword">char</span>[] destArray=&#123;<span class="string">'E'</span>,<span class="string">'F'</span>,<span class="string">'G'</span>,<span class="string">'H'</span>&#125;;</span><br><span class="line">        System.arraycopy(srcArray,<span class="number">1</span>,destArray,<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">        System.out.println(<span class="string">"源数组："</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;srcArray.length;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(srcArray[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"目标数组："</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;destArray.length;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(destArray[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如上述代码，将数组 srcArray 中，从下标 1 开始的数据复制到数组 destArray 从下标 1 开始的位置，总共复制两个。也就是将 srcArray[1] 复制给 destArray[1]，将 srcArray[2] 复制给 destArray[2]。这样经过复制之后，数组 srcArray 中的元素不发生变化，而数组 destArray 中的元素将变为 E、B、C、 H，下面为输出结果：</p>
+<p>如上述代码，将数组 srcArray 中，从下标 1 开始的数据复制到数组 destArray 从下标 1 开始的位置，总共复制两个。也就是将 srcArray<a href="http://c.biancheng.net/view/904.html" target="_blank" rel="noopener">1</a> 复制给 destArray<a href="http://c.biancheng.net/view/904.html" target="_blank" rel="noopener">1</a>，将 srcArray[2] 复制给 destArray[2]。这样经过复制之后，数组 srcArray 中的元素不发生变化，而数组 destArray 中的元素将变为 E、B、C、 H，下面为输出结果：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">源数组：</span><br><span class="line">A</span><br><span class="line">B</span><br><span class="line">C</span><br><span class="line">D</span><br><span class="line">目标数组：</span><br><span class="line">E</span><br><span class="line">B</span><br><span class="line">C</span><br><span class="line">H</span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>currentTimeMillis() 方法</li>
