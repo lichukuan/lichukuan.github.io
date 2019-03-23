@@ -83,14 +83,17 @@
 
 
 
+<meta name="description" content="接口概述接口不是类，而是对类的一组需求描述。类描述对象的属性和方法。接口则包含类要实现的方法。除非实现接口的类是抽象类，否则该类要定义接口中的所有方法。 接口的声明123456//接口的声明语法格式如下：[]括起来的表示可有可无访问修饰符 interface 接口名称 [extends 其他的接口名名] &amp;#123;        // 声明变量        // 抽象方法&amp;#125; 接口的实">
 <meta property="og:type" content="article">
 <meta property="og:title" content="菜鸟话Java---Java接口">
 <meta property="og:url" content="http://yoursite.com/2019/03/23/菜鸟话Java-Java接口/index.html">
 <meta property="og:site_name" content="我的个人博客">
+<meta property="og:description" content="接口概述接口不是类，而是对类的一组需求描述。类描述对象的属性和方法。接口则包含类要实现的方法。除非实现接口的类是抽象类，否则该类要定义接口中的所有方法。 接口的声明123456//接口的声明语法格式如下：[]括起来的表示可有可无访问修饰符 interface 接口名称 [extends 其他的接口名名] &amp;#123;        // 声明变量        // 抽象方法&amp;#125; 接口的实">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-23T02:17:54.061Z">
+<meta property="og:updated_time" content="2019-03-23T03:09:18.472Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="菜鸟话Java---Java接口">
+<meta name="twitter:description" content="接口概述接口不是类，而是对类的一组需求描述。类描述对象的属性和方法。接口则包含类要实现的方法。除非实现接口的类是抽象类，否则该类要定义接口中的所有方法。 接口的声明123456//接口的声明语法格式如下：[]括起来的表示可有可无访问修饰符 interface 接口名称 [extends 其他的接口名名] &amp;#123;        // 声明变量        // 抽象方法&amp;#125; 接口的实">
 
 
 
@@ -322,7 +325,42 @@
       
 
       
-        
+        <h2 id="接口概述"><a href="#接口概述" class="headerlink" title="接口概述"></a>接口概述</h2><p>接口不是类，而是对类的一组需求描述。类描述对象的属性和方法。接口则包含类要实现的方法。<br>除非实现接口的类是抽象类，否则该类要定义接口中的所有方法。</p>
+<h2 id="接口的声明"><a href="#接口的声明" class="headerlink" title="接口的声明"></a>接口的声明</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//接口的声明语法格式如下：[]括起来的表示可有可无</span></span><br><span class="line"></span><br><span class="line">访问修饰符 interface 接口名称 [extends 其他的接口名名] &#123;</span><br><span class="line">        <span class="comment">// 声明变量</span></span><br><span class="line">        <span class="comment">// 抽象方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="接口的实现"><a href="#接口的实现" class="headerlink" title="接口的实现"></a>接口的实现</h2><p>接口的实现要使用<code>Implements</code>关键字，并且要实现接口中所有定义的方法</p>
+<h2 id="接口的特点"><a href="#接口的特点" class="headerlink" title="接口的特点"></a>接口的特点</h2><ul>
+<li>不能使用<code>new</code>实例化一个接口</li>
+<li>接口变量必须引用实现了接口的变量</li>
+<li>接口中不能包含成员变量和静态方法(java 8允许)，但可以包含常量</li>
+<li>接口中所有的方法都自动设置为<code>public</code>,所有的域都自动设置为<code>public static final</code></li>
+<li>接口可以多继承</li>
+</ul>
+<h2 id="接口和抽象类的区别"><a href="#接口和抽象类的区别" class="headerlink" title="接口和抽象类的区别"></a>接口和抽象类的区别</h2><ol>
+<li>抽象类中的方法可以有方法体，就是能实现方法的具体功能，但是接口中的方法不行。</li>
+<li>抽象类中的成员变量可以是各种类型的，而接口中的成员变量只能是 public static final 类型的。</li>
+<li>接口中不能含有静态代码块以及静态方法(用 static 修饰的方法)，而抽象类是可以有静态代码块和静态方法。</li>
+<li>一个类只能继承一个抽象类，而一个类却可以实现多个接口。</li>
+</ol>
+<h2 id="默认方法"><a href="#默认方法" class="headerlink" title="默认方法"></a>默认方法</h2><p>Java 8 新增了接口的默认方法。简单说，默认方法就是接口可以有实现方法，而且不需要实现类去实现其方法。<br>我们只需在方法名前面加个 default 关键字即可实现默认方法。 </p>
+<p>为什么要有这个特性？</p>
+<blockquote>
+<p>首先，之前的接口是个双刃剑，好处是面向抽象而不是面向具体编程，缺陷是，当需要修改接口时候，需要修改全部实现该接口的类，目前的 java 8 之前的集合框架没有 foreach 方法，通常能想到的解决办法是在JDK里给相关的接口添加新的方法及实现。然而，对于已经发布的版本，是没法在给接口添加新方法的同时不影响已有的实现。所以引进的默认方法。他们的目的是为了解决接口的修改与现有的实现不兼容的问题。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">默认方法语法格式如下：</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"我是一辆车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="多个默认方法"><a href="#多个默认方法" class="headerlink" title="多个默认方法"></a>多个默认方法</h2><p>一个接口有默认方法，考虑这样的情况，一个类实现了多个接口，且这些接口有相同的默认方法，以下实例说明了这种情况的解决方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"我是一辆车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FourWheeler</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"我是一辆四轮车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一个解决方案是创建自己的默认方法，来覆盖重写接口的默认方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">implements</span> <span class="title">Vehicle</span>, <span class="title">FourWheeler</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"我是一辆四轮汽车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第二种解决方案可以使用 super 来调用指定接口的默认方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">implements</span> <span class="title">Vehicle</span>, <span class="title">FourWheeler</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      Vehicle.<span class="keyword">super</span>.print();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="静态默认方法"><a href="#静态默认方法" class="headerlink" title="静态默认方法"></a>静态默认方法</h2><p>Java 8 的另一个特性是接口可以声明（并且可以提供实现）静态方法。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"我是一辆车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">    <span class="comment">// 静态方法</span></span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">blowHorn</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"按喇叭!!!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="默认方法实例"><a href="#默认方法实例" class="headerlink" title="默认方法实例"></a>默认方法实例</h2><p>我们可以通过以下代码来了解关于默认方法的使用，可以将代码放入 Java8Tester.java 文件中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Java8Tester.java 文件</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Java8Tester</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">      Vehicle vehicle = <span class="keyword">new</span> Car();</span><br><span class="line">      vehicle.print();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"我是一辆车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">blowHorn</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"按喇叭!!!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">FourWheeler</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"我是一辆四轮车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">implements</span> <span class="title">Vehicle</span>, <span class="title">FourWheeler</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      Vehicle.<span class="keyword">super</span>.print();</span><br><span class="line">      FourWheeler.<span class="keyword">super</span>.print();</span><br><span class="line">      Vehicle.blowHorn();</span><br><span class="line">      System.out.println(<span class="string">"我是一辆汽车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="类优先"><a href="#类优先" class="headerlink" title="类优先"></a>类优先</h2><h3 id="情景1"><a href="#情景1" class="headerlink" title="情景1"></a>情景1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">People</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"people的getName调用"</span>);</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Named</span> </span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">getName</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">extends</span> <span class="title">People</span> <span class="keyword">implements</span> <span class="title">Named</span> </span>&#123;<span class="comment">//当超类和接口有重名的方法时，不需要子类实现接口方法</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="情景2"><a href="#情景2" class="headerlink" title="情景2"></a>情景2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">People</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"people的getName调用"</span>);</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Named</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> String <span class="title">getName</span><span class="params">()</span></span>&#123;</span><br><span class="line">       System.out.println(<span class="string">"默认方法的getName调用"</span>);</span><br><span class="line">       <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">extends</span> <span class="title">People</span> <span class="keyword">implements</span> <span class="title">Named</span> </span>&#123;<span class="comment">//当超类和接口的默认方法重名时，忽略接口的默认方法，即类优先</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Test t = <span class="keyword">new</span> Test();</span><br><span class="line">        t.getName();<span class="comment">//输出为：people的getName调用</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>注意：千万不能让一个默认方法重新定义Object类中的某个方法，例如，toString。由于类优先原则，这样的<br>方法绝对无法超越<code>Object.toString</code>.</p>
+
       
     </div>
     
@@ -355,6 +393,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/23/菜鸟话Java-Number接口详解/" rel="prev" title="菜鸟话Java---Number接口详解">
+                菜鸟话Java---Number接口详解 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -406,8 +448,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -424,7 +475,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">博客</span>
                 </a>
               </div>
@@ -460,6 +511,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口概述"><span class="nav-number">1.</span> <span class="nav-text">接口概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口的声明"><span class="nav-number">2.</span> <span class="nav-text">接口的声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口的实现"><span class="nav-number">3.</span> <span class="nav-text">接口的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口的特点"><span class="nav-number">4.</span> <span class="nav-text">接口的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口和抽象类的区别"><span class="nav-number">5.</span> <span class="nav-text">接口和抽象类的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#默认方法"><span class="nav-number">6.</span> <span class="nav-text">默认方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多个默认方法"><span class="nav-number">7.</span> <span class="nav-text">多个默认方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态默认方法"><span class="nav-number">8.</span> <span class="nav-text">静态默认方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#默认方法实例"><span class="nav-number">9.</span> <span class="nav-text">默认方法实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类优先"><span class="nav-number">10.</span> <span class="nav-text">类优先</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#情景1"><span class="nav-number">10.1.</span> <span class="nav-text">情景1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情景2"><span class="nav-number">10.2.</span> <span class="nav-text">情景2</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
