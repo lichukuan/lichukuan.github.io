@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="转载深入理解 Java 序列化 深入理解 Java 序列化:notebook: 本文已归档到：「blog」:keyboard: 本文中的示例代码已归档到：「javacore」简介  序列化（serialize） - 序列化是将对象转换为字节流。 反序列化（deserialize） - 反序列化是将字节流转换为对象。  序列化用途 序列化可以将对象的字节序列持久化——保存在内存、文件、数据库中。 在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="菜鸟话Java---Java序列化">
+<meta property="og:url" content="http://yoursite.com/2019/03/27/菜鸟话Java-Java序列化/index.html">
+<meta property="og:site_name" content="我的个人博客">
+<meta property="og:description" content="转载深入理解 Java 序列化 深入理解 Java 序列化:notebook: 本文已归档到：「blog」:keyboard: 本文中的示例代码已归档到：「javacore」简介  序列化（serialize） - 序列化是将对象转换为字节流。 反序列化（deserialize） - 反序列化是将字节流转换为对象。  序列化用途 序列化可以将对象的字节序列持久化——保存在内存、文件、数据库中。 在">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-28T14:34:22.755Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="菜鸟话Java---Java序列化">
+<meta name="twitter:description" content="转载深入理解 Java 序列化 深入理解 Java 序列化:notebook: 本文已归档到：「blog」:keyboard: 本文中的示例代码已归档到：「javacore」简介  序列化（serialize） - 序列化是将对象转换为字节流。 反序列化（deserialize） - 反序列化是将字节流转换为对象。  序列化用途 序列化可以将对象的字节序列持久化——保存在内存、文件、数据库中。 在">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/27/菜鸟话Java-Java序列化/">
+
+
+
+
+
+  <title>菜鸟话Java---Java序列化 | 我的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哪有什么胜利可言，挺着就代表着一切</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/27/菜鸟话Java-Java序列化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lichukuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">菜鸟话Java---Java序列化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-27T17:35:55+08:00">
+                2019-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>转载<a href="https://juejin.im/post/5c94584fe51d4508ae01ccf6?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="noopener">深入理解 Java 序列化</a></p>
+<h2 id="深入理解-Java-序列化"><a href="#深入理解-Java-序列化" class="headerlink" title="深入理解 Java 序列化"></a>深入理解 Java 序列化</h2><p>:notebook: 本文已归档到：「blog」<br><br>:keyboard: 本文中的示例代码已归档到：「javacore」<br><br>简介</p>
+<ul>
+<li>序列化（serialize） - 序列化是将对象转换为字节流。</li>
+<li>反序列化（deserialize） - 反序列化是将字节流转换为对象。</li>
+</ul>
+<h2 id="序列化用途"><a href="#序列化用途" class="headerlink" title="序列化用途"></a>序列化用途</h2><ul>
+<li>序列化可以将对象的字节序列持久化——保存在内存、文件、数据库中。</li>
+<li>在网络上传送对象的字节序列。</li>
+<li>RMI(远程方法调用)</li>
+</ul>
+<blockquote>
+<p>:bell: 注意：使用 Java 对象序列化，在保存对象时，会把其状态保存为一组字节，在未来，再将这些字节组装成对象。必须注意地是，对象序列化保存的是对象的”状态”，即它的成员变量。由此可知，对象序列化不会关注类中的静态变量。</p>
+</blockquote>
+<h2 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h2><p>Java 通过对象输入输出流来实现序列化和反序列化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">java.io.ObjectOutputStream 类的 writeObject() 方法可以实现序列化；</span><br><span class="line">java.io.ObjectInputStream 类的 readObject() 方法用于实现反序列化。</span><br><span class="line"></span><br><span class="line">序列化和反序列化示例：</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerializeDemo01</span> </span>&#123;</span><br><span class="line">    <span class="keyword">enum</span> Sex &#123;</span><br><span class="line">        MALE,</span><br><span class="line">        FEMALE</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">        <span class="keyword">private</span> String name = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">private</span> Integer age = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">private</span> Sex sex;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name, Integer age, Sex sex)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.name = name;</span><br><span class="line">            <span class="keyword">this</span>.age = age;</span><br><span class="line">            <span class="keyword">this</span>.sex = sex;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Person&#123;"</span> + <span class="string">"name='"</span> + name + <span class="string">'\''</span> + <span class="string">", age="</span> + age + <span class="string">", sex="</span> + sex + <span class="string">'&#125;'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 序列化</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serialize</span><span class="params">(String filename)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        File f = <span class="keyword">new</span> File(filename); <span class="comment">// 定义保存路径</span></span><br><span class="line">        OutputStream out = <span class="keyword">new</span> FileOutputStream(f); <span class="comment">// 文件输出流</span></span><br><span class="line">        ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(out); <span class="comment">// 对象输出流</span></span><br><span class="line">        oos.writeObject(<span class="keyword">new</span> Person(<span class="string">"Jack"</span>, <span class="number">30</span>, Sex.MALE)); <span class="comment">// 保存对象</span></span><br><span class="line">        oos.close();</span><br><span class="line">        out.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 反序列化</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">deserialize</span><span class="params">(String filename)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        File f = <span class="keyword">new</span> File(filename); <span class="comment">// 定义保存路径</span></span><br><span class="line">        InputStream in = <span class="keyword">new</span> FileInputStream(f); <span class="comment">// 文件输入流</span></span><br><span class="line">        ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(in); <span class="comment">// 对象输入流</span></span><br><span class="line">        Object obj = ois.readObject(); <span class="comment">// 读取对象</span></span><br><span class="line">        ois.close();</span><br><span class="line">        in.close();</span><br><span class="line">        System.out.println(obj);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> String filename = <span class="string">"d:/text.dat"</span>;</span><br><span class="line">        serialize(filename);</span><br><span class="line">        deserialize(filename);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line"><span class="comment">// Person&#123;name='Jack', age=30, sex=MALE&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Serializable-接口"><a href="#Serializable-接口" class="headerlink" title="Serializable 接口"></a>Serializable 接口</h2><p>被序列化的类必须属于 Enum、Array 和 Serializable 类型其中的任何一种。</p>
+<p>如果不是 Enum、Array 的类，如果需要序列化，必须实现 java.io.Serializable 接口，否则将抛出 NotSerializableException 异常。这是因为：在序列化操作过程中会对类型进行检查，如果不满足序列化类型要求，就会抛出异常。</p>
+<p>我们不妨做一个小尝试：将 SerializeDemo01 示例中 Person 类改为如下实现，然后看看运行结果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnSerializeDemo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123; <span class="comment">// 其他内容略 &#125;</span></span><br><span class="line">    <span class="comment">// 其他内容略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：结果就是出现如下异常信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.io.NotSerializableException:</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="serialVersionUID"><a href="#serialVersionUID" class="headerlink" title="serialVersionUID"></a>serialVersionUID</h2><p>请注意 serialVersionUID 字段，你可以在 Java 世界的无数类中看到这个字段。<br>serialVersionUID 有什么作用，如何使用 serialVersionUID？</p>
+<p>serialVersionUID 是 Java 为每个序列化类产生的版本标识。它可以用来保证在反序列时，发送方发送的和接受方接收的是可兼容的对象。如果接收方接收的类的 serialVersionUID 与发送方发送的 serialVersionUID 不一致，会抛出 InvalidClassException。</p>
+<p>如果可序列化类没有显式声明 serialVersionUID，则序列化运行时将基于该类的各个方面计算该类的默认 serialVersionUID 值。尽管这样，还是建议在每一个序列化的类中显式指定 serialVersionUID 的值。因为不同的 jdk 编译很可能会生成不同的 serialVersionUID 默认值，从而导致在反序列化时抛出 InvalidClassExceptions 异常。<br>serialVersionUID 字段必须是 <code>static final long</code> 类型。</p>
+<p>我们来举个例子：<br>（1）有一个可序列化类 Person</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    <span class="comment">// 构造方法、get、set 方法略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（2）开发过程中，对 Person 做了修改，增加了一个字段 email，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line">    <span class="comment">// 构造方法、get、set 方法略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于这个类和老版本不兼容，我们需要修改版本号：<br><code>private static final long serialVersionUID = 2L;</code></p>
+<p>再次进行反序列化，则会抛出 InvalidClassException 异常。<br>综上所述，我们大概可以清楚：serialVersionUID 用于控制序列化版本是否兼容。若我们认为修改的可序列化类是向后兼容的，则不修改 serialVersionUID。</p>
+<h2 id="默认序列化机制"><a href="#默认序列化机制" class="headerlink" title="默认序列化机制"></a>默认序列化机制</h2><p>如果仅仅只是让某个类实现 Serializable 接口，而没有其它任何处理的话，那么就会使用默认序列化机制。</p>
+<p>使用默认机制，在序列化对象时，不仅会序列化当前对象本身，还会对其父类的字段以及该对象引用的其它对象也进行序列化。同样地，这些其它对象引用的另外对象也将被序列化，以此类推。所以，如果一个对象包含的成员变量是容器类对象，而这些容器所含有的元素也是容器类对象，那么这个序列化的过程就会较复杂，开销也较大。</p>
+<blockquote>
+<p>注意：这里的父类和引用对象既然要进行序列化，那么它们当然也要满足序列化要求：被序列化的类必须属于 Enum、Array 和 Serializable 类型其中的任何一种。<br>非默认序列化机制</p>
+</blockquote>
+<p>在现实应用中，有些时候不能使用默认序列化机制。比如，希望在序列化过程中忽略掉敏感数据，或者简化序列化过程。下面将介绍若干影响序列化的方法。<br><code>transient</code> 关键字<br>当某个字段被声明为 transient 后，默认序列化机制就会忽略该字段。</p>
+<p>我们将 SerializeDemo01 示例中的内部类 Person 的 age 字段声明为 transient，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerializeDemo02</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">transient</span> <span class="keyword">private</span> Integer age = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 其他内容略</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 其他内容略</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line"><span class="comment">// name: Jack, age: null, sex: MALE</span></span><br></pre></td></tr></table></figure>
+<p>从输出结果可以看出，age 字段没有被序列化。</p>
+<h2 id="Externalizable-接口"><a href="#Externalizable-接口" class="headerlink" title="Externalizable 接口"></a>Externalizable 接口</h2><p>无论是使用 transient 关键字，还是使用 writeObject() 和 readObject() 方法，其实都是基于 Serializable 接口的序列化。<br>JDK 中提供了另一个序列化接口–Externalizable。</p>
+<p>可序列化类实现 Externalizable 接口之后，基于 Serializable 接口的默认序列化机制就会失效。<br>我们来基于 SerializeDemo02 再次做一些改动，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExternalizeDemo01</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Externalizable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">transient</span> <span class="keyword">private</span> Integer age = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 其他内容略</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeObject</span><span class="params">(ObjectOutputStream out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            out.defaultWriteObject();</span><br><span class="line">            out.writeInt(age);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">            in.defaultReadObject();</span><br><span class="line">            age = in.readInt();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeExternal</span><span class="params">(ObjectOutput out)</span> <span class="keyword">throws</span> IOException </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readExternal</span><span class="params">(ObjectInput in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">     <span class="comment">// 其他内容略</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line"><span class="comment">// call Person()</span></span><br><span class="line"><span class="comment">// name: null, age: null, sex: null</span></span><br></pre></td></tr></table></figure>
+<p>从该结果，一方面可以看出 Person 对象中任何一个字段都没有被序列化。另一方面，如果细心的话，还可以发现这此次序列化过程调用了 Person 类的无参构造方法。</p>
+<p><code>Externalizable</code> 继承于 Serializable，它增添了两个方法：<code>writeExternal()</code> 与 <code>readExternal()</code>。这两个方法在序列化和反序列化过程中会被自动调用，以便执行一些特殊操作。当使用该接口时，序列化的细节需要由程序员去完成。如上所示的代码，由于 <code>writeExternal()</code> 与 <code>readExternal()</code> 方法未作任何处理，那么该序列化行为将不会保存/读取任何一个字段。这也就是为什么输出结果中所有字段的值均为空。</p>
+<p>另外，若使用 Externalizable 进行序列化，当读取对象时，会调用被序列化类的无参构造方法去创建一个新的对象；然后再将被保存对象的字段的值分别填充到新对象中。这就是为什么在此次序列化过程中 Person 类的无参构造方法会被调用。由于这个原因，实现 Externalizable 接口的类必须要提供一个无参的构造方法，且它的访问权限为 public。<br>对上述 Person 类作进一步的修改，使其能够对 name 与 age 字段进行序列化，但要忽略掉 gender 字段，如下代码所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExternalizeDemo02</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Externalizable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">transient</span> <span class="keyword">private</span> Integer age = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 其他内容略</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeObject</span><span class="params">(ObjectOutputStream out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            out.defaultWriteObject();</span><br><span class="line">            out.writeInt(age);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">            in.defaultReadObject();</span><br><span class="line">            age = in.readInt();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeExternal</span><span class="params">(ObjectOutput out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            out.writeObject(name);</span><br><span class="line">            out.writeInt(age);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readExternal</span><span class="params">(ObjectInput in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">            name = (String) in.readObject();</span><br><span class="line">            age = in.readInt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">     <span class="comment">// 其他内容略</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line"><span class="comment">// call Person()</span></span><br><span class="line"><span class="comment">// name: Jack, age: 30, sex: null</span></span><br></pre></td></tr></table></figure>
+<h2 id="Externalizable-接口的替代方法"><a href="#Externalizable-接口的替代方法" class="headerlink" title="Externalizable 接口的替代方法"></a>Externalizable 接口的替代方法</h2><p>实现 Externalizable 接口可以控制序列化和反序列化的细节。它有一个替代方法：实现 Serializable 接口，并添加 writeObject(ObjectOutputStream out) 与 readObject(ObjectInputStream in) 方法。序列化和反序列化过程中会自动回调这两个方法。<br>示例如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerializeDemo03</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">transient</span> <span class="keyword">private</span> Integer age = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 其他内容略</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeObject</span><span class="params">(ObjectOutputStream out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            out.defaultWriteObject();</span><br><span class="line">            out.writeInt(age);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">            in.defaultReadObject();</span><br><span class="line">            age = in.readInt();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 其他内容略</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 其他内容略</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line"><span class="comment">// name: Jack, age: 30, sex: MALE</span></span><br></pre></td></tr></table></figure>
+<p>在 writeObject() 方法中会先调用 ObjectOutputStream 中的 defaultWriteObject() 方法，该方法会执行默认的序列化机制，如上节所述，此时会忽略掉 age 字段。然后再调用 writeInt() 方法显示地将 age 字段写入到 ObjectOutputStream 中。readObject() 的作用则是针对对象的读取，其原理与 writeObject() 方法相同。</p>
+<blockquote>
+<p>注意：writeObject() 与 readObject() 都是 private 方法，那么它们是如何被调用的呢？毫无疑问，是使用反射。详情可见 ObjectOutputStream 中的 writeSerialData 方法，以及 ObjectInputStream 中的 readSerialData 方法。</p>
+</blockquote>
+<h2 id="readResolve-方法"><a href="#readResolve-方法" class="headerlink" title="readResolve() 方法"></a>readResolve() 方法</h2><p>当我们使用 Singleton 模式时，应该是期望某个类的实例应该是唯一的，但如果该类是可序列化的，那么情况可能会略有不同。此时对第 2 节使用的 Person 类进行修改，使其实现 Singleton 模式，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerializeDemo04</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">enum</span> Sex &#123;</span><br><span class="line">        MALE, FEMALE</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">        <span class="keyword">private</span> String name = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">transient</span> <span class="keyword">private</span> Integer age = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">private</span> Sex sex;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">final</span> Person instatnce = <span class="keyword">new</span> Person(<span class="string">"Tom"</span>, <span class="number">31</span>, Sex.MALE);</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"call Person()"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Person</span><span class="params">(String name, Integer age, Sex sex)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.name = name;</span><br><span class="line">            <span class="keyword">this</span>.age = age;</span><br><span class="line">            <span class="keyword">this</span>.sex = sex;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Person <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> instatnce;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeObject</span><span class="params">(ObjectOutputStream out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            out.defaultWriteObject();</span><br><span class="line">            out.writeInt(age);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">            in.defaultReadObject();</span><br><span class="line">            age = in.readInt();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"name: "</span> + <span class="keyword">this</span>.name + <span class="string">", age: "</span> + <span class="keyword">this</span>.age + <span class="string">", sex: "</span> + <span class="keyword">this</span>.sex;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 序列化</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serialize</span><span class="params">(String filename)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        File f = <span class="keyword">new</span> File(filename); <span class="comment">// 定义保存路径</span></span><br><span class="line">        OutputStream out = <span class="keyword">new</span> FileOutputStream(f); <span class="comment">// 文件输出流</span></span><br><span class="line">        ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(out); <span class="comment">// 对象输出流</span></span><br><span class="line">        oos.writeObject(<span class="keyword">new</span> Person(<span class="string">"Jack"</span>, <span class="number">30</span>, Sex.MALE)); <span class="comment">// 保存对象</span></span><br><span class="line">        oos.close();</span><br><span class="line">        out.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 反序列化</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">deserialize</span><span class="params">(String filename)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        File f = <span class="keyword">new</span> File(filename); <span class="comment">// 定义保存路径</span></span><br><span class="line">        InputStream in = <span class="keyword">new</span> FileInputStream(f); <span class="comment">// 文件输入流</span></span><br><span class="line">        ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(in); <span class="comment">// 对象输入流</span></span><br><span class="line">        Object obj = ois.readObject(); <span class="comment">// 读取对象</span></span><br><span class="line">        ois.close();</span><br><span class="line">        in.close();</span><br><span class="line">        System.out.println(obj);</span><br><span class="line">        System.out.println(obj == Person.getInstance());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> String filename = <span class="string">"d:/text.dat"</span>;</span><br><span class="line">        serialize(filename);</span><br><span class="line">        deserialize(filename);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line"><span class="comment">// name: Jack, age: null, sex: MALE</span></span><br><span class="line"><span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>值得注意的是，从文件中获取的 Person 对象与 Person 类中的单例对象并不相等。为了能在单例类中仍然保持序列的特性，可以使用 readResolve() 方法。在该方法中直接返回 Person 的单例对象。我们在 SerializeDemo04 示例的基础上添加一个 readObject 方法， 如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerializeDemo05</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 其他内容略</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 添加此方法</span></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">            in.defaultReadObject();</span><br><span class="line">            age = in.readInt();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 其他内容略</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 其他内容略</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line"><span class="comment">// name: Tom, age: 31, sex: MALE</span></span><br></pre></td></tr></table></figure>
+<h2 id="序列化工具"><a href="#序列化工具" class="headerlink" title="序列化工具"></a>序列化工具</h2><p>Java 官方的序列化存在许多问题，因此，很多人更愿意使用优秀的第三方序列化工具来替代 Java 自身的序列化机制。</p>
+<p>Java 官方的序列化主要体现在以下方面：</p>
+<ul>
+<li>Java 官方的序列化性能不高，序列化后的数据相对于一些优秀的序列化的工具，还是要大不少，这大大影响存储和传输的效率。</li>
+<li>Java 官方的序列化一定需要实现 Serializable 接口。</li>
+<li>Java 官方的序列化需要关注 serialVersionUID。</li>
+<li>Java 官方的序列无法跨语言使用。</li>
+</ul>
+<p>当然我们还有更加优秀的一些序列化和反序列化的工具，根据不同的使用场景可以自行选择！<br>thrift、protobuf - 适用于对性能敏感，对开发体验要求不高的内部系统。<br>hessian - 适用于对开发体验敏感，性能有要求的内外部系统。<br>jackson、gson、fastjson - 适用于对序列化后的数据要求有良好的可读性（转为 json 、xml 形式）。<br>小结</p>
+<p>参考资料:</p>
+<ul>
+<li>Java 编程思想</li>
+<li>JAVA 核心技术（卷 1）</li>
+<li><a href="http://www.hollischuang.com/archives/11…" target="_blank" rel="noopener">www.hollischuang.com/archives/11…</a></li>
+<li><a href="http://www.codenuclear.com/serializati…" target="_blank" rel="noopener">www.codenuclear.com/serializati…</a></li>
+<li><a href="http://www.blogjava.net/jiangshachi…" target="_blank" rel="noopener">www.blogjava.net/jiangshachi…</a></li>
+<li>Java 序列化的高级认识</li>
+<li>agapple.iteye.com/blog/859052</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/27/菜鸟话Java-Java泛型/" rel="next" title="菜鸟话Java---Java泛型">
+                <i class="fa fa-chevron-left"></i> 菜鸟话Java---Java泛型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/28/菜鸟话Java-泛型/" rel="prev" title="菜鸟话Java---泛型">
+                菜鸟话Java---泛型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/user.jpg" alt="lichukuan">
+            
+              <p class="site-author-name" itemprop="name">lichukuan</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">博客</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#深入理解-Java-序列化"><span class="nav-number">1.</span> <span class="nav-text">深入理解 Java 序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列化用途"><span class="nav-number">2.</span> <span class="nav-text">序列化用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列化和反序列化"><span class="nav-number">3.</span> <span class="nav-text">序列化和反序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Serializable-接口"><span class="nav-number">4.</span> <span class="nav-text">Serializable 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#serialVersionUID"><span class="nav-number">5.</span> <span class="nav-text">serialVersionUID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#默认序列化机制"><span class="nav-number">6.</span> <span class="nav-text">默认序列化机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Externalizable-接口"><span class="nav-number">7.</span> <span class="nav-text">Externalizable 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Externalizable-接口的替代方法"><span class="nav-number">8.</span> <span class="nav-text">Externalizable 接口的替代方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#readResolve-方法"><span class="nav-number">9.</span> <span class="nav-text">readResolve() 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列化工具"><span class="nav-number">10.</span> <span class="nav-text">序列化工具</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lichukuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

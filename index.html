@@ -233,6 +233,483 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/菜鸟话Java-泛型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lichukuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/28/菜鸟话Java-泛型/" itemprop="url">菜鸟话Java---泛型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T21:50:43+08:00">
+                2019-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/27/菜鸟话Java-Java序列化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lichukuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/27/菜鸟话Java-Java序列化/" itemprop="url">菜鸟话Java---Java序列化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-27T17:35:55+08:00">
+                2019-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>转载<a href="https://juejin.im/post/5c94584fe51d4508ae01ccf6?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="noopener">深入理解 Java 序列化</a></p>
+<h2 id="深入理解-Java-序列化"><a href="#深入理解-Java-序列化" class="headerlink" title="深入理解 Java 序列化"></a>深入理解 Java 序列化</h2><p>:notebook: 本文已归档到：「blog」<br><br>:keyboard: 本文中的示例代码已归档到：「javacore」<br><br>简介</p>
+<ul>
+<li>序列化（serialize） - 序列化是将对象转换为字节流。</li>
+<li>反序列化（deserialize） - 反序列化是将字节流转换为对象。</li>
+</ul>
+<h2 id="序列化用途"><a href="#序列化用途" class="headerlink" title="序列化用途"></a>序列化用途</h2><ul>
+<li>序列化可以将对象的字节序列持久化——保存在内存、文件、数据库中。</li>
+<li>在网络上传送对象的字节序列。</li>
+<li>RMI(远程方法调用)</li>
+</ul>
+<blockquote>
+<p>:bell: 注意：使用 Java 对象序列化，在保存对象时，会把其状态保存为一组字节，在未来，再将这些字节组装成对象。必须注意地是，对象序列化保存的是对象的”状态”，即它的成员变量。由此可知，对象序列化不会关注类中的静态变量。</p>
+</blockquote>
+<h2 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h2><p>Java 通过对象输入输出流来实现序列化和反序列化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">java.io.ObjectOutputStream 类的 writeObject() 方法可以实现序列化；</span><br><span class="line">java.io.ObjectInputStream 类的 readObject() 方法用于实现反序列化。</span><br><span class="line"></span><br><span class="line">序列化和反序列化示例：</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerializeDemo01</span> </span>&#123;</span><br><span class="line">    <span class="keyword">enum</span> Sex &#123;</span><br><span class="line">        MALE,</span><br><span class="line">        FEMALE</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">        <span class="keyword">private</span> String name = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">private</span> Integer age = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">private</span> Sex sex;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name, Integer age, Sex sex)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.name = name;</span><br><span class="line">            <span class="keyword">this</span>.age = age;</span><br><span class="line">            <span class="keyword">this</span>.sex = sex;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Person&#123;"</span> + <span class="string">"name='"</span> + name + <span class="string">'\''</span> + <span class="string">", age="</span> + age + <span class="string">", sex="</span> + sex + <span class="string">'&#125;'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 序列化</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serialize</span><span class="params">(String filename)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        File f = <span class="keyword">new</span> File(filename); <span class="comment">// 定义保存路径</span></span><br><span class="line">        OutputStream out = <span class="keyword">new</span> FileOutputStream(f); <span class="comment">// 文件输出流</span></span><br><span class="line">        ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(out); <span class="comment">// 对象输出流</span></span><br><span class="line">        oos.writeObject(<span class="keyword">new</span> Person(<span class="string">"Jack"</span>, <span class="number">30</span>, Sex.MALE)); <span class="comment">// 保存对象</span></span><br><span class="line">        oos.close();</span><br><span class="line">        out.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 反序列化</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">deserialize</span><span class="params">(String filename)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        File f = <span class="keyword">new</span> File(filename); <span class="comment">// 定义保存路径</span></span><br><span class="line">        InputStream in = <span class="keyword">new</span> FileInputStream(f); <span class="comment">// 文件输入流</span></span><br><span class="line">        ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(in); <span class="comment">// 对象输入流</span></span><br><span class="line">        Object obj = ois.readObject(); <span class="comment">// 读取对象</span></span><br><span class="line">        ois.close();</span><br><span class="line">        in.close();</span><br><span class="line">        System.out.println(obj);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> String filename = <span class="string">"d:/text.dat"</span>;</span><br><span class="line">        serialize(filename);</span><br><span class="line">        deserialize(filename);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line"><span class="comment">// Person&#123;name='Jack', age=30, sex=MALE&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Serializable-接口"><a href="#Serializable-接口" class="headerlink" title="Serializable 接口"></a>Serializable 接口</h2><p>被序列化的类必须属于 Enum、Array 和 Serializable 类型其中的任何一种。</p>
+<p>如果不是 Enum、Array 的类，如果需要序列化，必须实现 java.io.Serializable 接口，否则将抛出 NotSerializableException 异常。这是因为：在序列化操作过程中会对类型进行检查，如果不满足序列化类型要求，就会抛出异常。</p>
+<p>我们不妨做一个小尝试：将 SerializeDemo01 示例中 Person 类改为如下实现，然后看看运行结果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnSerializeDemo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123; <span class="comment">// 其他内容略 &#125;</span></span><br><span class="line">    <span class="comment">// 其他内容略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：结果就是出现如下异常信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.io.NotSerializableException:</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="serialVersionUID"><a href="#serialVersionUID" class="headerlink" title="serialVersionUID"></a>serialVersionUID</h2><p>请注意 serialVersionUID 字段，你可以在 Java 世界的无数类中看到这个字段。<br>serialVersionUID 有什么作用，如何使用 serialVersionUID？</p>
+<p>serialVersionUID 是 Java 为每个序列化类产生的版本标识。它可以用来保证在反序列时，发送方发送的和接受方接收的是可兼容的对象。如果接收方接收的类的 serialVersionUID 与发送方发送的 serialVersionUID 不一致，会抛出 InvalidClassException。</p>
+<p>如果可序列化类没有显式声明 serialVersionUID，则序列化运行时将基于该类的各个方面计算该类的默认 serialVersionUID 值。尽管这样，还是建议在每一个序列化的类中显式指定 serialVersionUID 的值。因为不同的 jdk 编译很可能会生成不同的 serialVersionUID 默认值，从而导致在反序列化时抛出 InvalidClassExceptions 异常。<br>serialVersionUID 字段必须是 <code>static final long</code> 类型。</p>
+<p>我们来举个例子：<br>（1）有一个可序列化类 Person</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    <span class="comment">// 构造方法、get、set 方法略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（2）开发过程中，对 Person 做了修改，增加了一个字段 email，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line">    <span class="comment">// 构造方法、get、set 方法略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于这个类和老版本不兼容，我们需要修改版本号：<br><code>private static final long serialVersionUID = 2L;</code></p>
+<p>再次进行反序列化，则会抛出 InvalidClassException 异常。<br>综上所述，我们大概可以清楚：serialVersionUID 用于控制序列化版本是否兼容。若我们认为修改的可序列化类是向后兼容的，则不修改 serialVersionUID。</p>
+<h2 id="默认序列化机制"><a href="#默认序列化机制" class="headerlink" title="默认序列化机制"></a>默认序列化机制</h2><p>如果仅仅只是让某个类实现 Serializable 接口，而没有其它任何处理的话，那么就会使用默认序列化机制。</p>
+<p>使用默认机制，在序列化对象时，不仅会序列化当前对象本身，还会对其父类的字段以及该对象引用的其它对象也进行序列化。同样地，这些其它对象引用的另外对象也将被序列化，以此类推。所以，如果一个对象包含的成员变量是容器类对象，而这些容器所含有的元素也是容器类对象，那么这个序列化的过程就会较复杂，开销也较大。</p>
+<blockquote>
+<p>注意：这里的父类和引用对象既然要进行序列化，那么它们当然也要满足序列化要求：被序列化的类必须属于 Enum、Array 和 Serializable 类型其中的任何一种。<br>非默认序列化机制</p>
+</blockquote>
+<p>在现实应用中，有些时候不能使用默认序列化机制。比如，希望在序列化过程中忽略掉敏感数据，或者简化序列化过程。下面将介绍若干影响序列化的方法。<br><code>transient</code> 关键字<br>当某个字段被声明为 transient 后，默认序列化机制就会忽略该字段。</p>
+<p>我们将 SerializeDemo01 示例中的内部类 Person 的 age 字段声明为 transient，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerializeDemo02</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">transient</span> <span class="keyword">private</span> Integer age = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 其他内容略</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 其他内容略</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line"><span class="comment">// name: Jack, age: null, sex: MALE</span></span><br></pre></td></tr></table></figure>
+<p>从输出结果可以看出，age 字段没有被序列化。</p>
+<h2 id="Externalizable-接口"><a href="#Externalizable-接口" class="headerlink" title="Externalizable 接口"></a>Externalizable 接口</h2><p>无论是使用 transient 关键字，还是使用 writeObject() 和 readObject() 方法，其实都是基于 Serializable 接口的序列化。<br>JDK 中提供了另一个序列化接口–Externalizable。</p>
+<p>可序列化类实现 Externalizable 接口之后，基于 Serializable 接口的默认序列化机制就会失效。<br>我们来基于 SerializeDemo02 再次做一些改动，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExternalizeDemo01</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Externalizable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">transient</span> <span class="keyword">private</span> Integer age = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 其他内容略</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeObject</span><span class="params">(ObjectOutputStream out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            out.defaultWriteObject();</span><br><span class="line">            out.writeInt(age);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">            in.defaultReadObject();</span><br><span class="line">            age = in.readInt();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeExternal</span><span class="params">(ObjectOutput out)</span> <span class="keyword">throws</span> IOException </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readExternal</span><span class="params">(ObjectInput in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">     <span class="comment">// 其他内容略</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line"><span class="comment">// call Person()</span></span><br><span class="line"><span class="comment">// name: null, age: null, sex: null</span></span><br></pre></td></tr></table></figure>
+<p>从该结果，一方面可以看出 Person 对象中任何一个字段都没有被序列化。另一方面，如果细心的话，还可以发现这此次序列化过程调用了 Person 类的无参构造方法。</p>
+<p><code>Externalizable</code> 继承于 Serializable，它增添了两个方法：<code>writeExternal()</code> 与 <code>readExternal()</code>。这两个方法在序列化和反序列化过程中会被自动调用，以便执行一些特殊操作。当使用该接口时，序列化的细节需要由程序员去完成。如上所示的代码，由于 <code>writeExternal()</code> 与 <code>readExternal()</code> 方法未作任何处理，那么该序列化行为将不会保存/读取任何一个字段。这也就是为什么输出结果中所有字段的值均为空。</p>
+<p>另外，若使用 Externalizable 进行序列化，当读取对象时，会调用被序列化类的无参构造方法去创建一个新的对象；然后再将被保存对象的字段的值分别填充到新对象中。这就是为什么在此次序列化过程中 Person 类的无参构造方法会被调用。由于这个原因，实现 Externalizable 接口的类必须要提供一个无参的构造方法，且它的访问权限为 public。<br>对上述 Person 类作进一步的修改，使其能够对 name 与 age 字段进行序列化，但要忽略掉 gender 字段，如下代码所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExternalizeDemo02</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Externalizable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">transient</span> <span class="keyword">private</span> Integer age = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 其他内容略</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeObject</span><span class="params">(ObjectOutputStream out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            out.defaultWriteObject();</span><br><span class="line">            out.writeInt(age);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">            in.defaultReadObject();</span><br><span class="line">            age = in.readInt();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeExternal</span><span class="params">(ObjectOutput out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            out.writeObject(name);</span><br><span class="line">            out.writeInt(age);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readExternal</span><span class="params">(ObjectInput in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">            name = (String) in.readObject();</span><br><span class="line">            age = in.readInt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">     <span class="comment">// 其他内容略</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line"><span class="comment">// call Person()</span></span><br><span class="line"><span class="comment">// name: Jack, age: 30, sex: null</span></span><br></pre></td></tr></table></figure>
+<h2 id="Externalizable-接口的替代方法"><a href="#Externalizable-接口的替代方法" class="headerlink" title="Externalizable 接口的替代方法"></a>Externalizable 接口的替代方法</h2><p>实现 Externalizable 接口可以控制序列化和反序列化的细节。它有一个替代方法：实现 Serializable 接口，并添加 writeObject(ObjectOutputStream out) 与 readObject(ObjectInputStream in) 方法。序列化和反序列化过程中会自动回调这两个方法。<br>示例如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerializeDemo03</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">transient</span> <span class="keyword">private</span> Integer age = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 其他内容略</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeObject</span><span class="params">(ObjectOutputStream out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            out.defaultWriteObject();</span><br><span class="line">            out.writeInt(age);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">            in.defaultReadObject();</span><br><span class="line">            age = in.readInt();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 其他内容略</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 其他内容略</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line"><span class="comment">// name: Jack, age: 30, sex: MALE</span></span><br></pre></td></tr></table></figure>
+<p>在 writeObject() 方法中会先调用 ObjectOutputStream 中的 defaultWriteObject() 方法，该方法会执行默认的序列化机制，如上节所述，此时会忽略掉 age 字段。然后再调用 writeInt() 方法显示地将 age 字段写入到 ObjectOutputStream 中。readObject() 的作用则是针对对象的读取，其原理与 writeObject() 方法相同。</p>
+<blockquote>
+<p>注意：writeObject() 与 readObject() 都是 private 方法，那么它们是如何被调用的呢？毫无疑问，是使用反射。详情可见 ObjectOutputStream 中的 writeSerialData 方法，以及 ObjectInputStream 中的 readSerialData 方法。</p>
+</blockquote>
+<h2 id="readResolve-方法"><a href="#readResolve-方法" class="headerlink" title="readResolve() 方法"></a>readResolve() 方法</h2><p>当我们使用 Singleton 模式时，应该是期望某个类的实例应该是唯一的，但如果该类是可序列化的，那么情况可能会略有不同。此时对第 2 节使用的 Person 类进行修改，使其实现 Singleton 模式，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerializeDemo04</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">enum</span> Sex &#123;</span><br><span class="line">        MALE, FEMALE</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">        <span class="keyword">private</span> String name = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">transient</span> <span class="keyword">private</span> Integer age = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">private</span> Sex sex;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">final</span> Person instatnce = <span class="keyword">new</span> Person(<span class="string">"Tom"</span>, <span class="number">31</span>, Sex.MALE);</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"call Person()"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Person</span><span class="params">(String name, Integer age, Sex sex)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.name = name;</span><br><span class="line">            <span class="keyword">this</span>.age = age;</span><br><span class="line">            <span class="keyword">this</span>.sex = sex;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Person <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> instatnce;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeObject</span><span class="params">(ObjectOutputStream out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            out.defaultWriteObject();</span><br><span class="line">            out.writeInt(age);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">            in.defaultReadObject();</span><br><span class="line">            age = in.readInt();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"name: "</span> + <span class="keyword">this</span>.name + <span class="string">", age: "</span> + <span class="keyword">this</span>.age + <span class="string">", sex: "</span> + <span class="keyword">this</span>.sex;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 序列化</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serialize</span><span class="params">(String filename)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        File f = <span class="keyword">new</span> File(filename); <span class="comment">// 定义保存路径</span></span><br><span class="line">        OutputStream out = <span class="keyword">new</span> FileOutputStream(f); <span class="comment">// 文件输出流</span></span><br><span class="line">        ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(out); <span class="comment">// 对象输出流</span></span><br><span class="line">        oos.writeObject(<span class="keyword">new</span> Person(<span class="string">"Jack"</span>, <span class="number">30</span>, Sex.MALE)); <span class="comment">// 保存对象</span></span><br><span class="line">        oos.close();</span><br><span class="line">        out.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 反序列化</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">deserialize</span><span class="params">(String filename)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        File f = <span class="keyword">new</span> File(filename); <span class="comment">// 定义保存路径</span></span><br><span class="line">        InputStream in = <span class="keyword">new</span> FileInputStream(f); <span class="comment">// 文件输入流</span></span><br><span class="line">        ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(in); <span class="comment">// 对象输入流</span></span><br><span class="line">        Object obj = ois.readObject(); <span class="comment">// 读取对象</span></span><br><span class="line">        ois.close();</span><br><span class="line">        in.close();</span><br><span class="line">        System.out.println(obj);</span><br><span class="line">        System.out.println(obj == Person.getInstance());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> String filename = <span class="string">"d:/text.dat"</span>;</span><br><span class="line">        serialize(filename);</span><br><span class="line">        deserialize(filename);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line"><span class="comment">// name: Jack, age: null, sex: MALE</span></span><br><span class="line"><span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>值得注意的是，从文件中获取的 Person 对象与 Person 类中的单例对象并不相等。为了能在单例类中仍然保持序列的特性，可以使用 readResolve() 方法。在该方法中直接返回 Person 的单例对象。我们在 SerializeDemo04 示例的基础上添加一个 readObject 方法， 如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerializeDemo05</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 其他内容略</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 添加此方法</span></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">            in.defaultReadObject();</span><br><span class="line">            age = in.readInt();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 其他内容略</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 其他内容略</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line"><span class="comment">// name: Tom, age: 31, sex: MALE</span></span><br></pre></td></tr></table></figure>
+<h2 id="序列化工具"><a href="#序列化工具" class="headerlink" title="序列化工具"></a>序列化工具</h2><p>Java 官方的序列化存在许多问题，因此，很多人更愿意使用优秀的第三方序列化工具来替代 Java 自身的序列化机制。</p>
+<p>Java 官方的序列化主要体现在以下方面：</p>
+<ul>
+<li>Java 官方的序列化性能不高，序列化后的数据相对于一些优秀的序列化的工具，还是要大不少，这大大影响存储和传输的效率。</li>
+<li>Java 官方的序列化一定需要实现 Serializable 接口。</li>
+<li>Java 官方的序列化需要关注 serialVersionUID。</li>
+<li>Java 官方的序列无法跨语言使用。</li>
+</ul>
+<p>当然我们还有更加优秀的一些序列化和反序列化的工具，根据不同的使用场景可以自行选择！<br>thrift、protobuf - 适用于对性能敏感，对开发体验要求不高的内部系统。<br>hessian - 适用于对开发体验敏感，性能有要求的内外部系统。<br>jackson、gson、fastjson - 适用于对序列化后的数据要求有良好的可读性（转为 json 、xml 形式）。<br>小结</p>
+<p>参考资料:</p>
+<ul>
+<li>Java 编程思想</li>
+<li>JAVA 核心技术（卷 1）</li>
+<li><a href="http://www.hollischuang.com/archives/11…" target="_blank" rel="noopener">www.hollischuang.com/archives/11…</a></li>
+<li><a href="http://www.codenuclear.com/serializati…" target="_blank" rel="noopener">www.codenuclear.com/serializati…</a></li>
+<li><a href="http://www.blogjava.net/jiangshachi…" target="_blank" rel="noopener">www.blogjava.net/jiangshachi…</a></li>
+<li>Java 序列化的高级认识</li>
+<li>agapple.iteye.com/blog/859052</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/27/菜鸟话Java-Java泛型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lichukuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/27/菜鸟话Java-Java泛型/" itemprop="url">菜鸟话Java---Java泛型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-27T17:35:35+08:00">
+                2019-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/最详细的编码教程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -488,7 +965,7 @@
       
         
           
-            <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * CharSequence是 char 值的可读序列。此接口提供对许多不同类型的 char 序列的统一，只读访问。</span></span><br><span class="line"><span class="comment"> * char 值表示 Basic 多语言平面（BMP）中的字符或代理项。</span></span><br><span class="line"><span class="comment"> * 此接口没有实现equals和 hashCode（）方法。因此，比较实现CharSequence 的两个对象的结果通常是不可控的。</span></span><br><span class="line"><span class="comment"> * 每个对象可以由不同的类实现，并且不能保证每个类能够测试其实例与另一个实例的相等性。</span></span><br><span class="line"><span class="comment"> * 因此，使用任意 CharSequence 实例作为集合中的元素或映射中的键是不合适的</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CharSequence</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the length of this character sequence.  The length is the number</span></span><br><span class="line"><span class="comment">     * of 16-bit &lt;code&gt;char&lt;/code&gt;s in the sequence.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>  the number of &lt;code&gt;char&lt;/code&gt;s in this sequence</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">length</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the &lt;code&gt;char&lt;/code&gt; value at the specified index.  An index ranges from zero</span></span><br><span class="line"><span class="comment">     * to &lt;tt&gt;length() - 1&lt;/tt&gt;.  The first &lt;code&gt;char&lt;/code&gt; value of the sequence is at</span></span><br><span class="line"><span class="comment">     * index zero, the next at index one, and so on, as for array</span></span><br><span class="line"><span class="comment">     * indexing.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;If the &lt;code&gt;char&lt;/code&gt; value specified by the index is a</span></span><br><span class="line"><span class="comment">     * &lt;a href="&#123;<span class="doctag">@docRoot</span>&#125;/java/lang/Character.html#unicode"&gt;surrogate&lt;/a&gt;, the surrogate</span></span><br><span class="line"><span class="comment">     * value is returned.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>   index   the index of the &lt;code&gt;char&lt;/code&gt; value to be returned</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>  the specified &lt;code&gt;char&lt;/code&gt; value</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span>  IndexOutOfBoundsException</span></span><br><span class="line"><span class="comment">     *          if the &lt;tt&gt;index&lt;/tt&gt; argument is negative or not less than</span></span><br><span class="line"><span class="comment">     *          &lt;tt&gt;length()&lt;/tt&gt;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">char</span> <span class="title">charAt</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns a &lt;code&gt;CharSequence&lt;/code&gt; that is a subsequence of this sequence.</span></span><br><span class="line"><span class="comment">     * The subsequence starts with the &lt;code&gt;char&lt;/code&gt; value at the specified index and</span></span><br><span class="line"><span class="comment">     * ends with the &lt;code&gt;char&lt;/code&gt; value at index &lt;tt&gt;end - 1&lt;/tt&gt;.  The length</span></span><br><span class="line"><span class="comment">     * (in &lt;code&gt;char&lt;/code&gt;s) of the</span></span><br><span class="line"><span class="comment">     * returned sequence is &lt;tt&gt;end - start&lt;/tt&gt;, so if &lt;tt&gt;start == end&lt;/tt&gt;</span></span><br><span class="line"><span class="comment">     * then an empty sequence is returned.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>   start   the start index, inclusive</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>   end     the end index, exclusive</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>  the specified subsequence</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span>  IndexOutOfBoundsException</span></span><br><span class="line"><span class="comment">     *          if &lt;tt&gt;start&lt;/tt&gt; or &lt;tt&gt;end&lt;/tt&gt; are negative,</span></span><br><span class="line"><span class="comment">     *          if &lt;tt&gt;end&lt;/tt&gt; is greater than &lt;tt&gt;length()&lt;/tt&gt;,</span></span><br><span class="line"><span class="comment">     *          or if &lt;tt&gt;start&lt;/tt&gt; is greater than &lt;tt&gt;end&lt;/tt&gt;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">CharSequence <span class="title">subSequence</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> end)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns a string containing the characters in this sequence in the same</span></span><br><span class="line"><span class="comment">     * order as this sequence.  The length of the string will be the length of</span></span><br><span class="line"><span class="comment">     * this sequence.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>  a string consisting of exactly this sequence of characters</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns a stream of &#123;<span class="doctag">@code</span> int&#125; zero-extending the &#123;<span class="doctag">@code</span> char&#125; values</span></span><br><span class="line"><span class="comment">     * from this sequence.  Any char which maps to a &lt;a</span></span><br><span class="line"><span class="comment">     * href="&#123;<span class="doctag">@docRoot</span>&#125;/java/lang/Character.html#unicode"&gt;surrogate code</span></span><br><span class="line"><span class="comment">     * point&lt;/a&gt; is passed through uninterpreted.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;If the sequence is mutated while the stream is being read, the</span></span><br><span class="line"><span class="comment">     * result is undefined.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> an IntStream of char values from this sequence</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">default</span> IntStream <span class="title">chars</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">CharIterator</span> <span class="keyword">implements</span> <span class="title">PrimitiveIterator</span>.<span class="title">OfInt</span> </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> cur = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> cur &lt; length();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">nextInt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (hasNext()) &#123;</span><br><span class="line">                    <span class="keyword">return</span> charAt(cur++);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">forEachRemaining</span><span class="params">(IntConsumer block)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">for</span> (; cur &lt; length(); cur++) &#123;</span><br><span class="line">                    block.accept(charAt(cur));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> StreamSupport.intStream(() -&gt;</span><br><span class="line">                Spliterators.spliterator(</span><br><span class="line">                        <span class="keyword">new</span> CharIterator(),</span><br><span class="line">                        length(),</span><br><span class="line">                        Spliterator.ORDERED),</span><br><span class="line">                Spliterator.SUBSIZED | Spliterator.SIZED | Spliterator.ORDERED,</span><br><span class="line">                <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns a stream of code point values from this sequence.  Any surrogate</span></span><br><span class="line"><span class="comment">     * pairs encountered in the sequence are combined as if by &#123;<span class="doctag">@linkplain</span></span></span><br><span class="line"><span class="comment">     * Character#toCodePoint Character.toCodePoint&#125; and the result is passed</span></span><br><span class="line"><span class="comment">     * to the stream. Any other code units, including ordinary BMP characters,</span></span><br><span class="line"><span class="comment">     * unpaired surrogates, and undefined code units, are zero-extended to</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> int&#125; values which are then passed to the stream.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;If the sequence is mutated while the stream is being read, the result</span></span><br><span class="line"><span class="comment">     * is undefined.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> an IntStream of Unicode code points from this sequence</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">default</span> IntStream <span class="title">codePoints</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">CodePointIterator</span> <span class="keyword">implements</span> <span class="title">PrimitiveIterator</span>.<span class="title">OfInt</span> </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> cur = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">forEachRemaining</span><span class="params">(IntConsumer block)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">final</span> <span class="keyword">int</span> length = length();</span><br><span class="line">                <span class="keyword">int</span> i = cur;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">while</span> (i &lt; length) &#123;</span><br><span class="line">                        <span class="keyword">char</span> c1 = charAt(i++);</span><br><span class="line">                        <span class="keyword">if</span> (!Character.isHighSurrogate(c1) || i &gt;= length) &#123;</span><br><span class="line">                            block.accept(c1);</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="keyword">char</span> c2 = charAt(i);</span><br><span class="line">                            <span class="keyword">if</span> (Character.isLowSurrogate(c2)) &#123;</span><br><span class="line">                                i++;</span><br><span class="line">                                block.accept(Character.toCodePoint(c1, c2));</span><br><span class="line">                            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                block.accept(c1);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                    cur = i;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> cur &lt; length();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">nextInt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">final</span> <span class="keyword">int</span> length = length();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (cur &gt;= length) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">char</span> c1 = charAt(cur++);</span><br><span class="line">                <span class="keyword">if</span> (Character.isHighSurrogate(c1) &amp;&amp; cur &lt; length) &#123;</span><br><span class="line">                    <span class="keyword">char</span> c2 = charAt(cur);</span><br><span class="line">                    <span class="keyword">if</span> (Character.isLowSurrogate(c2)) &#123;</span><br><span class="line">                        cur++;</span><br><span class="line">                        <span class="keyword">return</span> Character.toCodePoint(c1, c2);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> c1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> StreamSupport.intStream(() -&gt;</span><br><span class="line">                Spliterators.spliteratorUnknownSize(</span><br><span class="line">                        <span class="keyword">new</span> CodePointIterator(),</span><br><span class="line">                        Spliterator.ORDERED),</span><br><span class="line">                Spliterator.ORDERED,</span><br><span class="line">                <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * CharSequence是 char 值的可读序列。此接口提供对许多不同类型的 char 序列的统一，只读访问。</span></span><br><span class="line"><span class="comment"> * char 值表示 Basic 多语言平面（BMP）中的字符或代理项。</span></span><br><span class="line"><span class="comment"> * 此接口没有实现equals和 hashCode（）方法。因此，比较实现CharSequence 的两个对象的结果通常是不可控的。</span></span><br><span class="line"><span class="comment"> * 每个对象可以由不同的类实现，并且不能保证每个类能够测试其实例与另一个实例的相等性。</span></span><br><span class="line"><span class="comment"> * 因此，使用任意 CharSequence 实例作为集合中的元素或映射中的键是不合适的</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CharSequence</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *返回字符序列的长度</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">length</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *返回指定位置的字符，0&lt;=index&lt;=length-1</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">char</span> <span class="title">charAt</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *返回[start,end)位置的字符序列，长度为end - start，如果start == end，则返回空的字符</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">CharSequence <span class="title">subSequence</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> end)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *和Object的toString()方法一样</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *Java8中的新特性，之后会介绍</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">default</span> IntStream <span class="title">chars</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">CharIterator</span> <span class="keyword">implements</span> <span class="title">PrimitiveIterator</span>.<span class="title">OfInt</span> </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> cur = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> cur &lt; length();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">nextInt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (hasNext()) &#123;</span><br><span class="line">                    <span class="keyword">return</span> charAt(cur++);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">forEachRemaining</span><span class="params">(IntConsumer block)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">for</span> (; cur &lt; length(); cur++) &#123;</span><br><span class="line">                    block.accept(charAt(cur));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> StreamSupport.intStream(() -&gt;</span><br><span class="line">                Spliterators.spliterator(</span><br><span class="line">                        <span class="keyword">new</span> CharIterator(),</span><br><span class="line">                        length(),</span><br><span class="line">                        Spliterator.ORDERED),</span><br><span class="line">                Spliterator.SUBSIZED | Spliterator.SIZED | Spliterator.ORDERED,</span><br><span class="line">                <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *Java8中的新特性，之后会介绍</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">default</span> IntStream <span class="title">codePoints</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">CodePointIterator</span> <span class="keyword">implements</span> <span class="title">PrimitiveIterator</span>.<span class="title">OfInt</span> </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> cur = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">forEachRemaining</span><span class="params">(IntConsumer block)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">final</span> <span class="keyword">int</span> length = length();</span><br><span class="line">                <span class="keyword">int</span> i = cur;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">while</span> (i &lt; length) &#123;</span><br><span class="line">                        <span class="keyword">char</span> c1 = charAt(i++);</span><br><span class="line">                        <span class="keyword">if</span> (!Character.isHighSurrogate(c1) || i &gt;= length) &#123;</span><br><span class="line">                            block.accept(c1);</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="keyword">char</span> c2 = charAt(i);</span><br><span class="line">                            <span class="keyword">if</span> (Character.isLowSurrogate(c2)) &#123;</span><br><span class="line">                                i++;</span><br><span class="line">                                block.accept(Character.toCodePoint(c1, c2));</span><br><span class="line">                            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                block.accept(c1);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                    cur = i;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> cur &lt; length();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">nextInt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">final</span> <span class="keyword">int</span> length = length();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (cur &gt;= length) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">char</span> c1 = charAt(cur++);</span><br><span class="line">                <span class="keyword">if</span> (Character.isHighSurrogate(c1) &amp;&amp; cur &lt; length) &#123;</span><br><span class="line">                    <span class="keyword">char</span> c2 = charAt(cur);</span><br><span class="line">                    <span class="keyword">if</span> (Character.isLowSurrogate(c2)) &#123;</span><br><span class="line">                        cur++;</span><br><span class="line">                        <span class="keyword">return</span> Character.toCodePoint(c1, c2);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> c1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> StreamSupport.intStream(() -&gt;</span><br><span class="line">                Spliterators.spliteratorUnknownSize(</span><br><span class="line">                        <span class="keyword">new</span> CodePointIterator(),</span><br><span class="line">                        Spliterator.ORDERED),</span><br><span class="line">                Spliterator.ORDERED,</span><br><span class="line">                <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -630,7 +1107,8 @@
       
         
           
-            
+            <p>转载<a href="https://www.jianshu.com/p/84329c0ca4a3" target="_blank" rel="noopener">Java源码浅析，Character(1)</a><br><br>转载<a href="https://www.jianshu.com/p/53541c5b97f7" target="_blank" rel="noopener">Java源码浅析，Character(2)</a><br><br>转载<a href="https://www.jianshu.com/p/d33689da7ccf" target="_blank" rel="noopener">Java源码浅析，Character(3)</a><br><br>转载<a href="https://www.jianshu.com/p/e226d4957c75" target="_blank" rel="noopener">Java源码浅析，Character(4)</a><br></p>
+
           
         
       
@@ -1376,497 +1854,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/23/Groovy详解（一）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lichukuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/user.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/23/Groovy详解（一）/" itemprop="url">Groovy详解（一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-23T16:01:57+08:00">
-                2019-03-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Gradle/" itemprop="url" rel="index">
-                    <span itemprop="name">Gradle</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> getString()&#123;</span><br><span class="line">    println(<span class="string">"调用无参方法"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">println(getString)</span><br></pre></td></tr></table></figure>
-<p>结果为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">调用无参方法</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
-<p>Groovy中函数调用的时候还可以不加括号,但是自定义的方法不行。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/23/菜鸟话Java-Random类详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lichukuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/user.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/23/菜鸟话Java-Random类详解/" itemprop="url">菜鸟话Java---Random类详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-23T14:38:48+08:00">
-                2019-03-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="JAVA的Random类的用法详解"><a href="#JAVA的Random类的用法详解" class="headerlink" title="JAVA的Random类的用法详解"></a>JAVA的Random类的用法详解</h2><p>转载<a href="https://www.jb51.net/article/83028.htm" target="_blank" rel="noopener">这里</a></p>
-<p>Random类主要用来生成随机数，本文详解介绍了Random类的用法，希望能帮到大家。</p>
-<p>Random类中实现的随机算法是伪随机，也就是有规则的随机。在进行随机时，随机算法的起源数字称为种子数(seed)，在种子数的基础上进行一定的变换，从而产生需要的随机数字。<br>相同种子数的Random对象，相同次数生成的随机数字是完全相同的。也就是说，两个种子数相同的Random对象，第一次生成的随机数字完全相同，第二次生成的随机数字也完全相同。这点在生成多个随机数字时需要特别注意。</p>
-<p>下面介绍一下Random类的使用，以及如何生成指定区间的随机数组以及实现程序中要求的几率。</p>
-<h3 id="Random对象的生成"><a href="#Random对象的生成" class="headerlink" title="Random对象的生成"></a>Random对象的生成</h3><p>Random类包含两个构造方法，下面依次进行介绍：</p>
-<p><code>public Random()</code><br><br>该构造方法使用一个和当前系统时间对应的相对时间有关的数字作为种子数，然后使用这个种子数构造Random对象。</p>
-<p><code>public Random(long seed)</code><br><br>该构造方法可以通过制定一个种子数进行创建。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Random r = <span class="keyword">new</span> Random();</span><br><span class="line">Random r1 = <span class="keyword">new</span> Random(<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
-<p>再次强调：种子数只是随机算法的起源数字，和生成的随机数字的区间无关。</p>
-<h3 id="Random类中的常用方法"><a href="#Random类中的常用方法" class="headerlink" title="Random类中的常用方法"></a>Random类中的常用方法</h3><p>Random类中的方法比较简单，每个方法的功能也很容易理解。需要说明的是，Random类中各方法生成的随机数字都是均匀分布的，也就是说区间内部的数字生成的几率是均等的。下面对这些方法做一下基本的介绍：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">a、<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">nextBoolean</span><span class="params">()</span></span></span><br><span class="line"><span class="function">该方法的作用是生成一个随机的<span class="keyword">boolean</span>值，生成<span class="keyword">true</span>和<span class="keyword">false</span>的值几率相等，也就是都是50%的几率。</span></span><br><span class="line"><span class="function">b、<span class="keyword">public</span> <span class="keyword">double</span> <span class="title">nextDouble</span><span class="params">()</span></span></span><br><span class="line"><span class="function">该方法的作用是生成一个随机的<span class="keyword">double</span>值，数值介于[0,1.0)之间。</span></span><br><span class="line"><span class="function">c、<span class="keyword">public</span> <span class="keyword">int</span> <span class="title">nextInt</span><span class="params">()</span></span></span><br><span class="line"><span class="function">该方法的作用是生成一个随机的<span class="keyword">int</span>值，该值介于<span class="keyword">int</span>的区间，也就是-231到231-1之间。</span></span><br><span class="line"><span class="function">如果需要生成指定区间的<span class="keyword">int</span>值，则需要进行一定的数学变换，具体可以参看下面的使用示例中的代码。</span></span><br><span class="line"><span class="function">d、<span class="keyword">public</span> <span class="keyword">int</span> <span class="title">nextInt</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function">该方法的作用是生成一个随机的<span class="keyword">int</span>值，该值介于[0,n)的区间，也就是0到n之间的随机<span class="keyword">int</span>值，包含0而不包含n。</span></span><br><span class="line"><span class="function">如果想生成指定区间的<span class="keyword">int</span>值，也需要进行一定的数学变换，具体可以参看下面的使用示例中的代码。</span></span><br><span class="line"><span class="function">e、<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSeed</span><span class="params">(<span class="keyword">long</span> seed)</span></span></span><br><span class="line"><span class="function">该方法的作用是重新设置Random对象中的种子数。设置完种子数以后的Random对象和相同种子数使用new关键字创建出的Random对象相同。</span></span><br></pre></td></tr></table></figure>
-<h3 id="Random类使用示例"><a href="#Random类使用示例" class="headerlink" title="Random类使用示例"></a>Random类使用示例</h3><p>使用Random类，一般是生成指定区间的随机数字，下面就一一介绍如何生成对应区间的随机数字。以下生成随机数的代码均使用以下Random对象r进行生成：<br>Random r = new Random();</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//生成[0,1.0)区间的小数</span></span><br><span class="line"><span class="keyword">double</span> d1 = r.nextDouble();</span><br><span class="line"></span><br><span class="line"><span class="comment">//生成[0,5.0)区间的小数</span></span><br><span class="line"><span class="keyword">double</span> d2 = r.nextDouble() * <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//生成[1,2.5)区间的小数</span></span><br><span class="line"><span class="keyword">double</span> d3 = r.nextDouble() * <span class="number">1.5</span> + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//生成任意整数</span></span><br><span class="line"><span class="keyword">int</span> n1 = r.nextInt();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//生成[0,10)区间的整数</span></span><br><span class="line"><span class="keyword">int</span> n2 = r.nextInt(<span class="number">10</span>);</span><br><span class="line">n2 = Math.abs(r.nextInt() % <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*以上两行代码均可生成[0,10)区间的整数。</span></span><br><span class="line"><span class="comment">第一种实现使用Random类中的nextInt(int n)方法直接实现。</span></span><br><span class="line"><span class="comment">第二种实现中，首先调用nextInt()方法生成一个任意的int数字，该数字和10取余以后生成的数字区间为(-10,10)，然后再对该区间求绝对值，则得到的区间就是[0,10)了。</span></span><br><span class="line"><span class="comment">同理，生成任意[0,n)区间的随机整数，都可以使用如下代码：</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">int</span> n2 = r.nextInt(n);</span><br><span class="line">n2 = Math.abs(r.nextInt() % n);</span><br><span class="line"></span><br><span class="line"><span class="comment">//生成[0,10]区间的整数</span></span><br><span class="line"><span class="keyword">int</span> n3 = r.nextInt(<span class="number">11</span>);</span><br><span class="line">n3 = Math.abs(r.nextInt() % <span class="number">11</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//g、生成[-3,15)区间的整数</span></span><br><span class="line"><span class="keyword">int</span> n4 = r.nextInt(<span class="number">18</span>) - <span class="number">3</span>;</span><br><span class="line">n4 = Math.abs(r.nextInt() % <span class="number">18</span>) - <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="几率实现"><a href="#几率实现" class="headerlink" title="几率实现"></a>几率实现</h3><p>按照一定的几率实现程序逻辑也是随机处理可以解决的一个问题。下面以一个简单的示例演示如何使用随机数字实现几率的逻辑。<br>在前面的方法介绍中，nextInt(int n)方法中生成的数字是均匀的，也就是说该区间内部的每个数字生成的几率是相同的。那么如果生成一个[0,100)区间的随机整数，则每个数字生成的几率应该是相同的，而且由于该区间中总计有100个整数，所以每个数字的几率都是1%。按照这个理论，可以实现程序中的几率问题。<br>示例：随机生成一个整数，该整数以55%的几率生成1，以40%的几率生成2，以5%的几率生成3。实现的代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n5 = r.nextInt(<span class="number">100</span>);</span><br><span class="line"><span class="keyword">int</span> m; <span class="comment">//结果数字</span></span><br><span class="line"><span class="keyword">if</span>(n5 &lt; <span class="number">55</span>)&#123; <span class="comment">//55个数字的区间，55%的几率</span></span><br><span class="line">    m = <span class="number">1</span>;</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(n5 &lt; <span class="number">95</span>)&#123;<span class="comment">//[55,95)，40个数字的区间，40%的几率</span></span><br><span class="line">    m = <span class="number">2</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    m = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>因为每个数字的几率都是1%，则任意55个数字的区间的几率就是55%，为了代码方便书写，这里使用[0,55)区间的所有整数，后续的原理一样。<br>当然，这里的代码可以简化，因为几率都是5%的倍数，所以只要以5%为基础来控制几率即可，下面是简化的代码实现：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n6 = r.nextInt(<span class="number">20</span>);</span><br><span class="line"><span class="keyword">int</span> m1;</span><br><span class="line"><span class="keyword">if</span>(n6 &lt; <span class="number">11</span>)&#123;</span><br><span class="line">    m1 = <span class="number">1</span>;</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(n6 &lt; <span class="number">19</span>)&#123;</span><br><span class="line">    m1 = <span class="number">2</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    m1 = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在程序内部，几率的逻辑就可以按照上面的说明进行实现。</p>
-<h3 id="其它问题"><a href="#其它问题" class="headerlink" title="其它问题"></a>其它问题</h3><p>a、相同种子数Random对象问题</p>
-<p>前面介绍过，相同种子数的Random对象，相同次数生成的随机数字是完全相同的，下面是测试的代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Random r1 = <span class="keyword">new</span> Random(<span class="number">10</span>);</span><br><span class="line">Random r2 = <span class="keyword">new</span> Random(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">2</span>;i++)&#123;</span><br><span class="line">     System.out.println(r1.nextInt());</span><br><span class="line">     System.out.println(r2.nextInt());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在该代码中，对象r1和r2使用的种子数都是10，则这两个对象相同次数生成的随机数是完全相同的。<br>如果想避免出现随机数字相同的情况，则需要注意，无论项目中需要生成多少个随机数字，都只使用一个Random对象即可。</p>
-<p>b、关于Math类中的random方法</p>
-<p>其实在Math类中也有一个random方法，该random方法的工作是生成一个[0,1.0)区间的随机小数。<br>通过阅读Math类的源代码可以发现，Math类中的random方法就是直接调用Random类中的nextDouble方法实现的。<br>只是random方法的调用比较简单，所以很多程序员都习惯使用Math类的random方法来生成随机数字。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/23/菜鸟话Java-Java异常/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lichukuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/user.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/23/菜鸟话Java-Java异常/" itemprop="url">菜鸟话Java---Java异常</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-23T14:37:24+08:00">
-                2019-03-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="异常分类"><a href="#异常分类" class="headerlink" title="异常分类"></a>异常分类</h2><p>如图是Java异常层次结构的一个简化图：</p>
-<p><img src="/2019/03/23/菜鸟话Java-Java异常/throwable.jpg" alt></p>
-<p>所有的异常都由<code>Throwable</code>继承而来，之后分为<code>Error</code>和<code>Exception</code>两部分。</p>
-<h3 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h3><p>Error类层次结构描述了Java运行时系统内部错误和资源耗尽错误。应用程序不应该抛出<br>这种类型的错误。对于这种错误我们无能为力，因此我们不需要关注这种错误。</p>
-<h3 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h3><p>根据程序是否有问题可以把<code>Exception</code>分成两类：由程序错误导致的异常属于<code>RuntimeException</code>;由<br>像I/O错误这类和程序无关的问题导致的异常属于其他异常。可以说，如果出现了<code>RuntimeException</code>异常，<br>那么就一定是你的问题。</p>
-<p>Java语言规范将派生于<code>Error</code>和<code>RuntimeException</code>的所有异常称为非受查异常，所以其他的异常称为<br>受查异常。</p>
-<h2 id="异常抛出的情况"><a href="#异常抛出的情况" class="headerlink" title="异常抛出的情况"></a>异常抛出的情况</h2><ul>
-<li>调用一个抛出受查异常的方法</li>
-<li>程序运行过程发现错误，并利用<code>throw</code>语句抛出一个受查异常</li>
-<li>程序出现错误</li>
-<li>Java虚拟机和运行时库出现内部错误报告</li>
-</ul>
-<h2 id="抛出异常"><a href="#抛出异常" class="headerlink" title="抛出异常"></a>抛出异常</h2><p>关键字<code>throws</code>或<code>throw</code>用来抛出异常,示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deposit</span><span class="params">(<span class="keyword">double</span> amount)</span> <span class="keyword">throws</span> RemoteException</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="comment">// Method implementation</span></span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RemoteException();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>注意：</p>
-<ul>
-<li>如果在子类中覆盖了超类的一个方法，子类方法中声明的受查异常不能比超类方法中声明的异常更通用。如果超类<br>方法没有抛出任何受查异常，子类也不会抛出任何受查异常。</li>
-<li>一旦方法抛出异常，这个方法就不可能返回到调用者</li>
-</ul>
-<h2 id="创建异常类"><a href="#创建异常类" class="headerlink" title="创建异常类"></a>创建异常类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//继承检查异常，抛出需要检查</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyException</span> <span class="keyword">extends</span> <span class="title">Exception</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyException</span><span class="params">(String error)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(error);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[]  args)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> MyException(<span class="string">"出了什么错"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (MyException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//继承非受查异常，抛出不需要检查</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyException</span> <span class="keyword">extends</span> <span class="title">RuntimeException</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyException</span><span class="params">(String error)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(error);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[]  args)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> MyException(<span class="string">"出了什么错"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MyException: 出了什么错</span><br><span class="line">  at Main.main(Main.java:6)</span><br></pre></td></tr></table></figure>
-<h2 id="捕获异常"><a href="#捕获异常" class="headerlink" title="捕获异常"></a>捕获异常</h2><p>使用 try 和 catch 关键字可以捕获异常。try/catch 代码块放在异常可能发生的地方。<br>try/catch代码块中的代码称为保护代码，使用 try/catch 的语法如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="comment">// 程序代码</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(ExceptionName e1)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">//当发生异常时，会调用这里的代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="多重捕获块"><a href="#多重捕获块" class="headerlink" title="多重捕获块"></a>多重捕获块</h2><p>一个 try 代码块后面跟随多个 catch 代码块的情况就叫多重捕获<br>多重捕获块的语法如下所示：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">   <span class="comment">// 程序代码</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(异常类型<span class="number">1</span> 异常的变量名<span class="number">1</span>)&#123;</span><br><span class="line">  <span class="comment">// 程序代码</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(异常类型<span class="number">2</span> 异常的变量名<span class="number">2</span>)&#123;</span><br><span class="line">  <span class="comment">// 程序代码</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(异常类型<span class="number">2</span> 异常的变量名<span class="number">2</span>)&#123;</span><br><span class="line">  <span class="comment">// 程序代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以在 try 语句后面添加任意数量的 catch 块。<br>如果保护代码中发生异常，异常被抛给第一个 catch 块。<br>如果抛出异常的数据类型与 ExceptionType1 匹配，它在这里就会被捕获。<br>如果不匹配，它会被传递给第二个 catch 块。<br>如此，直到异常被捕获或者通过所有的 catch 块。</p>
-<p>java7以后可以放在一个catch中，例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">   <span class="comment">// 程序代码</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(异常类型<span class="number">1</span> |异常类型<span class="number">2</span> 异常的变量名)&#123;<span class="comment">//当捕获多个变量时，异常变量隐含为final变量，不能为它赋值</span></span><br><span class="line">  <span class="comment">// 程序代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意：只有当捕获的异常类型彼此之间不存在子类关系时才需要这个特性</p>
-<h2 id="异常方法"><a href="#异常方法" class="headerlink" title="异常方法"></a>异常方法</h2><p>Throwable 类的主要方法:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getMessage</span><span class="params">()</span></span></span><br><span class="line"><span class="function">返回关于发生的异常的详细信息。这个消息在Throwable 类的构造函数中初始化了。</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Throwable <span class="title">getCause</span><span class="params">()</span></span></span><br><span class="line"><span class="function">返回一个Throwable 对象代表异常原因。</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span></span><br><span class="line"><span class="function">使用<span class="title">getMessage</span><span class="params">()</span>的结果返回类的串级名字。</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printStackTrace</span><span class="params">()</span></span></span><br><span class="line"><span class="function">打印<span class="title">toString</span><span class="params">()</span>结果和栈层次到System.err，即错误输出流。</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> StackTraceElement [] <span class="title">getStackTrace</span><span class="params">()</span></span></span><br><span class="line"><span class="function">返回一个包含堆栈层次的数组。下标为0的元素代表栈顶，最后一个元素代表方法调用堆栈的栈底。</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Throwable <span class="title">fillInStackTrace</span><span class="params">()</span></span></span><br><span class="line"><span class="function">用当前的调用栈层次填充Throwable 对象栈层次，添加到栈层次任何先前信息中</span></span><br></pre></td></tr></table></figure>
-<h2 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h2><p>finally 关键字用来创建在 try 代码块后面执行的代码块。<br>无论是否发生异常，finally 代码块中的代码总会被执行。<br>在 finally 代码块中，可以运行清理类型等收尾善后性质的语句。<br>finally 代码块出现在 catch 代码块最后，语法如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  <span class="comment">// 程序代码</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(异常类型<span class="number">1</span> 异常的变量名<span class="number">1</span>)&#123;</span><br><span class="line">  <span class="comment">// 程序代码</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(异常类型<span class="number">2</span> 异常的变量名<span class="number">2</span>)&#123;</span><br><span class="line">  <span class="comment">// 程序代码</span></span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">  <span class="comment">// 程序代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意：当<code>finally</code>子句包含<code>return</code>语句时，在方法返回前，<code>finally</code>子句的内容<br>会被执行，这里的<code>return</code>语句的返回值会覆盖原始的返回值，例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">  <span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">int</span> r=n*n;</span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">  &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">2</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果调用<code>f(2)</code>，那么<code>try</code>语句块的计算结果为<code>r = 4</code>，并执行<code>return</code>语句。<br>然而，在方法真正返回时，还要执行<code>finally</code>子句。<code>finally</code>子句使得方法返回<br>0，覆盖了原来的方法。</p>
-<h2 id="带资源的try"><a href="#带资源的try" class="headerlink" title="带资源的try"></a>带资源的try</h2><p>语法:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(Resure res = ....)&#123;</span><br><span class="line">  <span class="comment">//具体代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用带资源的try语句，不用自己关闭资源。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1919,7 +1906,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">博客</span>
                 </a>
               </div>
