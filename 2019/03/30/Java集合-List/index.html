@@ -83,14 +83,19 @@
 
 
 
+<meta name="description" content="如图:  ListList是有序的集合，允许使用者控制其插入集合的位置，并能使用整数索引访问数据 AbstractList1public abstract class AbstractList&amp;lt;E&amp;gt; extends AbstractCollection&amp;lt;E&amp;gt; implements List&amp;lt;E&amp;gt; AbstractList实现List,是一个抽象类。Abstrac">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java集合---List">
 <meta property="og:url" content="http://yoursite.com/2019/03/30/Java集合-List/index.html">
 <meta property="og:site_name" content="我的个人博客">
+<meta property="og:description" content="如图:  ListList是有序的集合，允许使用者控制其插入集合的位置，并能使用整数索引访问数据 AbstractList1public abstract class AbstractList&amp;lt;E&amp;gt; extends AbstractCollection&amp;lt;E&amp;gt; implements List&amp;lt;E&amp;gt; AbstractList实现List,是一个抽象类。Abstrac">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-30T02:26:06.422Z">
+<meta property="og:image" content="http://yoursite.com/2019/03/30/Java集合-List/List.png">
+<meta property="og:updated_time" content="2019-03-30T13:42:39.664Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java集合---List">
+<meta name="twitter:description" content="如图:  ListList是有序的集合，允许使用者控制其插入集合的位置，并能使用整数索引访问数据 AbstractList1public abstract class AbstractList&amp;lt;E&amp;gt; extends AbstractCollection&amp;lt;E&amp;gt; implements List&amp;lt;E&amp;gt; AbstractList实现List,是一个抽象类。Abstrac">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/30/Java集合-List/List.png">
 
 
 
@@ -273,6 +278,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -300,7 +327,13 @@
       
 
       
-        
+        <p>如图:</p>
+<p><img src="/2019/03/30/Java集合-List/List.png" alt="List"></p>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p><code>List</code>是有序的集合，允许使用者控制其插入集合的位置，并能<br>使用整数索引访问数据</p>
+<h2 id="AbstractList"><a href="#AbstractList" class="headerlink" title="AbstractList"></a>AbstractList</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractCollection</span>&lt;<span class="title">E</span>&gt; <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>AbstractList</code>实现<code>List</code>,是一个抽象类。<code>AbstractList</code>提供了<code>List</code>的大部分实现，继承<code>AbstractList</code>,<br>只强制要求实现<code>get(int index)</code>和<code>size()</code>方法，不过<code>AbstractList</code>中的许多方法都是默认实现，需要覆盖，<br>例如<code>add(int index，E e)</code>方法默认抛出异常。</p>
+<h2 id="AbstractSequentialList"><a href="#AbstractSequentialList" class="headerlink" title="AbstractSequentialList"></a>AbstractSequentialList</h2><p><code>AbstractSequentialList</code>提供了<code>AbstractList</code>的大部分实现。当顺序访问数据（例如链表）时，优先使用这个类；当对于随机访问数据（例如数组）<code>AbstractList</code>优先<br>使用。</p>
+<h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2>
       
     </div>
     
@@ -388,8 +421,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -406,7 +448,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">博客</span>
                 </a>
               </div>
@@ -442,6 +484,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#List"><span class="nav-number">1.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AbstractList"><span class="nav-number">2.</span> <span class="nav-text">AbstractList</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AbstractSequentialList"><span class="nav-number">3.</span> <span class="nav-text">AbstractSequentialList</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayList"><span class="nav-number">4.</span> <span class="nav-text">ArrayList</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
