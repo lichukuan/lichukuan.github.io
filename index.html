@@ -548,6 +548,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -577,7 +599,9 @@
       
         
           
-            
+            <p>如图:</p>
+<p><img src="/2019/03/30/java集合-Map/Map.png" alt="Map"></p>
+
           
         
       
@@ -667,6 +691,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -696,7 +742,9 @@
       
         
           
-            
+            <p>如图:</p>
+<p><img src="/2019/03/30/java集合-Queue/Queue.png" alt="Queue"></p>
+
           
         
       
@@ -840,7 +888,13 @@
             <p>如图:</p>
 <p><img src="/2019/03/30/java集合-Set/Set.png" alt="Set"></p>
 <h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><p>不包含重复元素的集合(通过<code>equals</code>来判断)，<code>Set</code>中只能包含一个<code>null</code>.当<code>Set</code>中存入<br>可变元素时，要特别注意，因为我们可能改变可变元素的值，从而影响对象相等的变更。</p>
-<p>## </p>
+<h2 id="SortedSet"><a href="#SortedSet" class="headerlink" title="SortedSet"></a>SortedSet</h2><p><code>SortedSet</code>接口定义了对元素进行自然排序的方法，实现它的类用对内部元素进行排序(这里的自然排序指的是升序排序)。</p>
+<h2 id="NavigableSet"><a href="#NavigableSet" class="headerlink" title="NavigableSet"></a>NavigableSet</h2><p><code>NavigableSet</code>扩展了 <code>SortedSet</code>，具有了为给定搜索目标报告最接近匹配项的导航方法。<br>方法 <code>lower</code>、<code>floor</code>、<code>ceiling</code> 和 <code>higher</code> 分别返回小于、小于等于、大于等于、大于给定<br>元素的元素，如果不存在这样的元素，则返回 null</p>
+<h2 id="AbstractSet"><a href="#AbstractSet" class="headerlink" title="AbstractSet"></a>AbstractSet</h2><p><code>AbstractSet</code>实现<code>Set</code>,是一个抽象类。<code>AbstractSet</code>只实现了<code>equals(Object o)</code>,<code>hashCode()</code>,<code>removeAll(Collection&lt;?&gt; c)</code><br>方法。</p>
+<h2 id="EnumSet"><a href="#EnumSet" class="headerlink" title="EnumSet"></a>EnumSet</h2><p><code>EnumSet</code> 是一个专为枚举设计的集合类，<code>EnumSet</code>中的所有元素都必须是指定枚举类型的枚举值，该枚举类型在创建<code>EnumSet</code><br>时显式或隐式地指定。</p>
+<h2 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h2><p><code>HashSet</code>依赖哈希表,它不保证集合中元素的顺序,即不能保证迭代的顺序与插入的顺序一致。<code>HashSet</code>允许<code>null</code>.</p>
+<h2 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h2><p><code>LinkedHashSet</code>继承<code>HashSet</code>,它与<code>HashSet</code>的区别是<code>LinkedHashSet</code>按照元素插入的顺序进行迭代，即迭代输出的顺序与插入的顺序保持一致</p>
+<h2 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h2><p><code>TreeSet</code> 类同时实现了 <code>Set</code> 接口和 <code>NavigableSet</code> 接口。<code>TreeSet</code>是通过二叉树来实现的。</p>
 
           
         
@@ -987,7 +1041,7 @@
 <h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p><code>List</code>是有序的集合，允许使用者控制其插入集合的位置，并能<br>使用整数索引访问数据</p>
 <h2 id="AbstractList"><a href="#AbstractList" class="headerlink" title="AbstractList"></a>AbstractList</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractCollection</span>&lt;<span class="title">E</span>&gt; <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p><code>AbstractList</code>实现<code>List</code>,是一个抽象类。<code>AbstractList</code>提供了<code>List</code>的大部分实现，继承<code>AbstractList</code>,<br>只强制要求实现<code>get(int index)</code>和<code>size()</code>方法，不过<code>AbstractList</code>中的许多方法都是默认实现，需要覆盖，<br>例如<code>add(int index，E e)</code>方法默认抛出异常。</p>
-<h2 id="AbstractSequentialList"><a href="#AbstractSequentialList" class="headerlink" title="AbstractSequentialList"></a>AbstractSequentialList</h2><p><code>AbstractSequentialList</code>提供了<code>AbstractList</code>的大部分实现。当顺序访问数据（例如使用链表来实现）时，优先使用这个类；<br>当对于随机访问数据（例如使用数组来实现）时<code>AbstractList</code>优先使用。</p>
+<h2 id="AbstractSequentialList"><a href="#AbstractSequentialList" class="headerlink" title="AbstractSequentialList"></a>AbstractSequentialList</h2><p><code>AbstractSequentialList</code>提供了<code>AbstractList</code>的大部分实现，只支持按次序访问。当顺序访问数据（例如使用链表来实现）时，优先使用这个类；<br>当对于随机访问数据（例如使用数组来实现）时<code>AbstractList</code>优先使用。</p>
 <h2 id="Deque"><a href="#Deque" class="headerlink" title="Deque"></a>Deque</h2><p><code>Deque</code>是<code>Queue</code>的子接口,<code>Queue</code>是一种队列形式,而<code>Deque</code>则是双向队列,它支持从两个端点方向检索和插入元素,<br>因此<code>Deque</code>既可以支持<code>LIFO</code>(后进先出)形式也可以支持<code>FIFO</code>（先进先出）形式.<code>Deque</code>接口是一种比<code>Stack</code>和<code>Vector</code>更为丰富的抽象数据形式,<br>因为它同时实现了以上两者.</p>
 <h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><p><code>ArrayList</code>是一个数组列表，<code>ArrayList</code>支持存入<code>null</code>.注意<code>ArrayList</code>不是线程同步的，如果要求线程同步，<br>要使用<code>Vector</code></p>
 <p>注意：<code>ArrayList</code>适合搜索频繁的场景，不适合频繁的插入和删除的场景。</p>

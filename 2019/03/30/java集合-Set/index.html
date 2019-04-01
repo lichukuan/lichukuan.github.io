@@ -83,18 +83,18 @@
 
 
 
-<meta name="description" content="如图:  Set不包含重复元素的集合(通过equals来判断)，Set中只能包含一个null.当Set中存入可变元素时，要特别注意，因为我们可能改变可变元素的值，从而影响对象相等的变更。 ##">
+<meta name="description" content="如图:  Set不包含重复元素的集合(通过equals来判断)，Set中只能包含一个null.当Set中存入可变元素时，要特别注意，因为我们可能改变可变元素的值，从而影响对象相等的变更。 SortedSetSortedSet接口定义了对元素进行自然排序的方法，实现它的类用对内部元素进行排序(这里的自然排序指的是升序排序)。 NavigableSetNavigableSet扩展了 SortedSet">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java集合---Set">
 <meta property="og:url" content="http://yoursite.com/2019/03/30/java集合-Set/index.html">
 <meta property="og:site_name" content="我的个人博客">
-<meta property="og:description" content="如图:  Set不包含重复元素的集合(通过equals来判断)，Set中只能包含一个null.当Set中存入可变元素时，要特别注意，因为我们可能改变可变元素的值，从而影响对象相等的变更。 ##">
+<meta property="og:description" content="如图:  Set不包含重复元素的集合(通过equals来判断)，Set中只能包含一个null.当Set中存入可变元素时，要特别注意，因为我们可能改变可变元素的值，从而影响对象相等的变更。 SortedSetSortedSet接口定义了对元素进行自然排序的方法，实现它的类用对内部元素进行排序(这里的自然排序指的是升序排序)。 NavigableSetNavigableSet扩展了 SortedSet">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/03/30/java集合-Set/Set.png">
-<meta property="og:updated_time" content="2019-03-31T14:01:41.303Z">
+<meta property="og:updated_time" content="2019-04-01T09:36:21.101Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java集合---Set">
-<meta name="twitter:description" content="如图:  Set不包含重复元素的集合(通过equals来判断)，Set中只能包含一个null.当Set中存入可变元素时，要特别注意，因为我们可能改变可变元素的值，从而影响对象相等的变更。 ##">
+<meta name="twitter:description" content="如图:  Set不包含重复元素的集合(通过equals来判断)，Set中只能包含一个null.当Set中存入可变元素时，要特别注意，因为我们可能改变可变元素的值，从而影响对象相等的变更。 SortedSetSortedSet接口定义了对元素进行自然排序的方法，实现它的类用对内部元素进行排序(这里的自然排序指的是升序排序)。 NavigableSetNavigableSet扩展了 SortedSet">
 <meta name="twitter:image" content="http://yoursite.com/2019/03/30/java集合-Set/Set.png">
 
 
@@ -330,7 +330,13 @@
         <p>如图:</p>
 <p><img src="/2019/03/30/java集合-Set/Set.png" alt="Set"></p>
 <h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><p>不包含重复元素的集合(通过<code>equals</code>来判断)，<code>Set</code>中只能包含一个<code>null</code>.当<code>Set</code>中存入<br>可变元素时，要特别注意，因为我们可能改变可变元素的值，从而影响对象相等的变更。</p>
-<p>## </p>
+<h2 id="SortedSet"><a href="#SortedSet" class="headerlink" title="SortedSet"></a>SortedSet</h2><p><code>SortedSet</code>接口定义了对元素进行自然排序的方法，实现它的类用对内部元素进行排序(这里的自然排序指的是升序排序)。</p>
+<h2 id="NavigableSet"><a href="#NavigableSet" class="headerlink" title="NavigableSet"></a>NavigableSet</h2><p><code>NavigableSet</code>扩展了 <code>SortedSet</code>，具有了为给定搜索目标报告最接近匹配项的导航方法。<br>方法 <code>lower</code>、<code>floor</code>、<code>ceiling</code> 和 <code>higher</code> 分别返回小于、小于等于、大于等于、大于给定<br>元素的元素，如果不存在这样的元素，则返回 null</p>
+<h2 id="AbstractSet"><a href="#AbstractSet" class="headerlink" title="AbstractSet"></a>AbstractSet</h2><p><code>AbstractSet</code>实现<code>Set</code>,是一个抽象类。<code>AbstractSet</code>只实现了<code>equals(Object o)</code>,<code>hashCode()</code>,<code>removeAll(Collection&lt;?&gt; c)</code><br>方法。</p>
+<h2 id="EnumSet"><a href="#EnumSet" class="headerlink" title="EnumSet"></a>EnumSet</h2><p><code>EnumSet</code> 是一个专为枚举设计的集合类，<code>EnumSet</code>中的所有元素都必须是指定枚举类型的枚举值，该枚举类型在创建<code>EnumSet</code><br>时显式或隐式地指定。</p>
+<h2 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h2><p><code>HashSet</code>依赖哈希表,它不保证集合中元素的顺序,即不能保证迭代的顺序与插入的顺序一致。<code>HashSet</code>允许<code>null</code>.</p>
+<h2 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h2><p><code>LinkedHashSet</code>继承<code>HashSet</code>,它与<code>HashSet</code>的区别是<code>LinkedHashSet</code>按照元素插入的顺序进行迭代，即迭代输出的顺序与插入的顺序保持一致</p>
+<h2 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h2><p><code>TreeSet</code> 类同时实现了 <code>Set</code> 接口和 <code>NavigableSet</code> 接口。<code>TreeSet</code>是通过二叉树来实现的。</p>
 
       
     </div>
@@ -492,7 +498,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Set"><span class="nav-number">1.</span> <span class="nav-text">Set</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Set"><span class="nav-number">1.</span> <span class="nav-text">Set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SortedSet"><span class="nav-number">2.</span> <span class="nav-text">SortedSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NavigableSet"><span class="nav-number">3.</span> <span class="nav-text">NavigableSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AbstractSet"><span class="nav-number">4.</span> <span class="nav-text">AbstractSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EnumSet"><span class="nav-number">5.</span> <span class="nav-text">EnumSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashSet"><span class="nav-number">6.</span> <span class="nav-text">HashSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinkedHashSet"><span class="nav-number">7.</span> <span class="nav-text">LinkedHashSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TreeSet"><span class="nav-number">8.</span> <span class="nav-text">TreeSet</span></a></li></ol></div>
             
 
           </div>
