@@ -91,7 +91,7 @@
 <meta property="og:description" content="如图:  Map存储键/值对的接口，一个键只能对应一个值。 SortedMap通过Comparable或Comparator对key值进行进行排序的接口。 NavigableMapNavigableMap继承SortedMap接口，具有了为给定搜索目标报告最接近匹配项的导航方法。方法 lowerEntry，floorEntry，ceilingEntry，higherEntry 和higherEnt">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/03/30/java集合-Map/Map.png">
-<meta property="og:updated_time" content="2019-04-01T14:15:35.717Z">
+<meta property="og:updated_time" content="2019-04-02T06:16:18.864Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java集合---Map">
 <meta name="twitter:description" content="如图:  Map存储键/值对的接口，一个键只能对应一个值。 SortedMap通过Comparable或Comparator对key值进行进行排序的接口。 NavigableMapNavigableMap继承SortedMap接口，具有了为给定搜索目标报告最接近匹配项的导航方法。方法 lowerEntry，floorEntry，ceilingEntry，higherEntry 和higherEnt">
@@ -335,7 +335,24 @@
 <h2 id="AbstractMap"><a href="#AbstractMap" class="headerlink" title="AbstractMap"></a>AbstractMap</h2><p><code>AbstractMap</code>是抽象类，它实现了<code>Map</code>接口，其中它只定义了<code>public abstract Set&lt;Entry&lt;K,V&gt;&gt; entrySet();</code>一个抽象方法</p>
 <h2 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h2><p><code>TreeMap</code> 是一个有序的<code>key-value</code>集合，它是通过红黑树实现的。该映射根据其键的自然顺序进行排序，<br>或者根据创建映射时提供的 <code>Comparator</code> 进行排序，具体取决于使用的构造方法<br><br><code>TreeMap</code> 继承于<code>AbstractMap</code>，所以它是一个<code>Map</code>，即一个<code>key-value</code>集合。<br><br><code>TreeMap</code> 实现了<code>NavigableMap</code>接口，意味着它支持一系列的导航方法。比如返回有序的<code>key</code>集合。</p>
 <h2 id="EnumMap"><a href="#EnumMap" class="headerlink" title="EnumMap"></a>EnumMap</h2><p><code>EnumMap</code>的key不允许为<code>null</code>，value可以为<code>null</code></p>
-<h2 id="WeakHashMap"><a href="#WeakHashMap" class="headerlink" title="WeakHashMap"></a>WeakHashMap</h2><h2 id="IdentityHashMap"><a href="#IdentityHashMap" class="headerlink" title="IdentityHashMap"></a>IdentityHashMap</h2><h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><h2 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h2><h2 id="HashTable"><a href="#HashTable" class="headerlink" title="HashTable"></a>HashTable</h2>
+<h2 id="WeakHashMap"><a href="#WeakHashMap" class="headerlink" title="WeakHashMap"></a>WeakHashMap</h2><p>WeakHashMap实现了Map接口，是HashMap的一种实现，他使用弱引用作为内部数据的存储方案，WeakHashMap可以作为简单缓存表的解决方案，当系统内存不够的时候，垃圾收集器会自动的清除没有在其他任何地方被引用的键值对。</p>
+<h2 id="IdentityHashMap"><a href="#IdentityHashMap" class="headerlink" title="IdentityHashMap"></a>IdentityHashMap</h2><p>区别与其他的键不能重复的容器，IdentityHashMap允许key值重复，但是——key必须是两个不同的对象，即对于k1和k2，当<code>k1==k2</code>时，<code>IdentityHashMap</code>认为两个key相等，而HashMap只有在<code>k1.equals(k2) == true</code> 时才会认为两个key相等。</p>
+<h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><p>HashMap 是一个散列表，它存储的内容是键值对(key-value)映射。<br>HashMap 继承于AbstractMap，实现了Map、Cloneable、java.io.Serializable接口。<br>HashMap 的实现不是同步的，这意味着它不是线程安全的。它的key、value都可以为null。此外，HashMap中的映射不是有序的。</p>
+<h2 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h2><p>LinkedHashMap是HashMap的一个子类，它保留插入的顺序，如果需要输出的顺序和输入时的相同，那么就选用LinkedHashMap</p>
+<h2 id="HashTable"><a href="#HashTable" class="headerlink" title="HashTable"></a>HashTable</h2><p>转载<a href="http://www.importnew.com/7010.html" target="_blank" rel="noopener">这里</a></p>
+<p>HashMap和Hashtable的区别</p>
+<ul>
+<li>HashMap几乎可以等价于Hashtable，除了HashMap是非synchronized的，并可以接受null(HashMap可以接受为null的键值(key)和值(value)，而Hashtable则不行)。<br>HashMap是非synchronized，而Hashtable是synchronized，这意味着Hashtable是线程安全的，多个线程可以共享一个Hashtable；而如果没有正确的同步的话，多个线程是不能共享HashMap的。Java 5提供了ConcurrentHashMap，它是HashTable的替代，比HashTable的扩展性更好。</li>
+<li>另一个区别是HashMap的迭代器(Iterator)是fail-fast迭代器，而Hashtable的enumerator迭代器不是fail-fast的。所以当有其它线程改变了HashMap的结构（增加或者移除元素），将会抛出ConcurrentModificationException，但迭代器本身的remove()方法移除元素则不会抛出ConcurrentModificationException异常。但这并不是一个一定发生的行为，要看JVM。这条同样也是Enumeration和Iterator的区别。</li>
+<li>由于Hashtable是线程安全的也是synchronized，所以在单线程环境下它比HashMap要慢。如果你不需要同步，只需要单一线程，那么使用HashMap性能要好过Hashtable。<br>HashMap不能保证随着时间的推移Map中的元素次序是不变的。</li>
+</ul>
+<p>要注意的一些重要术语：</p>
+<ol>
+<li>sychronized意味着在一次仅有一个线程能够更改Hashtable。就是说任何线程要更新Hashtable时要首先获得同步锁，其它线程要等到同步锁被释放之后才能再次获得同步锁更新Hashtable。</li>
+<li>Fail-safe和iterator迭代器相关。如果某个集合对象创建了Iterator或者ListIterator，然后其它的线程试图“结构上”更改集合对象，将会抛出ConcurrentModificationException异常。但其它线程可以通过set()方法更改集合对象是允许的，因为这并没有从“结构上”更改集合。但是假如已经从结构上进行了更改，再调用set()方法，将会抛出IllegalArgumentException异常。</li>
+<li>结构上的更改指的是删除或者插入一个元素，这样会影响到map的结构。</li>
+</ol>
+
       
     </div>
     
@@ -450,7 +467,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">博客</span>
                 </a>
               </div>
