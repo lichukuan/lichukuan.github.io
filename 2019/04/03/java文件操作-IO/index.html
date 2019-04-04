@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="字节输入/输出流的介绍   字节流 所在包 作用     InputStream/OutputStream java.io 抽象类   ByteArrayInputStream/ByteArrayOutputStream java.io 字节数组输入/输出流   FileInputStream/FileOutputStream java.io 文件输入/输出流   SequenceInputStr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java文件操作---IO">
+<meta property="og:url" content="http://yoursite.com/2019/04/03/java文件操作-IO/index.html">
+<meta property="og:site_name" content="我的个人博客">
+<meta property="og:description" content="字节输入/输出流的介绍   字节流 所在包 作用     InputStream/OutputStream java.io 抽象类   ByteArrayInputStream/ByteArrayOutputStream java.io 字节数组输入/输出流   FileInputStream/FileOutputStream java.io 文件输入/输出流   SequenceInputStr">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-04T02:40:06.654Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java文件操作---IO">
+<meta name="twitter:description" content="字节输入/输出流的介绍   字节流 所在包 作用     InputStream/OutputStream java.io 抽象类   ByteArrayInputStream/ByteArrayOutputStream java.io 字节数组输入/输出流   FileInputStream/FileOutputStream java.io 文件输入/输出流   SequenceInputStr">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/03/java文件操作-IO/">
+
+
+
+
+
+  <title>java文件操作---IO | 我的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哪有什么胜利可言，挺着就代表着一切</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/java文件操作-IO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lichukuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java文件操作---IO</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-03T20:15:04+08:00">
+                2019-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="字节输入-输出流的介绍"><a href="#字节输入-输出流的介绍" class="headerlink" title="字节输入/输出流的介绍"></a>字节输入/输出流的介绍</h2><table>
+<thead>
+<tr>
+<th>字节流</th>
+<th>所在包</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InputStream/OutputStream</td>
+<td>java.io</td>
+<td>抽象类</td>
+</tr>
+<tr>
+<td>ByteArrayInputStream/ByteArrayOutputStream</td>
+<td>java.io</td>
+<td>字节数组输入/输出流</td>
+</tr>
+<tr>
+<td>FileInputStream/FileOutputStream</td>
+<td>java.io</td>
+<td>文件输入/输出流</td>
+</tr>
+<tr>
+<td>SequenceInputStream</td>
+<td>java.io</td>
+<td>SequenceInputStream类可以将几个输入流串联在一起，合并为一个输入流</td>
+</tr>
+<tr>
+<td>PipedInputStream</td>
+<td>java.io</td>
+<td>管道输入/输出流,让多线程可以通过管道进行线程间的通讯</td>
+</tr>
+<tr>
+<td>FilterInputStream/FilterOutputStream</td>
+<td>java.io</td>
+<td>过滤器字节输入/输出流</td>
+</tr>
+<tr>
+<td>ObjectInputStream/ObjectOutputStream</td>
+<td>java.io</td>
+<td>对象的序列化流</td>
+</tr>
+<tr>
+<td>BufferedInputStream/BufferedOutputStream</td>
+<td>java.io</td>
+<td>缓冲输入/输出流</td>
+</tr>
+<tr>
+<td>PushbackInputStream</td>
+<td>java.io</td>
+<td>PushbackInputStream可以预览下一个字节，不需要时可以推回流中</td>
+</tr>
+<tr>
+<td>DataInputStream/DataOutputStream</td>
+<td>java.io</td>
+<td>是两个与平台无关的数据操作流</td>
+</tr>
+<tr>
+<td>PrintStream</td>
+<td>java.io</td>
+<td>打印流可以打印任意类型的数据，而不用先转化为字符类型</td>
+</tr>
+<tr>
+<td>AudioInputStream</td>
+<td>javax.sound.sampled</td>
+<td>用于音频的流</td>
+</tr>
+<tr>
+<td>CheckedInputStream/CheckedOutputStream</td>
+<td>java.util.zip</td>
+<td></td>
+</tr>
+<tr>
+<td>InflaterInputStream/DeflaterInputStream</td>
+<td>java.util.zip</td>
+<td></td>
+</tr>
+<tr>
+<td>CipherInputStream/CipherOutputStream</td>
+<td>javax.crypto</td>
+<td>对数据进行加密/解密的流</td>
+</tr>
+<tr>
+<td>DigestInputStream/DigestOutputStream</td>
+<td>java.security</td>
+<td>对数据进行加密/解密的流</td>
+</tr>
+<tr>
+<td>ProgressMonitorInputStream</td>
+<td>javax.swing</td>
+<td>监视读取某些 InputStream 的进度</td>
+</tr>
+<tr>
+<td>LineNumberInputStream</td>
+<td>java.io</td>
+<td>已废弃</td>
+</tr>
+<tr>
+<td>StringBufferInputStream</td>
+<td>java.io</td>
+<td>已经废弃</td>
+</tr>
+</tbody>
+</table>
+<h2 id="字符输入-输出流"><a href="#字符输入-输出流" class="headerlink" title="字符输入/输出流"></a>字符输入/输出流</h2><table>
+<thead>
+<tr>
+<th>字符流</th>
+<th>包</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reader/Writer</td>
+<td>java.io</td>
+<td>字符读写的抽象类</td>
+</tr>
+<tr>
+<td>CharArrayReader/CharArrayWriter</td>
+<td>java.io</td>
+<td>字符数组输入/输出流，操作的数据是以字符为单位</td>
+</tr>
+<tr>
+<td>PipedReader/PipedWriter</td>
+<td>java.io</td>
+<td>字符管道输入/输出流，作用是可以通过管道进行线程间的通讯</td>
+</tr>
+<tr>
+<td>FilterReader/FilterWriter</td>
+<td>java.io</td>
+<td>字符过滤流与 字节过滤流的原理一致，都是通过操作要过滤的流本身的方法来实现。不同就是字符过滤流是抽象类，而字节过滤流不是</td>
+</tr>
+<tr>
+<td>StringReader/StringWriter</td>
+<td>java.io</td>
+<td>字符串输入/输出流其本质就是字符串</td>
+</tr>
+<tr>
+<td>BufferedReader/BufferedWriter</td>
+<td>java.io</td>
+<td>缓冲字符输入/输出流</td>
+</tr>
+<tr>
+<td>PushbackReader</td>
+<td>java.io</td>
+<td>PushbackInputStream可以预览下一个字符，不需要时可以推回流中</td>
+</tr>
+<tr>
+<td>LineNumberReader</td>
+<td>java.io</td>
+<td>LineNumberReader可以支持从任意行读取的功能</td>
+</tr>
+<tr>
+<td>FileReader/FileWriter</td>
+<td>java.io</td>
+<td>文件字符输入/输出流</td>
+</tr>
+<tr>
+<td>InputStreamReader/InputStreamWriter</td>
+<td>java.io</td>
+<td>转换流，将字节流转换为字符流</td>
+</tr>
+<tr>
+<td>PrintWriter</td>
+<td>java.io</td>
+<td>字符类型的打印输出流</td>
+</tr>
+</tbody>
+</table>
+<h2 id="FilterInputStream-FilterOutputStream"><a href="#FilterInputStream-FilterOutputStream" class="headerlink" title="FilterInputStream/FilterOutputStream"></a>FilterInputStream/FilterOutputStream</h2><p><code>FilterInputStream/FilterOutputStream</code>类及其子类可以动态给流对象添加功能(利用了装饰者模式),例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//组合FilterInputStream子类和非FilterInputStream子类</span></span><br><span class="line">DataInputStream data = <span class="keyword">new</span> DataInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"hello.txt"</span>));</span><br><span class="line"><span class="comment">//组合FilterInputStream子类和FilterInputStream子类时，要注意顺序,最后构造的类的方法最后使用</span></span><br><span class="line">DataInputStream data1 = <span class="keyword">new</span> DataInputStream(<span class="keyword">new</span> BufferedInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"hello.txt"</span>)));</span><br><span class="line"></span><br><span class="line">BufferedInputStream data2 = <span class="keyword">new</span> BufferedInputStream(<span class="keyword">new</span> DataInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"hello.txt"</span>)));</span><br></pre></td></tr></table></figure>
+<h2 id="Zip"><a href="#Zip" class="headerlink" title="Zip"></a>Zip</h2><h3 id="AudioInputStream"><a href="#AudioInputStream" class="headerlink" title="AudioInputStream"></a>AudioInputStream</h3><p>音频输入流是具有指定音频格式和长度的输入流。长度用示例帧表示，不用字节表示。提供几种方法，用于从流读取一定数量的字节，或未指定数量的字节。音频输入流跟踪所读取的最后一个字节。可以跳过任意数量的字节以到达稍后的读取位置。音频输入流可支持标记。设置标记时，会记住当前位置，以便可以稍后返回到该位置。</p>
+<h3 id="ByteArrayInputStream"><a href="#ByteArrayInputStream" class="headerlink" title="ByteArrayInputStream"></a>ByteArrayInputStream</h3><p>ByteArrayInputStream 是字节数组输入流。它继承于InputStream。<br>它包含一个内部缓冲区，该缓冲区包含从流中读取的字节；通俗点说，它的内部缓冲区就是一个字节数组，而ByteArrayInputStream本质就是通过字节数组来实现的</p>
+<h3 id="FileInputStream"><a href="#FileInputStream" class="headerlink" title="FileInputStream"></a>FileInputStream</h3><h3 id="SequenceInputStream"><a href="#SequenceInputStream" class="headerlink" title="SequenceInputStream"></a>SequenceInputStream</h3><p>可以把多个输入流串联起来读取，先从第一个开始i读取，然后再下一个….<br>序列流是没有读取文件的能力</p>
+<p><a href="https://www.jianshu.com/p/0f746f184a4f" target="_blank" rel="noopener">https://www.jianshu.com/p/0f746f184a4f</a></p>
+<h3 id="StringBufferInputStream"><a href="#StringBufferInputStream" class="headerlink" title="StringBufferInputStream"></a>StringBufferInputStream</h3><p>已废弃</p>
+<h3 id="PipedInputStream"><a href="#PipedInputStream" class="headerlink" title="PipedInputStream"></a>PipedInputStream</h3><p><a href="https://www.cnblogs.com/skywang12345/p/io_04.html" target="_blank" rel="noopener">https://www.cnblogs.com/skywang12345/p/io_04.html</a></p>
+<p>管道输入流。它的作用是让多线程可以通过管道进行线程间的通讯</p>
+<h3 id="FilterInputStream"><a href="#FilterInputStream" class="headerlink" title="FilterInputStream"></a>FilterInputStream</h3><p><a href="https://www.cnblogs.com/xinhuaxuan/p/6054219.html" target="_blank" rel="noopener">https://www.cnblogs.com/xinhuaxuan/p/6054219.html</a></p>
+<p>FilterInputStream、FilterOutputStream 过滤器字节输入流、输出流，这里用到了装饰器模式，它的主要用途在于给一个对象动态的添加功能。</p>
+<h3 id="ObjectInputStream"><a href="#ObjectInputStream" class="headerlink" title="ObjectInputStream"></a>ObjectInputStream</h3><p>ObjectOutputStream 将 Java 对象的基本数据类型和图形写入 OutputStream。可以使用 ObjectInputStream 读取（重构）对象。通过在流中使用文件可以实现对象的持久存储。如果流是网络套接字流，则可以在另一台主机上或另一个进程中重构对象。</p>
+<p>只能将支持 java.io.Serializable 接口的对象写入流中<br><a href="https://blog.csdn.net/chaoyu168/article/details/49766485" target="_blank" rel="noopener">https://blog.csdn.net/chaoyu168/article/details/49766485</a> </p>
+<h3 id="BufferedInputStream"><a href="#BufferedInputStream" class="headerlink" title="BufferedInputStream"></a>BufferedInputStream</h3><p>BufferedInputStream 是缓冲输入流。它继承于FilterInputStream。<br>BufferedInputStream 的作用是为另一个输入流添加一些功能，例如，提供“缓冲功能”以及支持“mark()标记”和“reset()重置方法”。<br>BufferedInputStream 本质上是通过一个内部缓冲区数组实现的。例如，在新建某输入流对应的BufferedInputStream后，当我们通过read()读取输入流的数据时，BufferedInputStream会将该输入流的数据分批的填入到缓冲区中。每当缓冲区中的数据被读完之后，输入流会再次填充数据缓冲区；如此反复，直到我们读完输入流数据位置。</p>
+<p><a href="http://www.cnblogs.com/skywang12345/p/io_12.html" target="_blank" rel="noopener">http://www.cnblogs.com/skywang12345/p/io_12.html</a></p>
+<h3 id="CheckedInputStream"><a href="#CheckedInputStream" class="headerlink" title="CheckedInputStream"></a>CheckedInputStream</h3><p> CheckedInputStream和CheckedOutputStream<br>     这是两个过滤流，用于维护数据校验和。校验和是用于维护数据完整性的一项技术。</p>
+<h3 id="CipherInputStream"><a href="#CipherInputStream" class="headerlink" title="CipherInputStream"></a>CipherInputStream</h3><p>CipherInputStream是由InputStream和一个Cipher组成,read()方法在读入时,对数据进行加解密操作</p>
+<p><a href="https://blog.csdn.net/zmken497300/article/details/51918109" target="_blank" rel="noopener">https://blog.csdn.net/zmken497300/article/details/51918109</a></p>
+<h3 id="DigestInputStream"><a href="#DigestInputStream" class="headerlink" title="DigestInputStream"></a>DigestInputStream</h3><p>MD5加密文件</p>
+<h3 id="InflaterInputStream"><a href="#InflaterInputStream" class="headerlink" title="InflaterInputStream"></a>InflaterInputStream</h3><p>此类实现了一个流过滤器，用于以<em>“deflate”压缩格式解压缩数据。它还用作其他</em>解压缩过滤器的基础，例如GZIPInputStream。</p>
+<h3 id="LineNumberInputStream"><a href="#LineNumberInputStream" class="headerlink" title="LineNumberInputStream"></a>LineNumberInputStream</h3><p>跟踪输入流中的行号；可调用getLineNumber()和setLineNumber(int)</p>
+<h3 id="PushbackInputStream"><a href="#PushbackInputStream" class="headerlink" title="PushbackInputStream"></a>PushbackInputStream</h3><p>PushbackInputStream<br>具有“能弹出一个字节的缓冲区”。因此可以将读到的最后一个字符回退<br>通常作为编译器的扫描器，之所以包含在内是因为Java编译器的需要，我们基本上用不到</p>
+<h3 id="DataInputStream"><a href="#DataInputStream" class="headerlink" title="DataInputStream"></a>DataInputStream</h3><p>与DataOutputStream搭配使用，因此我们可以按照可移植方式从流读取基本数据类型（int,char,long等）<br>包含用于读取基本类型数据的全部接口</p>
+<h3 id="ProgressMonitorInputStream"><a href="#ProgressMonitorInputStream" class="headerlink" title="ProgressMonitorInputStream"></a>ProgressMonitorInputStream</h3><p>监视读取某些 InputStream 的进度。大致用以下形式调用此 ProgressMonitor： </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">InputStream in = <span class="keyword">new</span> BufferedInputStream(</span><br><span class="line">                         <span class="keyword">new</span> ProgressMonitorInputStream(</span><br><span class="line">                                 parentComponent,</span><br><span class="line">                                 <span class="string">"Reading "</span> + fileName,</span><br><span class="line">                                 <span class="keyword">new</span> FileInputStream(fileName)));<span class="number">12345</span></span><br></pre></td></tr></table></figure>
+<p>这可以创建一个进度监视器，以监视读取输入流的进度。如果需要一段时间，将会弹出 ProgressDialog，以通知用户。如果用户单击 Cancel 按钮，则在进行下一次读取操作时会抛出 InterruptedIOException。当关闭流时，会执行所有的正确清除。</p>
+<p><a href="https://blog.csdn.net/zmken497300/article/details/51924434" target="_blank" rel="noopener">https://blog.csdn.net/zmken497300/article/details/51924434</a></p>
+<h3 id="PrintStream"><a href="#PrintStream" class="headerlink" title="PrintStream"></a>PrintStream</h3><p><a href="https://www.jianshu.com/p/88e576067f53" target="_blank" rel="noopener">https://www.jianshu.com/p/88e576067f53</a></p>
+<p>打印流可以打印任意类型的数据。</p>
+<h3 id="DeflaterOutputStream"><a href="#DeflaterOutputStream" class="headerlink" title="DeflaterOutputStream"></a>DeflaterOutputStream</h3><p><a href="https://www.cnblogs.com/kabi/p/6169430.html" target="_blank" rel="noopener">https://www.cnblogs.com/kabi/p/6169430.html</a></p>
+<h2 id="Reader"><a href="#Reader" class="headerlink" title="Reader"></a>Reader</h2><h3 id="CharArrayReader"><a href="#CharArrayReader" class="headerlink" title="CharArrayReader"></a>CharArrayReader</h3><p>CharArrayReader 是字符数组输入流。它和ByteArrayInputStream类似，只不过ByteArrayInputStream是字节数组输入流，而CharArray是字符数组输入流。CharArrayReader 是用于读取字符数组，它继承于Reader。操作的数据是以字符为单位！</p>
+<h3 id="PipedReader"><a href="#PipedReader" class="headerlink" title="PipedReader"></a>PipedReader</h3><p>PipedWriter 是字符管道输出流，它继承于Writer。<br>PipedReader 是字符管道输入流，它继承于Writer。<br>PipedWriter和PipedReader的作用是可以通过管道进行线程间的通讯</p>
+<p><a href="http://www.cnblogs.com/skywang12345/p/io_20.html" target="_blank" rel="noopener">http://www.cnblogs.com/skywang12345/p/io_20.html</a></p>
+<h3 id="FilterReader"><a href="#FilterReader" class="headerlink" title="FilterReader"></a>FilterReader</h3><p>字符过滤流（FilterReader/FilterWriter）与 字节过滤流（FilterInputStream / FilterOutputStream ）的原理一致，都是通过操作要过滤的流本身的方法来实现。<br>不同就是字符过滤流是抽象类，而字节过滤流不是</p>
+<h3 id="StringReader"><a href="#StringReader" class="headerlink" title="StringReader"></a>StringReader</h3><p>本篇将要讲述的是java io包中的StringReader和StringWriter。这两个类都是Reader和Writer的装饰类，使它们拥有了对String类型数据进行操作的能力。</p>
+<p><a href="https://blog.csdn.net/moonfish0607/article/details/78320363" target="_blank" rel="noopener">https://blog.csdn.net/moonfish0607/article/details/78320363</a></p>
+<h3 id="BufferedReader"><a href="#BufferedReader" class="headerlink" title="BufferedReader"></a>BufferedReader</h3><p>BufferedReader 是缓冲字符输入流。它继承于Reader。<br>BufferedReader 的作用是为其他字符输入流添加一些缓冲功能。</p>
+<p><a href="http://www.cnblogs.com/skywang12345/p/io_23.html" target="_blank" rel="noopener">http://www.cnblogs.com/skywang12345/p/io_23.html</a></p>
+<h3 id="PushbackReader"><a href="#PushbackReader" class="headerlink" title="PushbackReader"></a>PushbackReader</h3><p>这里将 PushbackInputStream 和 PushbackReader 放到一起讨论主要是二者的原理机制几乎一模一样，掌握其一即可。它们分别表示 字节推回流、字符推回流。</p>
+<p><a href="https://blog.csdn.net/u012420654/article/details/51549393" target="_blank" rel="noopener">https://blog.csdn.net/u012420654/article/details/51549393</a></p>
+<h3 id="LineNumberReader"><a href="#LineNumberReader" class="headerlink" title="LineNumberReader"></a>LineNumberReader</h3><p>LineNumberReader可以支持从任意行读取的功能，并且提供了setLineNumber()的方法，但是这个按照并不能改变文件指针的位置，只是你调用getLineNumber()这个函数时，结果会变</p>
+<p><a href="http://www.cnblogs.com/jokerSun/p/4172833.html" target="_blank" rel="noopener">http://www.cnblogs.com/jokerSun/p/4172833.html</a></p>
+<h3 id="FileReader"><a href="#FileReader" class="headerlink" title="FileReader"></a>FileReader</h3><h3 id="InputStreamReader"><a href="#InputStreamReader" class="headerlink" title="InputStreamReader"></a>InputStreamReader</h3><p>转换流-InputStreamReader、OutputStreamWriter</p>
+<p><a href="https://www.cnblogs.com/zhaoyanjun/p/6376996.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhaoyanjun/p/6376996.html</a></p>
+<h3 id="PrintWriter"><a href="#PrintWriter" class="headerlink" title="PrintWriter"></a>PrintWriter</h3><p>PrintWriter 是字符类型的打印输出流，它继承于Writer。<br>PrintStream 用于向文本输出流打印对象的格式化表示形式。它实现在 PrintStream 中的所有 print 方法。它不包含用于写入原始字节的方法，对于这些字节，程序应该使用未编码的字节流进行写入。</p>
+<p><a href="https://www.cnblogs.com/skywang12345/p/io_25.html" target="_blank" rel="noopener">https://www.cnblogs.com/skywang12345/p/io_25.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/03/vscode的快捷键/" rel="next" title="vscode的快捷键">
+                <i class="fa fa-chevron-left"></i> vscode的快捷键
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/user.jpg" alt="lichukuan">
+            
+              <p class="site-author-name" itemprop="name">lichukuan</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">博客</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字节输入-输出流的介绍"><span class="nav-number">1.</span> <span class="nav-text">字节输入/输出流的介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符输入-输出流"><span class="nav-number">2.</span> <span class="nav-text">字符输入/输出流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FilterInputStream-FilterOutputStream"><span class="nav-number">3.</span> <span class="nav-text">FilterInputStream/FilterOutputStream</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zip"><span class="nav-number">4.</span> <span class="nav-text">Zip</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AudioInputStream"><span class="nav-number">4.1.</span> <span class="nav-text">AudioInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ByteArrayInputStream"><span class="nav-number">4.2.</span> <span class="nav-text">ByteArrayInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FileInputStream"><span class="nav-number">4.3.</span> <span class="nav-text">FileInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SequenceInputStream"><span class="nav-number">4.4.</span> <span class="nav-text">SequenceInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBufferInputStream"><span class="nav-number">4.5.</span> <span class="nav-text">StringBufferInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PipedInputStream"><span class="nav-number">4.6.</span> <span class="nav-text">PipedInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FilterInputStream"><span class="nav-number">4.7.</span> <span class="nav-text">FilterInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ObjectInputStream"><span class="nav-number">4.8.</span> <span class="nav-text">ObjectInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BufferedInputStream"><span class="nav-number">4.9.</span> <span class="nav-text">BufferedInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CheckedInputStream"><span class="nav-number">4.10.</span> <span class="nav-text">CheckedInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CipherInputStream"><span class="nav-number">4.11.</span> <span class="nav-text">CipherInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DigestInputStream"><span class="nav-number">4.12.</span> <span class="nav-text">DigestInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InflaterInputStream"><span class="nav-number">4.13.</span> <span class="nav-text">InflaterInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LineNumberInputStream"><span class="nav-number">4.14.</span> <span class="nav-text">LineNumberInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PushbackInputStream"><span class="nav-number">4.15.</span> <span class="nav-text">PushbackInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataInputStream"><span class="nav-number">4.16.</span> <span class="nav-text">DataInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ProgressMonitorInputStream"><span class="nav-number">4.17.</span> <span class="nav-text">ProgressMonitorInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PrintStream"><span class="nav-number">4.18.</span> <span class="nav-text">PrintStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DeflaterOutputStream"><span class="nav-number">4.19.</span> <span class="nav-text">DeflaterOutputStream</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reader"><span class="nav-number">5.</span> <span class="nav-text">Reader</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CharArrayReader"><span class="nav-number">5.1.</span> <span class="nav-text">CharArrayReader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PipedReader"><span class="nav-number">5.2.</span> <span class="nav-text">PipedReader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FilterReader"><span class="nav-number">5.3.</span> <span class="nav-text">FilterReader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringReader"><span class="nav-number">5.4.</span> <span class="nav-text">StringReader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BufferedReader"><span class="nav-number">5.5.</span> <span class="nav-text">BufferedReader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PushbackReader"><span class="nav-number">5.6.</span> <span class="nav-text">PushbackReader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LineNumberReader"><span class="nav-number">5.7.</span> <span class="nav-text">LineNumberReader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FileReader"><span class="nav-number">5.8.</span> <span class="nav-text">FileReader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InputStreamReader"><span class="nav-number">5.9.</span> <span class="nav-text">InputStreamReader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PrintWriter"><span class="nav-number">5.10.</span> <span class="nav-text">PrintWriter</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lichukuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -233,6 +233,518 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/java文件操作-IO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lichukuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/03/java文件操作-IO/" itemprop="url">java文件操作---IO</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-03T20:15:04+08:00">
+                2019-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="字节输入-输出流的介绍"><a href="#字节输入-输出流的介绍" class="headerlink" title="字节输入/输出流的介绍"></a>字节输入/输出流的介绍</h2><table>
+<thead>
+<tr>
+<th>字节流</th>
+<th>所在包</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InputStream/OutputStream</td>
+<td>java.io</td>
+<td>抽象类</td>
+</tr>
+<tr>
+<td>ByteArrayInputStream/ByteArrayOutputStream</td>
+<td>java.io</td>
+<td>字节数组输入/输出流</td>
+</tr>
+<tr>
+<td>FileInputStream/FileOutputStream</td>
+<td>java.io</td>
+<td>文件输入/输出流</td>
+</tr>
+<tr>
+<td>SequenceInputStream</td>
+<td>java.io</td>
+<td>SequenceInputStream类可以将几个输入流串联在一起，合并为一个输入流</td>
+</tr>
+<tr>
+<td>PipedInputStream</td>
+<td>java.io</td>
+<td>管道输入/输出流,让多线程可以通过管道进行线程间的通讯</td>
+</tr>
+<tr>
+<td>FilterInputStream/FilterOutputStream</td>
+<td>java.io</td>
+<td>过滤器字节输入/输出流</td>
+</tr>
+<tr>
+<td>ObjectInputStream/ObjectOutputStream</td>
+<td>java.io</td>
+<td>对象的序列化流</td>
+</tr>
+<tr>
+<td>BufferedInputStream/BufferedOutputStream</td>
+<td>java.io</td>
+<td>缓冲输入/输出流</td>
+</tr>
+<tr>
+<td>PushbackInputStream</td>
+<td>java.io</td>
+<td>PushbackInputStream可以预览下一个字节，不需要时可以推回流中</td>
+</tr>
+<tr>
+<td>DataInputStream/DataOutputStream</td>
+<td>java.io</td>
+<td>是两个与平台无关的数据操作流</td>
+</tr>
+<tr>
+<td>PrintStream</td>
+<td>java.io</td>
+<td>打印流可以打印任意类型的数据，而不用先转化为字符类型</td>
+</tr>
+<tr>
+<td>AudioInputStream</td>
+<td>javax.sound.sampled</td>
+<td>用于音频的流</td>
+</tr>
+<tr>
+<td>CheckedInputStream/CheckedOutputStream</td>
+<td>java.util.zip</td>
+<td></td>
+</tr>
+<tr>
+<td>InflaterInputStream/DeflaterInputStream</td>
+<td>java.util.zip</td>
+<td></td>
+</tr>
+<tr>
+<td>CipherInputStream/CipherOutputStream</td>
+<td>javax.crypto</td>
+<td>对数据进行加密/解密的流</td>
+</tr>
+<tr>
+<td>DigestInputStream/DigestOutputStream</td>
+<td>java.security</td>
+<td>对数据进行加密/解密的流</td>
+</tr>
+<tr>
+<td>ProgressMonitorInputStream</td>
+<td>javax.swing</td>
+<td>监视读取某些 InputStream 的进度</td>
+</tr>
+<tr>
+<td>LineNumberInputStream</td>
+<td>java.io</td>
+<td>已废弃</td>
+</tr>
+<tr>
+<td>StringBufferInputStream</td>
+<td>java.io</td>
+<td>已经废弃</td>
+</tr>
+</tbody>
+</table>
+<h2 id="字符输入-输出流"><a href="#字符输入-输出流" class="headerlink" title="字符输入/输出流"></a>字符输入/输出流</h2><table>
+<thead>
+<tr>
+<th>字符流</th>
+<th>包</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reader/Writer</td>
+<td>java.io</td>
+<td>字符读写的抽象类</td>
+</tr>
+<tr>
+<td>CharArrayReader/CharArrayWriter</td>
+<td>java.io</td>
+<td>字符数组输入/输出流，操作的数据是以字符为单位</td>
+</tr>
+<tr>
+<td>PipedReader/PipedWriter</td>
+<td>java.io</td>
+<td>字符管道输入/输出流，作用是可以通过管道进行线程间的通讯</td>
+</tr>
+<tr>
+<td>FilterReader/FilterWriter</td>
+<td>java.io</td>
+<td>字符过滤流与 字节过滤流的原理一致，都是通过操作要过滤的流本身的方法来实现。不同就是字符过滤流是抽象类，而字节过滤流不是</td>
+</tr>
+<tr>
+<td>StringReader/StringWriter</td>
+<td>java.io</td>
+<td>字符串输入/输出流其本质就是字符串</td>
+</tr>
+<tr>
+<td>BufferedReader/BufferedWriter</td>
+<td>java.io</td>
+<td>缓冲字符输入/输出流</td>
+</tr>
+<tr>
+<td>PushbackReader</td>
+<td>java.io</td>
+<td>PushbackInputStream可以预览下一个字符，不需要时可以推回流中</td>
+</tr>
+<tr>
+<td>LineNumberReader</td>
+<td>java.io</td>
+<td>LineNumberReader可以支持从任意行读取的功能</td>
+</tr>
+<tr>
+<td>FileReader/FileWriter</td>
+<td>java.io</td>
+<td>文件字符输入/输出流</td>
+</tr>
+<tr>
+<td>InputStreamReader/InputStreamWriter</td>
+<td>java.io</td>
+<td>转换流，将字节流转换为字符流</td>
+</tr>
+<tr>
+<td>PrintWriter</td>
+<td>java.io</td>
+<td>字符类型的打印输出流</td>
+</tr>
+</tbody>
+</table>
+<h2 id="FilterInputStream-FilterOutputStream"><a href="#FilterInputStream-FilterOutputStream" class="headerlink" title="FilterInputStream/FilterOutputStream"></a>FilterInputStream/FilterOutputStream</h2><p><code>FilterInputStream/FilterOutputStream</code>类及其子类可以动态给流对象添加功能(利用了装饰者模式),例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//组合FilterInputStream子类和非FilterInputStream子类</span></span><br><span class="line">DataInputStream data = <span class="keyword">new</span> DataInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"hello.txt"</span>));</span><br><span class="line"><span class="comment">//组合FilterInputStream子类和FilterInputStream子类时，要注意顺序,最后构造的类的方法最后使用</span></span><br><span class="line">DataInputStream data1 = <span class="keyword">new</span> DataInputStream(<span class="keyword">new</span> BufferedInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"hello.txt"</span>)));</span><br><span class="line"></span><br><span class="line">BufferedInputStream data2 = <span class="keyword">new</span> BufferedInputStream(<span class="keyword">new</span> DataInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"hello.txt"</span>)));</span><br></pre></td></tr></table></figure>
+<h2 id="Zip"><a href="#Zip" class="headerlink" title="Zip"></a>Zip</h2><h3 id="AudioInputStream"><a href="#AudioInputStream" class="headerlink" title="AudioInputStream"></a>AudioInputStream</h3><p>音频输入流是具有指定音频格式和长度的输入流。长度用示例帧表示，不用字节表示。提供几种方法，用于从流读取一定数量的字节，或未指定数量的字节。音频输入流跟踪所读取的最后一个字节。可以跳过任意数量的字节以到达稍后的读取位置。音频输入流可支持标记。设置标记时，会记住当前位置，以便可以稍后返回到该位置。</p>
+<h3 id="ByteArrayInputStream"><a href="#ByteArrayInputStream" class="headerlink" title="ByteArrayInputStream"></a>ByteArrayInputStream</h3><p>ByteArrayInputStream 是字节数组输入流。它继承于InputStream。<br>它包含一个内部缓冲区，该缓冲区包含从流中读取的字节；通俗点说，它的内部缓冲区就是一个字节数组，而ByteArrayInputStream本质就是通过字节数组来实现的</p>
+<h3 id="FileInputStream"><a href="#FileInputStream" class="headerlink" title="FileInputStream"></a>FileInputStream</h3><h3 id="SequenceInputStream"><a href="#SequenceInputStream" class="headerlink" title="SequenceInputStream"></a>SequenceInputStream</h3><p>可以把多个输入流串联起来读取，先从第一个开始i读取，然后再下一个….<br>序列流是没有读取文件的能力</p>
+<p><a href="https://www.jianshu.com/p/0f746f184a4f" target="_blank" rel="noopener">https://www.jianshu.com/p/0f746f184a4f</a></p>
+<h3 id="StringBufferInputStream"><a href="#StringBufferInputStream" class="headerlink" title="StringBufferInputStream"></a>StringBufferInputStream</h3><p>已废弃</p>
+<h3 id="PipedInputStream"><a href="#PipedInputStream" class="headerlink" title="PipedInputStream"></a>PipedInputStream</h3><p><a href="https://www.cnblogs.com/skywang12345/p/io_04.html" target="_blank" rel="noopener">https://www.cnblogs.com/skywang12345/p/io_04.html</a></p>
+<p>管道输入流。它的作用是让多线程可以通过管道进行线程间的通讯</p>
+<h3 id="FilterInputStream"><a href="#FilterInputStream" class="headerlink" title="FilterInputStream"></a>FilterInputStream</h3><p><a href="https://www.cnblogs.com/xinhuaxuan/p/6054219.html" target="_blank" rel="noopener">https://www.cnblogs.com/xinhuaxuan/p/6054219.html</a></p>
+<p>FilterInputStream、FilterOutputStream 过滤器字节输入流、输出流，这里用到了装饰器模式，它的主要用途在于给一个对象动态的添加功能。</p>
+<h3 id="ObjectInputStream"><a href="#ObjectInputStream" class="headerlink" title="ObjectInputStream"></a>ObjectInputStream</h3><p>ObjectOutputStream 将 Java 对象的基本数据类型和图形写入 OutputStream。可以使用 ObjectInputStream 读取（重构）对象。通过在流中使用文件可以实现对象的持久存储。如果流是网络套接字流，则可以在另一台主机上或另一个进程中重构对象。</p>
+<p>只能将支持 java.io.Serializable 接口的对象写入流中<br><a href="https://blog.csdn.net/chaoyu168/article/details/49766485" target="_blank" rel="noopener">https://blog.csdn.net/chaoyu168/article/details/49766485</a> </p>
+<h3 id="BufferedInputStream"><a href="#BufferedInputStream" class="headerlink" title="BufferedInputStream"></a>BufferedInputStream</h3><p>BufferedInputStream 是缓冲输入流。它继承于FilterInputStream。<br>BufferedInputStream 的作用是为另一个输入流添加一些功能，例如，提供“缓冲功能”以及支持“mark()标记”和“reset()重置方法”。<br>BufferedInputStream 本质上是通过一个内部缓冲区数组实现的。例如，在新建某输入流对应的BufferedInputStream后，当我们通过read()读取输入流的数据时，BufferedInputStream会将该输入流的数据分批的填入到缓冲区中。每当缓冲区中的数据被读完之后，输入流会再次填充数据缓冲区；如此反复，直到我们读完输入流数据位置。</p>
+<p><a href="http://www.cnblogs.com/skywang12345/p/io_12.html" target="_blank" rel="noopener">http://www.cnblogs.com/skywang12345/p/io_12.html</a></p>
+<h3 id="CheckedInputStream"><a href="#CheckedInputStream" class="headerlink" title="CheckedInputStream"></a>CheckedInputStream</h3><p> CheckedInputStream和CheckedOutputStream<br>     这是两个过滤流，用于维护数据校验和。校验和是用于维护数据完整性的一项技术。</p>
+<h3 id="CipherInputStream"><a href="#CipherInputStream" class="headerlink" title="CipherInputStream"></a>CipherInputStream</h3><p>CipherInputStream是由InputStream和一个Cipher组成,read()方法在读入时,对数据进行加解密操作</p>
+<p><a href="https://blog.csdn.net/zmken497300/article/details/51918109" target="_blank" rel="noopener">https://blog.csdn.net/zmken497300/article/details/51918109</a></p>
+<h3 id="DigestInputStream"><a href="#DigestInputStream" class="headerlink" title="DigestInputStream"></a>DigestInputStream</h3><p>MD5加密文件</p>
+<h3 id="InflaterInputStream"><a href="#InflaterInputStream" class="headerlink" title="InflaterInputStream"></a>InflaterInputStream</h3><p>此类实现了一个流过滤器，用于以<em>“deflate”压缩格式解压缩数据。它还用作其他</em>解压缩过滤器的基础，例如GZIPInputStream。</p>
+<h3 id="LineNumberInputStream"><a href="#LineNumberInputStream" class="headerlink" title="LineNumberInputStream"></a>LineNumberInputStream</h3><p>跟踪输入流中的行号；可调用getLineNumber()和setLineNumber(int)</p>
+<h3 id="PushbackInputStream"><a href="#PushbackInputStream" class="headerlink" title="PushbackInputStream"></a>PushbackInputStream</h3><p>PushbackInputStream<br>具有“能弹出一个字节的缓冲区”。因此可以将读到的最后一个字符回退<br>通常作为编译器的扫描器，之所以包含在内是因为Java编译器的需要，我们基本上用不到</p>
+<h3 id="DataInputStream"><a href="#DataInputStream" class="headerlink" title="DataInputStream"></a>DataInputStream</h3><p>与DataOutputStream搭配使用，因此我们可以按照可移植方式从流读取基本数据类型（int,char,long等）<br>包含用于读取基本类型数据的全部接口</p>
+<h3 id="ProgressMonitorInputStream"><a href="#ProgressMonitorInputStream" class="headerlink" title="ProgressMonitorInputStream"></a>ProgressMonitorInputStream</h3><p>监视读取某些 InputStream 的进度。大致用以下形式调用此 ProgressMonitor： </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">InputStream in = <span class="keyword">new</span> BufferedInputStream(</span><br><span class="line">                         <span class="keyword">new</span> ProgressMonitorInputStream(</span><br><span class="line">                                 parentComponent,</span><br><span class="line">                                 <span class="string">"Reading "</span> + fileName,</span><br><span class="line">                                 <span class="keyword">new</span> FileInputStream(fileName)));<span class="number">12345</span></span><br></pre></td></tr></table></figure>
+<p>这可以创建一个进度监视器，以监视读取输入流的进度。如果需要一段时间，将会弹出 ProgressDialog，以通知用户。如果用户单击 Cancel 按钮，则在进行下一次读取操作时会抛出 InterruptedIOException。当关闭流时，会执行所有的正确清除。</p>
+<p><a href="https://blog.csdn.net/zmken497300/article/details/51924434" target="_blank" rel="noopener">https://blog.csdn.net/zmken497300/article/details/51924434</a></p>
+<h3 id="PrintStream"><a href="#PrintStream" class="headerlink" title="PrintStream"></a>PrintStream</h3><p><a href="https://www.jianshu.com/p/88e576067f53" target="_blank" rel="noopener">https://www.jianshu.com/p/88e576067f53</a></p>
+<p>打印流可以打印任意类型的数据。</p>
+<h3 id="DeflaterOutputStream"><a href="#DeflaterOutputStream" class="headerlink" title="DeflaterOutputStream"></a>DeflaterOutputStream</h3><p><a href="https://www.cnblogs.com/kabi/p/6169430.html" target="_blank" rel="noopener">https://www.cnblogs.com/kabi/p/6169430.html</a></p>
+<h2 id="Reader"><a href="#Reader" class="headerlink" title="Reader"></a>Reader</h2><h3 id="CharArrayReader"><a href="#CharArrayReader" class="headerlink" title="CharArrayReader"></a>CharArrayReader</h3><p>CharArrayReader 是字符数组输入流。它和ByteArrayInputStream类似，只不过ByteArrayInputStream是字节数组输入流，而CharArray是字符数组输入流。CharArrayReader 是用于读取字符数组，它继承于Reader。操作的数据是以字符为单位！</p>
+<h3 id="PipedReader"><a href="#PipedReader" class="headerlink" title="PipedReader"></a>PipedReader</h3><p>PipedWriter 是字符管道输出流，它继承于Writer。<br>PipedReader 是字符管道输入流，它继承于Writer。<br>PipedWriter和PipedReader的作用是可以通过管道进行线程间的通讯</p>
+<p><a href="http://www.cnblogs.com/skywang12345/p/io_20.html" target="_blank" rel="noopener">http://www.cnblogs.com/skywang12345/p/io_20.html</a></p>
+<h3 id="FilterReader"><a href="#FilterReader" class="headerlink" title="FilterReader"></a>FilterReader</h3><p>字符过滤流（FilterReader/FilterWriter）与 字节过滤流（FilterInputStream / FilterOutputStream ）的原理一致，都是通过操作要过滤的流本身的方法来实现。<br>不同就是字符过滤流是抽象类，而字节过滤流不是</p>
+<h3 id="StringReader"><a href="#StringReader" class="headerlink" title="StringReader"></a>StringReader</h3><p>本篇将要讲述的是java io包中的StringReader和StringWriter。这两个类都是Reader和Writer的装饰类，使它们拥有了对String类型数据进行操作的能力。</p>
+<p><a href="https://blog.csdn.net/moonfish0607/article/details/78320363" target="_blank" rel="noopener">https://blog.csdn.net/moonfish0607/article/details/78320363</a></p>
+<h3 id="BufferedReader"><a href="#BufferedReader" class="headerlink" title="BufferedReader"></a>BufferedReader</h3><p>BufferedReader 是缓冲字符输入流。它继承于Reader。<br>BufferedReader 的作用是为其他字符输入流添加一些缓冲功能。</p>
+<p><a href="http://www.cnblogs.com/skywang12345/p/io_23.html" target="_blank" rel="noopener">http://www.cnblogs.com/skywang12345/p/io_23.html</a></p>
+<h3 id="PushbackReader"><a href="#PushbackReader" class="headerlink" title="PushbackReader"></a>PushbackReader</h3><p>这里将 PushbackInputStream 和 PushbackReader 放到一起讨论主要是二者的原理机制几乎一模一样，掌握其一即可。它们分别表示 字节推回流、字符推回流。</p>
+<p><a href="https://blog.csdn.net/u012420654/article/details/51549393" target="_blank" rel="noopener">https://blog.csdn.net/u012420654/article/details/51549393</a></p>
+<h3 id="LineNumberReader"><a href="#LineNumberReader" class="headerlink" title="LineNumberReader"></a>LineNumberReader</h3><p>LineNumberReader可以支持从任意行读取的功能，并且提供了setLineNumber()的方法，但是这个按照并不能改变文件指针的位置，只是你调用getLineNumber()这个函数时，结果会变</p>
+<p><a href="http://www.cnblogs.com/jokerSun/p/4172833.html" target="_blank" rel="noopener">http://www.cnblogs.com/jokerSun/p/4172833.html</a></p>
+<h3 id="FileReader"><a href="#FileReader" class="headerlink" title="FileReader"></a>FileReader</h3><h3 id="InputStreamReader"><a href="#InputStreamReader" class="headerlink" title="InputStreamReader"></a>InputStreamReader</h3><p>转换流-InputStreamReader、OutputStreamWriter</p>
+<p><a href="https://www.cnblogs.com/zhaoyanjun/p/6376996.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhaoyanjun/p/6376996.html</a></p>
+<h3 id="PrintWriter"><a href="#PrintWriter" class="headerlink" title="PrintWriter"></a>PrintWriter</h3><p>PrintWriter 是字符类型的打印输出流，它继承于Writer。<br>PrintStream 用于向文本输出流打印对象的格式化表示形式。它实现在 PrintStream 中的所有 print 方法。它不包含用于写入原始字节的方法，对于这些字节，程序应该使用未编码的字节流进行写入。</p>
+<p><a href="https://www.cnblogs.com/skywang12345/p/io_25.html" target="_blank" rel="noopener">https://www.cnblogs.com/skywang12345/p/io_25.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/vscode的快捷键/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lichukuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/03/vscode的快捷键/" itemprop="url">vscode的快捷键</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-03T17:35:34+08:00">
+                2019-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具的使用/" itemprop="url" rel="index">
+                    <span itemprop="name">工具的使用</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>转载<a href="https://lzw.me/a/vscode-visual-studio-code-shortcut.html#" target="_blank" rel="noopener">vscode: Visual Studio Code 常用快捷键</a></p>
+<h2 id="主命令框"><a href="#主命令框" class="headerlink" title="主命令框"></a>主命令框</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">F1 或 Ctrl+Shift+P : 打开命令面板。在打开的输入框内，可以输入任何命令，例如：</span><br><span class="line">按一下 Backspace 会进入到 Ctrl+P 模式</span><br><span class="line">在 Ctrl+P 下输入 &gt; 可以进入 Ctrl+Shift+P 模式</span><br><span class="line">在 Ctrl+P 窗口下还可以:</span><br><span class="line">-直接输入文件名，跳转到文件</span><br><span class="line"></span><br><span class="line">? 列出当前可执行的动作</span><br><span class="line">! 显示 Errors或 Warnings，也可以 Ctrl+Shift+M</span><br><span class="line">: 跳转到行数，也可以 Ctrl+G 直接进入</span><br><span class="line">@ 跳转到 symbol（搜索变量或者函数），也可以 Ctrl+Shift+O 直接进入</span><br><span class="line">@ 根据分类跳转 symbol，查找属性或函数，也可以 Ctrl+Shift+O 后输入:进入</span><br></pre></td></tr></table></figure>
+<h2 id="根据名字查找-symbol，也可以-Ctrl-T"><a href="#根据名字查找-symbol，也可以-Ctrl-T" class="headerlink" title="根据名字查找 symbol，也可以 Ctrl+T"></a>根据名字查找 symbol，也可以 Ctrl+T</h2><h2 id="编辑器与窗口管理"><a href="#编辑器与窗口管理" class="headerlink" title="编辑器与窗口管理"></a>编辑器与窗口管理</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">打开一个新窗口： Ctrl+Shift+N</span><br><span class="line">关闭窗口： Ctrl+Shift+W</span><br><span class="line">同时打开多个编辑器（查看多个文件）</span><br><span class="line">新建文件 Ctrl+N</span><br><span class="line">文件之间切换 Ctrl+Tab</span><br><span class="line">切出一个新的编辑器（最多 <span class="number">3</span> 个） Ctrl+\，也可以按住 Ctrl 鼠标点击 Explorer 里的文件名</span><br><span class="line">左中右 <span class="number">3</span> 个编辑器的快捷键 Ctrl+<span class="number">1</span> Ctrl+<span class="number">2</span> Ctrl+<span class="number">3</span></span><br><span class="line"><span class="number">3</span> 个编辑器之间循环切换 Ctrl+</span><br><span class="line">编辑器换位置， Ctrl+k然后按 Left或 Right</span><br></pre></td></tr></table></figure>
+<h2 id="代码编辑"><a href="#代码编辑" class="headerlink" title="代码编辑"></a>代码编辑</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">代码行缩进: Ctrl+[ 、 Ctrl+]</span><br><span class="line">Ctrl+C 、 Ctrl+V 复制或剪切当前行/当前选中内容</span><br><span class="line">代码格式化： Shift+Alt+F，或 Ctrl+Shift+P 后输入 format code</span><br><span class="line">上下移动一行： Alt+Up 或 Alt+Down</span><br><span class="line">向上向下复制一行： Shift+Alt+Up 或 Shift+Alt+Down</span><br><span class="line">在当前行下边插入一行: Ctrl+Enter</span><br><span class="line">在当前行上方插入一行 Ctrl+Shift+Enter</span><br></pre></td></tr></table></figure>
+<h2 id="光标相关"><a href="#光标相关" class="headerlink" title="光标相关"></a>光标相关</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">移动到行首： Home</span><br><span class="line">移动到行尾： End</span><br><span class="line">移动到文件结尾： Ctrl+End</span><br><span class="line">移动到文件开头： Ctrl+Home</span><br><span class="line">移动到定义处： F12</span><br><span class="line">定义处缩略图：只看一眼而不跳转过去 Alt+F12</span><br><span class="line">移动到后半个括号： Ctrl+Shift+]</span><br><span class="line">选择从光标到行尾： Shift+End</span><br><span class="line">选择从行首到光标处： Shift+Home</span><br><span class="line">删除光标右侧的所有字： Ctrl+Delete</span><br><span class="line">扩展/缩小选取范围： Shift+Alt+Left 和 Shift+Alt+Right</span><br><span class="line">多行编辑(列编辑)：Alt+Shift+鼠标左键， Ctrl+Alt+Down/Up</span><br><span class="line">同时选中所有匹配： Ctrl+Shift+L</span><br><span class="line">Ctrl+D 下一个匹配的也被选中 (在 sublime 中是删除当前行，后面自定义快键键中，设置与 Ctrl+Shift+K 互换了)</span><br><span class="line">回退上一个光标操作： Ctrl+U</span><br><span class="line">选中所有匹配词批量编辑：鼠标高亮选中需要查找的词，按下 Ctrl + Shift + L键，即可快速选中当前文件中所有匹配的词，并在每一个词后面有一个编辑光标，可批量同步编辑</span><br></pre></td></tr></table></figure>
+<h2 id="重构代码"><a href="#重构代码" class="headerlink" title="重构代码"></a>重构代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">找到所有的引用： Shift+F12</span><br><span class="line">同时修改本文件中所有匹配的： Ctrl+F12</span><br><span class="line">重命名：比如要修改一个方法名，可以选中后按 F2，输入新名字，回车，则所有该方法的引用也都同步更新了</span><br><span class="line">跳转到下一个 Error 或 Warning：当有多个错误时可以按 F8 逐个跳转</span><br><span class="line">查看 diff： 在 explorer 里选择文件右键 Set file tocompare，然后需要对比的文件上右键选择 Compare with file_name_you_chose</span><br><span class="line">查找替换</span><br><span class="line">查找 Ctrl+F</span><br><span class="line">查找替换 Ctrl+H</span><br><span class="line">整个文件夹中查找 Ctrl+Shift+F</span><br></pre></td></tr></table></figure>
+<h2 id="显示相关"><a href="#显示相关" class="headerlink" title="显示相关"></a>显示相关</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">全屏：F11</span><br><span class="line">zoomIn/zoomOut：Ctrl +/-</span><br><span class="line">侧边栏显/隐： Ctrl+B</span><br><span class="line">显示资源管理器 Ctrl+Shift+E</span><br><span class="line">显示搜索 Ctrl+Shift+F</span><br><span class="line">显示 Git Ctrl+Shift+G</span><br><span class="line">显示 Debug Ctrl+Shift+D</span><br><span class="line">显示 Output Ctrl+Shift+U</span><br></pre></td></tr></table></figure>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">自动保存：File -&gt; AutoSave，或者 Ctrl+Shift+P，输入 auto</span><br><span class="line">修改默认快捷键</span><br><span class="line">打开默认键盘快捷方式设置：File -&gt; Preferences -&gt; Keyboard Shortcuts，或者：Alt+F -&gt; p -&gt; k</span><br></pre></td></tr></table></figure>
+<h2 id="修改-keybindings-json："><a href="#修改-keybindings-json：" class="headerlink" title="修改 keybindings.json："></a>修改 keybindings.json：</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">// Place your key bindings in this file to overwrite the defaults</span><br><span class="line">[</span><br><span class="line">    // ctrl+space 被切换输入法快捷键占用</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"ctrl+alt+space"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.triggerSuggest"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorTextFocus"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    // ctrl+d 删除一行</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"ctrl+d"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.deleteLines"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorTextFocus"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    // 与删除一行的快捷键互换</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"ctrl+shift+k"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.addSelectionToNextFindMatch"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorFocus"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    // ctrl+shift+/多行注释</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"key"</span>:<span class="string">"ctrl+shift+/"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.blockComment"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorTextFocus"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    // 定制与 sublime 相同的大小写转换快捷键</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"ctrl+k ctrl+u"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.transformToUppercase"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorTextFocus"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"ctrl+k ctrl+l"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.transformToLowercase"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorTextFocus"</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h2 id="前端开发必备插件"><a href="#前端开发必备插件" class="headerlink" title="前端开发必备插件"></a>前端开发必备插件</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">PostCSS Sorting</span><br><span class="line">stylelint</span><br><span class="line">stylefmt</span><br><span class="line">ESLint</span><br><span class="line">javascript standard format</span><br><span class="line">beautify</span><br><span class="line">Babel ES6/ES7</span><br><span class="line">Debugger <span class="keyword">for</span> Chrome</span><br><span class="line">Add jsdoc comments</span><br><span class="line">javascript(ES6) code snippets</span><br><span class="line">vue</span><br><span class="line">weex</span><br><span class="line">Reactjs code snippets</span><br><span class="line">React Native Tools</span><br><span class="line">Npm Intellisense</span><br><span class="line">Instant Markdown</span><br><span class="line">Markdown Shortcuts</span><br><span class="line">TextTransform</span><br><span class="line">使用等宽字体：</span><br><span class="line">Fira Code</span><br></pre></td></tr></table></figure>
+<h2 id="vscode-自定义配置参考："><a href="#vscode-自定义配置参考：" class="headerlink" title="vscode 自定义配置参考："></a>vscode 自定义配置参考：</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"editor.fontSize"</span>: <span class="number">16</span>,</span><br><span class="line">    <span class="attr">"editor.tabSize"</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="attr">"editor.fontLigatures"</span>: <span class="literal">true</span>,</span><br><span class="line">        // 使用等宽字体 Fira Code</span><br><span class="line">    "editor.fontFamily": "Fira Code, 'Noto Sans CJK SC Medium', Consolas, 'Courier New', monospace",</span><br><span class="line">        // 关闭右侧的 minimap</span><br><span class="line">    "editor.minimap.enabled": false,</span><br><span class="line">    "editor.minimap.renderCharacters": false,</span><br><span class="line">    "files.associations": &#123;</span><br><span class="line">        "*.es": "javascript",</span><br><span class="line">        "*.es6": "javascript"</span><br><span class="line">    &#125;,</span><br><span class="line">    // 控制编辑器是否应呈现空白字符</span><br><span class="line">    "editor.renderWhitespace": "all",</span><br><span class="line">    // 启用后，将在保存文件时剪裁尾随空格。</span><br><span class="line">    "files.trimTrailingWhitespace": true,</span><br><span class="line">    // File extensions that can be beautified as javascript or JSON.</span><br><span class="line">    "beautify.JSfiles": [</span><br><span class="line">        "",</span><br><span class="line">        "es",</span><br><span class="line">        "es6",</span><br><span class="line">        "js",</span><br><span class="line">        "json",</span><br><span class="line">        "jsbeautifyrc",</span><br><span class="line">        <span class="string">"jshintrc"</span></span><br><span class="line">    ],</span><br><span class="line">    // 关闭 git 自动刷新、fetch、add 操作</span><br><span class="line">    "git.enableSmartCommit": false,</span><br><span class="line">    "git.enabled": true,</span><br><span class="line">    "git.autorefresh": false,</span><br><span class="line">    "git.autofetch": false,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更多参考官方快捷键大全：<a href="https://code.visualstudio.com/docs/customization/keybindings" target="_blank" rel="noopener">https://code.visualstudio.com/docs/customization/keybindings</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/02/java流库/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1013,7 +1525,34 @@
       
         
           
-            
+            <h2 id="字节输入-输出流"><a href="#字节输入-输出流" class="headerlink" title="字节输入/输出流"></a>字节输入/输出流</h2><p>这类流的操作是基于单个字节因此不便于处理以<code>Unicode</code>形式储存的信息，比如用这个操作中文字符会出现乱码</p>
+<p><img src="/2019/04/02/java文件操作-概述/input.png" alt="字节输入流"><br><img src="/2019/04/02/java文件操作-概述/output.png" alt="字节输出流"></p>
+<h2 id="字符输入-输出流"><a href="#字符输入-输出流" class="headerlink" title="字符输入/输出流"></a>字符输入/输出流</h2><p>这类流的操作都是基于两个字节的<code>char</code>值的(即，Unicode码元)，而不是基于<code>byte</code>值的。</p>
+<p><img src="/2019/04/02/java文件操作-概述/reader.png" alt="字符输入流"><br><img src="/2019/04/02/java文件操作-概述/writer.png" alt="字符输出流"></p>
+<h2 id="流的接口"><a href="#流的接口" class="headerlink" title="流的接口"></a>流的接口</h2><h3 id="Closeable"><a href="#Closeable" class="headerlink" title="Closeable"></a>Closeable</h3><p><code>InputStream</code>,<code>OutputStream</code>,<code>Reader</code>和<code>Writer</code>都实现了<code>Closeable</code>接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Closeable</span> <span class="keyword">extends</span> <span class="title">AutoCloseable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的定义可知<code>Closeable</code>扩展<code>AutoCloseable</code>.实现<code>AutoCloseable</code>的类都可以使用<code>try-with-resource</code>.</p>
+<blockquote>
+<p>为什么需要两个接口，因为<code>AutoCloseable.close</code>方法可以抛出任何异常，而<code>Closeable.close</code>方法<br>只能抛出<code>IOException</code></p>
+</blockquote>
+<h3 id="Flushable"><a href="#Flushable" class="headerlink" title="Flushable"></a>Flushable</h3><p><code>OutputStream</code>和<code>Writer</code>实现了<code>Flushable</code></p>
+<h3 id="Readable"><a href="#Readable" class="headerlink" title="Readable"></a>Readable</h3><p><code>Reader</code>实现了<code>Readable</code>接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Readable</span> </span>&#123;</span><br><span class="line">    <span class="comment">//CharBuffer可以按顺序或随机进行读写</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">(java.nio.CharBuffer cb)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Appendable"><a href="#Appendable" class="headerlink" title="Appendable"></a>Appendable</h3><p>只有<code>Writer</code>实现了<code>Appendable</code>接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Appendable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">Appendable <span class="title">append</span><span class="params">(CharSequence csq)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">Appendable <span class="title">append</span><span class="params">(CharSequence csq, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">Appendable <span class="title">append</span><span class="params">(<span class="keyword">char</span> c)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="文件的操作"><a href="#文件的操作" class="headerlink" title="文件的操作"></a>文件的操作</h2><h3 id="File"><a href="#File" class="headerlink" title="File"></a>File</h3><p>File 是磁盘文件和目录路径名的一种抽象形式，其直接继承自 Object，实现了 Serializable 接口和 Comparable 接口；实现 Serializable 接口意味着 File 对象可以被序列化，而实现 Comparable 接口意味着 File 对象可以比较大小；此外 File 并没有什么特殊之处，就是对文件的一种上层抽象封装实现，方便操作文件。</p>
+<p>File类共提供了四个不同的构造函数，以不同的参数形式灵活地接收文件和目录名信息。构造函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">File (String pathname)</span><br><span class="line">File（URI uri）</span><br><span class="line">File (String parent , String child)</span><br><span class="line">File (File parent , String child)</span><br></pre></td></tr></table></figure>
+<h3 id="File的常用方法"><a href="#File的常用方法" class="headerlink" title="File的常用方法"></a>File的常用方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">exists</span><span class="params">( )</span> 判断文件或目录是否存在</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isFile</span><span class="params">( )</span> 判断是文件还是目录</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isDirectory</span><span class="params">( )</span> 判断是文件还是目录</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">( )</span> 返回文件名或目录名</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getPath</span><span class="params">( )</span> 返回文件或目录的路径。</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">length</span><span class="params">( )</span> 获取文件的长度</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String[ ] <span class="title">list</span> <span class="params">()</span> 将目录中所有文件名和目录名保存在字符串数组中返回</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> File[] <span class="title">listFiles</span><span class="params">()</span> 返回某个目录下所有文件和目录的绝对路径，返回的是File数组</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getAbsolutePath</span><span class="params">()</span> 返回文件或目录的绝对路径</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">renameTo</span><span class="params">( File newFile )</span></span>; 重命名文件</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">( )</span></span>;   删除文件</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">mkdir</span><span class="params">( )</span></span>; 创建单个文件夹</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">mkdirs</span><span class="params">()</span></span>;可以建立多级文件夹</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">createNewFile</span><span class="params">()</span></span>; 创建文件</span><br></pre></td></tr></table></figure>
+<p>注意：当需要创建<code>D:\\test\\test1.txt</code>文件时，如果<code>test</code>目录不存在，则不可以直接使用<code>createNewFile()</code>创建；<br>同样不能使用<code>mkdir()</code>,因为<code>mkdir()</code>会把<code>D:\\test\\test1.txt</code>中的<code>test</code>和<code>test1.txt</code>都当做文件夹而<code>mkdir()</code><br>只能创建一个文件夹；如果使用<code>mkdirs()</code>则会生成<code>test</code>和<code>test1.txt</code>两个文件.</p>
+<p>创建一个文件夹和文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">File file = <span class="keyword">new</span> File(<span class="string">"D:\\test"</span>);</span><br><span class="line"><span class="keyword">if</span>(file.mkdir())&#123;</span><br><span class="line">    File f = <span class="keyword">new</span> File(file,<span class="string">"test1.txt"</span>);</span><br><span class="line">    f.createNewFile();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="FileDescriptor"><a href="#FileDescriptor" class="headerlink" title="FileDescriptor"></a>FileDescriptor</h3><p>转载<a href="https://www.jianshu.com/p/57e292378415" target="_blank" rel="noopener">Little丶Jerry</a></p>
+<p>File 是磁盘文件和目录路径名的一种抽象形式，其直接继承自 Object，实现了 Serializable 接口和 Comparable 接口；实现 Serializable 接口意味着 File 对象可以被序列化，而实现 Comparable 接口意味着 File 对象可以比较大小；此外 File 并没有什么特殊之处，就是对文件的一种上层抽象封装实现，方便操作文件。</p>
+<p>FileDescriptor 是文件描述符，用来表示开放文件、开放套接字等。当 FileDescriptor 表示文件时，我们可以通俗的将 FileDescriptor 看成是该文件，但是不能直接通过 FileDescriptor 对该文件进行操作，若要通过 FileDescriptor 对该文件进行操作，则需要新创建 FileDescriptor 对应的 FileOutputStream，然后再对文件进行操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">FileDescriptor</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 在形式上是一个非负整数。</span></span><br><span class="line"><span class="comment">     * 实质是一个索引值，指向内核为每一个进程所维护的该进程打开文件的记录表。</span></span><br><span class="line"><span class="comment">     * 当程序打开一个现有文件或者创建一个新文件时内核向进程返回一个文件描述符。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> descriptor;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="comment">/**/ FileDescriptor() &#123;</span></span><br><span class="line"><span class="comment">        descriptor = -1;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    private /**/</span> FileDescriptor(<span class="keyword">int</span> descriptor) &#123;</span><br><span class="line">        <span class="keyword">this</span>.descriptor = descriptor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * (03)err -- 标准错误输出(屏幕)的描述符</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@see</span>     java.lang.System#in</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> FileDescriptor in = dupFd(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * (01)in -- 标准输入(键盘)的描述符 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@see</span>     java.lang.System#out</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> FileDescriptor out = dupFd(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * (02)out -- 标准输出(屏幕)的描述符  </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@see</span>     java.lang.System#err</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> FileDescriptor err = dupFd(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line">    <span class="comment">//工具构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> FileDescriptor <span class="title">dupFd</span><span class="params">(<span class="keyword">int</span> fd)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> FileDescriptor(Os.fcntlInt(<span class="keyword">new</span> FileDescriptor(fd), F_DUPFD_CLOEXEC, <span class="number">0</span>));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ErrnoException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以，针对 System.X 的 API 来说 FileDescriptor 是一种更加底层的操作，其不与文件名相互关联，只与操作系统中对应文件的句柄关联。</p>
+
           
         
       
@@ -1487,307 +2026,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/java集合-Queue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lichukuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/user.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/30/java集合-Queue/" itemprop="url">java集合---Queue</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-30T10:26:54+08:00">
-                2019-03-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>如图:</p>
-<p><img src="/2019/03/30/java集合-Queue/Queue.png" alt="Queue"></p>
-<h2 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h2><p><code>Queue</code>是一个队列接口</p>
-<h2 id="Deque"><a href="#Deque" class="headerlink" title="Deque"></a>Deque</h2><p><code>Deque</code>是<code>Queue</code>的子接口,<code>Queue</code>是一种队列形式,而<code>Deque</code>则是双向队列,它支持从两个端点方向检索和插入元素,<br>因此<code>Deque</code>既可以支持<code>LIFO</code>(后进先出)形式也可以支持<code>FIFO</code>（先进先出）形式.<code>Deque</code>接口是一种比<code>Stack</code>和<code>Vector</code>更为丰富的抽象数据形式,<br>因为它同时实现了以上两者.</p>
-<h2 id="AbstractQueue"><a href="#AbstractQueue" class="headerlink" title="AbstractQueue"></a>AbstractQueue</h2><p><code>AbstractQueue</code>是<code>Queue</code>的抽象类，它实现了下面这些方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">add(E e);</span><br><span class="line">remove();</span><br><span class="line">element();</span><br><span class="line">clear();</span><br><span class="line">addAll(Collection&lt;? extends E&gt; c);</span><br></pre></td></tr></table></figure>
-<h2 id="PriorityQueue"><a href="#PriorityQueue" class="headerlink" title="PriorityQueue"></a>PriorityQueue</h2><p><code>PriorityQueue</code>根据优先级来来储存元素，优先级根据<code>Comparable</code>或<code>Comparator</code>来决定（使用哪个取决于使用哪个<br>构造方法）</p>
-<h2 id="ArrayQueue"><a href="#ArrayQueue" class="headerlink" title="ArrayQueue"></a>ArrayQueue</h2><p><code>ArrayQueue</code>是用数组实现的队列，它实现了<code>Deque</code>接口。<code>ArrayQueue</code>里面不允许放入<code>null</code>,并且它不是线程安全的。</p>
-<h2 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h2><p>见<a href="https://lichukuan.github.io/2019/03/30/Java集合-List/" target="_blank" rel="noopener">这里</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/java集合-Set/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lichukuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/user.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/30/java集合-Set/" itemprop="url">java集合---Set</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-30T10:26:24+08:00">
-                2019-03-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>如图:</p>
-<p><img src="/2019/03/30/java集合-Set/Set.png" alt="Set"></p>
-<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><p>不包含重复元素的集合(通过<code>equals</code>来判断)，<code>Set</code>中只能包含一个<code>null</code>.当<code>Set</code>中存入<br>可变元素时，要特别注意，因为我们可能改变可变元素的值，从而影响对象相等的变更。</p>
-<h2 id="SortedSet"><a href="#SortedSet" class="headerlink" title="SortedSet"></a>SortedSet</h2><p><code>SortedSet</code>接口定义了对元素进行自然排序的方法，实现它的类用对内部元素进行排序(这里的自然排序指的是升序排序)。</p>
-<h2 id="NavigableSet"><a href="#NavigableSet" class="headerlink" title="NavigableSet"></a>NavigableSet</h2><p><code>NavigableSet</code>扩展了 <code>SortedSet</code>，具有了为给定搜索目标报告最接近匹配项的导航方法。<br>方法 <code>lower</code>、<code>floor</code>、<code>ceiling</code> 和 <code>higher</code> 分别返回小于、小于等于、大于等于、大于给定<br>元素的元素，如果不存在这样的元素，则返回 null</p>
-<h2 id="AbstractSet"><a href="#AbstractSet" class="headerlink" title="AbstractSet"></a>AbstractSet</h2><p><code>AbstractSet</code>实现<code>Set</code>,是一个抽象类。<code>AbstractSet</code>只实现了<code>equals(Object o)</code>,<code>hashCode()</code>,<code>removeAll(Collection&lt;?&gt; c)</code><br>方法。</p>
-<h2 id="EnumSet"><a href="#EnumSet" class="headerlink" title="EnumSet"></a>EnumSet</h2><p><code>EnumSet</code> 是一个专为枚举设计的集合类，<code>EnumSet</code>中的所有元素都必须是指定枚举类型的枚举值，该枚举类型在创建<code>EnumSet</code><br>时显式或隐式地指定。</p>
-<h2 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h2><p><code>HashSet</code>依赖哈希表,它不保证集合中元素的顺序,即不能保证迭代的顺序与插入的顺序一致。<code>HashSet</code>允许<code>null</code>.</p>
-<h2 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h2><p><code>LinkedHashSet</code>继承<code>HashSet</code>,它与<code>HashSet</code>的区别是<code>LinkedHashSet</code>按照元素插入的顺序进行迭代，即迭代输出的顺序与插入的顺序保持一致</p>
-<h2 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h2><p><code>TreeSet</code> 类同时实现了 <code>Set</code> 接口和 <code>NavigableSet</code> 接口。<code>TreeSet</code>是通过二叉树来实现的。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1840,7 +2078,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">博客</span>
                 </a>
               </div>
