@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="转载这里 Windows路径探究Windows路径是我们经常使用的东西，它看似简单，实际上隐含许多细节，这些都是在平常的使用过程中注意不到的。下面让我们来看看各种各样的Windows路径。 提起路径，我们都会想到“绝对路径”和“相对路径”，实际上绝对路径是一个广泛的概念，它表示的是可以唯一定位一个文件或文件夹的路径，有多种形式的路径都属于绝对路径的范畴 完整路径（Full path）我们平时所说的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows的路径">
+<meta property="og:url" content="http://yoursite.com/2019/04/05/windows的路径/index.html">
+<meta property="og:site_name" content="我的个人博客">
+<meta property="og:description" content="转载这里 Windows路径探究Windows路径是我们经常使用的东西，它看似简单，实际上隐含许多细节，这些都是在平常的使用过程中注意不到的。下面让我们来看看各种各样的Windows路径。 提起路径，我们都会想到“绝对路径”和“相对路径”，实际上绝对路径是一个广泛的概念，它表示的是可以唯一定位一个文件或文件夹的路径，有多种形式的路径都属于绝对路径的范畴 完整路径（Full path）我们平时所说的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-05T13:01:47.853Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="windows的路径">
+<meta name="twitter:description" content="转载这里 Windows路径探究Windows路径是我们经常使用的东西，它看似简单，实际上隐含许多细节，这些都是在平常的使用过程中注意不到的。下面让我们来看看各种各样的Windows路径。 提起路径，我们都会想到“绝对路径”和“相对路径”，实际上绝对路径是一个广泛的概念，它表示的是可以唯一定位一个文件或文件夹的路径，有多种形式的路径都属于绝对路径的范畴 完整路径（Full path）我们平时所说的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/05/windows的路径/">
+
+
+
+
+
+  <title>windows的路径 | 我的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哪有什么胜利可言，挺着就代表着一切</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/05/windows的路径/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lichukuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">windows的路径</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-05T20:48:40+08:00">
+                2019-04-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基础知识/" itemprop="url" rel="index">
+                    <span itemprop="name">基础知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>转载<a href="http://www.cnblogs.com/zplutor/archive/2010/08/21/1805335.html" target="_blank" rel="noopener">这里</a></p>
+<h2 id="Windows路径探究"><a href="#Windows路径探究" class="headerlink" title="Windows路径探究"></a>Windows路径探究</h2><p>Windows路径是我们经常使用的东西，它看似简单，实际上隐含许多细节，这些都是在平常的使用过程中注意不到的。下面让我们来看看各种各样的Windows路径。</p>
+<p>提起路径，我们都会想到“绝对路径”和“相对路径”，实际上绝对路径是一个广泛的概念，它表示的是可以唯一定位一个文件或文件夹的路径，有多种形式的路径都属于绝对路径的范畴</p>
+<h3 id="完整路径（Full-path）"><a href="#完整路径（Full-path）" class="headerlink" title="完整路径（Full path）"></a>完整路径（Full path）</h3><p>我们平时所说的“绝对路径”通常就是指完整路径，它的格式如下：<br><code>C:\Windows\System32\calc.exe</code></p>
+<h3 id="UNC（Universal-Naming-Convention通用命名规范）路径"><a href="#UNC（Universal-Naming-Convention通用命名规范）路径" class="headerlink" title="UNC（Universal Naming Convention通用命名规范）路径"></a>UNC（Universal Naming Convention通用命名规范）路径</h3><p>UNC路径用于在局域网上定位文件或文件夹，在通过网上邻居访问其它系统上的共享文件时使用的就是UNC路径。UNC路径的格式如下：<br><code>\\PC101\ShareFiles\job.doc</code></p>
+<p>其中PC101是目标系统的计算机名，ShareFiles是目标系统上的共享文件夹名称。</p>
+<h3 id="以-开头的路径"><a href="#以-开头的路径" class="headerlink" title="以\?\开头的路径"></a>以\?\开头的路径</h3><p>在某些手工辅助杀毒的工具中可以看到以<code>\\?\</code>开头的路径，这种路径我还找不到正式的名称。完整路径和UNC路径都可以以<code>\\?\</code>开头：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">\\?\C:\Windows\System32\calc.exe</span><br><span class="line">\\?\UNC\PC101\ShareFiles\job.doc</span><br></pre></td></tr></table></figure>
+<h3 id="相对路径（Relative-path）"><a href="#相对路径（Relative-path）" class="headerlink" title="相对路径（Relative path）"></a>相对路径（Relative path）</h3><p>上面四种路径都可以在本地或网络上绝对定位一个文件，因此属于绝对路径。另一种我们常常使用的是相对路径，这种路径需要与进程的当前文件夹（Current directory）一起合作才可以定位一个文件或文件夹。</p>
+<p>进程的当前文件夹并不是指EXE文件所在的文件夹，它是每个进程都有的一个属性。例如在命令提示符中显示的路径就是这个cmd.exe进程的当前文件夹，使用cd命令可以改变当前文件夹，无论当前文件夹如何改变，cmd.exe文件所在的文件夹总是不变的。</p>
+<p>在进程启动的时候可以指定它的当前文件夹，例如在快捷方式的属性中有一个“起始位置”输入框，这个就是进程启动后的当前文件夹。如果在启动时不指定进程的当前文件夹（直接双击EXE文件的情况），那么EXE文件的所在文件夹就会作为它的当前文件夹。</p>
+<p>纯粹的相对路径格式如下：<br><code>Windows\System32\calc.exe</code></p>
+<p>要注意的是相对路径的开头不能有\，很多人以为有没有\都是一样的，其实不然，以\开头的路径是另外一种路径，下文会详细介绍这种路径。</p>
+<p>如果在进程中操作文件时传递一个相对路径，那么进程会将当前文件夹的路径与这个相对路径合并，得到一个完整路径。例如命令提示符的当前文件夹是<code>C:\Windows</code>，如果执行<code>start System32\calc.exe</code>命令，程序就会将两个路径合并得到<code>C:\Windows\System32\calc.exe。</code></p>
+<p>由于这样的特性，当前文件夹又称为工作文件夹，因为进程使用相对路径时都是针对该文件夹的。<br>除了上面所说的纯粹的相对路径，还有两种特殊的相对路径，为了不至于混淆，不再将它们称为相对路径。</p>
+<h3 id="以-开头的路径-1"><a href="#以-开头的路径-1" class="headerlink" title="以\开头的路径"></a>以\开头的路径</h3><p>上面说过相对路径不能以\开头，一旦如此，它就表示相对于当前文件夹根目录的路径。例如进程的当前文件夹是<code>C:\Windows</code>，那么<code>\System32\calc.exe</code>就表示<code>C:\System32\calc.exe</code>。不论当前文件夹的路径有多深，只取根目录进行合并。</p>
+<p>可以在命令提示符中进行验证：首先将<code>C:\Windows</code>设置为当前文件夹，然后执行<code>start \System32\calc.exe</code>命令，将会提示错误，所找不到文件。再执行<code>start \Windows\System32\calc.exe</code>命令，这时计算器程序成功启动了，证明了上面的说法。</p>
+<h3 id="以盘符和冒号开头的路径"><a href="#以盘符和冒号开头的路径" class="headerlink" title="以盘符和冒号开头的路径"></a>以盘符和冒号开头的路径</h3><p>这种路径就像是拼写错误的完整路径，它的格式如下：<br><code>C:System32\calc.exe</code></p>
+<p>盘符加冒号是一种特殊的表示法，表示的是进程在“该分区上的当前文件夹”。这里又蹦出来了一个当前文件夹，这与上文的当前文件夹是不同的。简单来说，对于每一个分区，进程都会保存在这个分区上最后使用的当前文件夹。可能解析的不够好，那么可以使用命令提示符来操作一遍以加深理解。 </p>
+<p>运行cmd，执行cd /d C:\Windows\System32命令进入该文件夹，然后切换到其它的分区，再执行C:calc.exe命令，可以看到计算器程序启动了。 </p>
+<p>我们在执行cd命令进入C:\Windows\System32文件夹后，进程便以此为当前文件夹，当切换到其余的分区时，进程先将这个文件夹的路径保存起来，再进行切换。使用盘符和冒号的形式读取指定分区上的当前文件夹。</p>
+<h3 id="路径中的限制"><a href="#路径中的限制" class="headerlink" title="路径中的限制"></a>路径中的限制</h3><p>除了路径格式上的限制，还有很多字符上的限制，下面一一来看看各种路径有什么限制。</p>
+<p>除了以<code>\\?\</code>开头的路径之外，其它路径的长度都不能超过<code>260</code>个字符（包括结尾的\0字符），而<code>\\?\</code>开头的路径长度可以达到约<code>32000</code>个字符（系统在处理<code>\\?\</code>前缀的时候可能将它扩展成更长的字符串）。网络上流传的一则技巧：文件路径太长而不能被删除，可以在执行del命令时在路径前加上<code>\\?\</code>前缀</p>
+<p>文件或文件夹名称的最后一个字符不能为空格或句点。但在路径中，最后一个字符可以为句点，因为路径中的句点表示的是当期文件夹（这与上文的当前文件夹完全不同），两个句点表示的是上一级文件夹。以\?\开头的路径中不能使用句点表示当前文件夹或上一级文件夹，在资源管理器的地址栏中虽然可以这么做，那是因为资源管理器对其作了处理。 </p>
+<p>文件或文件夹名称不能包含的字符:<br><code>&lt; &gt; : &quot; / \ | ? *</code></p>
+<p>在路径中可以使用 <code>: \ ?</code>，冒号是与盘符一起使用的，问号是<code>\\?\</code>前缀中特有的，除此之外不能出现这两个字符；而<code>\</code>是文件夹分割符。虽然我们也能使用<code>/</code>作为分隔符，实际上这是不允许的，系统在处理路径时会将<code>/</code>替换成<code>\</code>。另外，如果路径最后一个字符是<code>\</code>，那么该路径表示的是文件夹；否则表示的是一个文件。</p>
+<p>UNC路径的计算机名部分不能出现以下字符：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ ` ! @ # $ % ^ &amp; * ( ) = + _ [ ] &#123; &#125; \ | ; : . ‘ “ , &lt; &gt; / ?</span><br></pre></td></tr></table></figure>
+<p>确实是够多的了，实际上标准的计算机名推荐只使用26个英文字母、10个数字以及-（连字符），否则可能会出现找不到计算机的情况。在更改计算机名的时候如果出现非标准字符，系统会作出提示。</p>
+<p>作者：Zplutor<br><br>出处：<a href="http://www.cnblogs.com/zplutor/" target="_blank" rel="noopener">http://www.cnblogs.com/zplutor/</a> <br><br>本文版权归作者和博客园共有，欢迎转载。但未经作者同意必须保留此段声明，且在文章页面明显位置给出原文连接，否则保留追究法律责任的权利<br></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/05/图解-从单个服务器扩展到百万用户的系统/" rel="next" title="图解:从单个服务器扩展到百万用户的系统">
+                <i class="fa fa-chevron-left"></i> 图解:从单个服务器扩展到百万用户的系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/05/java并发/" rel="prev" title="java并发">
+                java并发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/user.jpg" alt="lichukuan">
+            
+              <p class="site-author-name" itemprop="name">lichukuan</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">博客</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows路径探究"><span class="nav-number">1.</span> <span class="nav-text">Windows路径探究</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#完整路径（Full-path）"><span class="nav-number">1.1.</span> <span class="nav-text">完整路径（Full path）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UNC（Universal-Naming-Convention通用命名规范）路径"><span class="nav-number">1.2.</span> <span class="nav-text">UNC（Universal Naming Convention通用命名规范）路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以-开头的路径"><span class="nav-number">1.3.</span> <span class="nav-text">以\?\开头的路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相对路径（Relative-path）"><span class="nav-number">1.4.</span> <span class="nav-text">相对路径（Relative path）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以-开头的路径-1"><span class="nav-number">1.5.</span> <span class="nav-text">以\开头的路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以盘符和冒号开头的路径"><span class="nav-number">1.6.</span> <span class="nav-text">以盘符和冒号开头的路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路径中的限制"><span class="nav-number">1.7.</span> <span class="nav-text">路径中的限制</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lichukuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
