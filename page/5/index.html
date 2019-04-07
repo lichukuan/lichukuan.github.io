@@ -1514,183 +1514,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/菜鸟话Java--java的安装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lichukuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/user.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/08/菜鸟话Java--java的安装/" itemprop="url">菜鸟话Java——Java安装</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-08T00:00:00+08:00">
-                2019-03-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="java的安装-windows版"><a href="#java的安装-windows版" class="headerlink" title="java的安装(windows版)"></a>java的安装(windows版)</h2><p><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">点击</a>进入Oracle的官网下载Java8 sdk,下载完成后进行安装.其他版本安装看<a href="http://www.runoob.com/java/java-environment-setup.html" target="_blank" rel="noopener">这里</a></p>
-<h2 id="Java目录文件介绍"><a href="#Java目录文件介绍" class="headerlink" title="Java目录文件介绍"></a>Java目录文件介绍</h2><p>安装好Java后，打开Java文件，目录结构如下</p>
-<p><img src="/2019/03/08/菜鸟话Java--java的安装/java_menu.PNG" alt></p>
-<p>如图有两个文件<code>jdk1.8.0_151</code>,<code>jre1.8.0_151</code>。其中<code>1.8.0_151</code>是版本号。<code>jdk</code>和<code>jre</code>在上一篇博客中介绍过，分别是<br>java开发工具包和Java运行环境。</p>
-<p>打开<code>jdk1.8.0_151</code>文件夹</p>
-<p><img src="/2019/03/08/菜鸟话Java--java的安装/java_menu1.png" alt></p>
-<p>目录介绍:</p>
-<ul>
-<li>bin ：最主要的是编译器(javac.exe)；</li>
-<li>db ：jdk从1.6之后内置了Derby数据库，它是一个纯用Java实现的内存数据库。用Java实现的，<br>所以可以在任何平台上运行；另外一个特点是体积小，免安装，只需要几个小jar包就可以运行了。</li>
-<li>include ：java和JVM交互用的头文件；</li>
-<li>lib ：常用类库</li>
-<li>jre ：java运行环境</li>
-<li>src.zip : 源码文件</li>
-<li>javafx-src.zip : javafx源码文件</li>
-<li>其他 ：配置文件</li>
-</ul>
-<p>为什么有两个jre</p>
-<p>之所以需要两套 jre ，是因为可以分担工作；当用户只需要执行 java 的程序时，那么<code>c:\program files\java\jre</code>下的 jre 就 ok ！当用户是 java 程序员，需要 java 开发环境，那么开发时，系统就会优先去找<code>“ java 、 javac ”</code>这些命令本身的目录或者他们的父目录的 jre ；这样开发时一般运行的是 jdk 下的 jre ；而运行外部程序时，一般运行的是<code>c:\program files\java\jre</code>，实现了分工，不同的 jre 负责各自范围的内容.<a href="https://blog.csdn.net/sjzs5590/article/details/7337404" target="_blank" rel="noopener">回答转自这里</a></p>
-<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><p>右击我的电脑-&gt;属性-&gt;高级系统设置-&gt;环境变量-&gt;系统变量</p>
-<p><img src="/2019/03/08/菜鸟话Java--java的安装/envior.PNG" alt></p>
-<p><img src="/2019/03/08/菜鸟话Java--java的安装/envior_2.PNG" alt></p>
-<p><img src="/2019/03/08/菜鸟话Java--java的安装/envior_3.PNG" alt></p>
-<p>在”系统变量”中设置3项属性</p>
-<p>变量名 : <code>JAVA_HOME</code><br><br>变量值 : C:\Program Files\Java\jdk1.8.0_151 //根据自己Java的安装目录<br>作用 : 设置Java所在的路径</p>
-<p>变量名 : <code>CLASSPATH</code><br>变量值 ：.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;   //记得前面有个”.”<br>作用 : classpath变量的含义是告诉jvm要使用或执行的class放在什么路径上，便于JVM加载class文件，.;表示当前路径，tools.jar和dt.jar为类库路径。<br>注意：jdk1.5以上不需要这个配置.</p>
-<p>变量名 : <code>Path</code><br>变量值 ：往已有的Path路径后添加 <code>%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;</code><br>作用 : path变量的含义就是系统在任何路径下都可以识别java,javac命令.</p>
-<h2 id="验证环境变量是否配置成功"><a href="#验证环境变量是否配置成功" class="headerlink" title="验证环境变量是否配置成功"></a>验证环境变量是否配置成功</h2><p>打开命令行键入命令: <code>java -version</code>、<code>java</code>、<code>javac</code>几个命令，<br>出现以下信息，说明环境变量配置成功；</p>
-<p><img src="/2019/03/08/菜鸟话Java--java的安装/result.PNG" alt></p>
-<p>Java简单的命令介绍</p>
-<ul>
-<li>java -version : 显示当前Java的版本</li>
-<li>javac 类名 : javac程序是一个编译器，将<code>.java</code>文件编译成<code>.class</code>文件.</li>
-<li>java 类名 : java程序启动Java虚拟机,虚拟机执行编译器放在class文件中的字节码</li>
-</ul>
-<h2 id="使用IDE-集成开发环境"><a href="#使用IDE-集成开发环境" class="headerlink" title="使用IDE(集成开发环境)"></a>使用IDE(集成开发环境)</h2><p>IntelliJ IDEA是目前最好的Java IDE,具体的安装教程可以看<a href="https://www.cnblogs.com/jajian/p/7989032.html" target="_blank" rel="noopener">这里</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/菜鸟话Java--Java概述/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1882,6 +1705,183 @@
 <p>jre : jre是Java运行环境。没有jre,java程序就不能运行。</p>
 <p>jvm : jvm是java虚拟机，负责执行编译后的.class文件</p>
 <p>简单的说：jdk包括jre,jre包括jvm。具体的区别可以看<a href="http://www.cnblogs.com/xiaofeixiang/p/4085159.html" target="_blank" rel="noopener">这篇博客</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/菜鸟话Java--java的安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lichukuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/08/菜鸟话Java--java的安装/" itemprop="url">菜鸟话Java——Java安装</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-08T00:00:00+08:00">
+                2019-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="java的安装-windows版"><a href="#java的安装-windows版" class="headerlink" title="java的安装(windows版)"></a>java的安装(windows版)</h2><p><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">点击</a>进入Oracle的官网下载Java8 sdk,下载完成后进行安装.其他版本安装看<a href="http://www.runoob.com/java/java-environment-setup.html" target="_blank" rel="noopener">这里</a></p>
+<h2 id="Java目录文件介绍"><a href="#Java目录文件介绍" class="headerlink" title="Java目录文件介绍"></a>Java目录文件介绍</h2><p>安装好Java后，打开Java文件，目录结构如下</p>
+<p><img src="/2019/03/08/菜鸟话Java--java的安装/java_menu.PNG" alt></p>
+<p>如图有两个文件<code>jdk1.8.0_151</code>,<code>jre1.8.0_151</code>。其中<code>1.8.0_151</code>是版本号。<code>jdk</code>和<code>jre</code>在上一篇博客中介绍过，分别是<br>java开发工具包和Java运行环境。</p>
+<p>打开<code>jdk1.8.0_151</code>文件夹</p>
+<p><img src="/2019/03/08/菜鸟话Java--java的安装/java_menu1.png" alt></p>
+<p>目录介绍:</p>
+<ul>
+<li>bin ：最主要的是编译器(javac.exe)；</li>
+<li>db ：jdk从1.6之后内置了Derby数据库，它是一个纯用Java实现的内存数据库。用Java实现的，<br>所以可以在任何平台上运行；另外一个特点是体积小，免安装，只需要几个小jar包就可以运行了。</li>
+<li>include ：java和JVM交互用的头文件；</li>
+<li>lib ：常用类库</li>
+<li>jre ：java运行环境</li>
+<li>src.zip : 源码文件</li>
+<li>javafx-src.zip : javafx源码文件</li>
+<li>其他 ：配置文件</li>
+</ul>
+<p>为什么有两个jre</p>
+<p>之所以需要两套 jre ，是因为可以分担工作；当用户只需要执行 java 的程序时，那么<code>c:\program files\java\jre</code>下的 jre 就 ok ！当用户是 java 程序员，需要 java 开发环境，那么开发时，系统就会优先去找<code>“ java 、 javac ”</code>这些命令本身的目录或者他们的父目录的 jre ；这样开发时一般运行的是 jdk 下的 jre ；而运行外部程序时，一般运行的是<code>c:\program files\java\jre</code>，实现了分工，不同的 jre 负责各自范围的内容.<a href="https://blog.csdn.net/sjzs5590/article/details/7337404" target="_blank" rel="noopener">回答转自这里</a></p>
+<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><p>右击我的电脑-&gt;属性-&gt;高级系统设置-&gt;环境变量-&gt;系统变量</p>
+<p><img src="/2019/03/08/菜鸟话Java--java的安装/envior.PNG" alt></p>
+<p><img src="/2019/03/08/菜鸟话Java--java的安装/envior_2.PNG" alt></p>
+<p><img src="/2019/03/08/菜鸟话Java--java的安装/envior_3.PNG" alt></p>
+<p>在”系统变量”中设置3项属性</p>
+<p>变量名 : <code>JAVA_HOME</code><br><br>变量值 : C:\Program Files\Java\jdk1.8.0_151 //根据自己Java的安装目录<br>作用 : 设置Java所在的路径</p>
+<p>变量名 : <code>CLASSPATH</code><br>变量值 ：.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;   //记得前面有个”.”<br>作用 : classpath变量的含义是告诉jvm要使用或执行的class放在什么路径上，便于JVM加载class文件，.;表示当前路径，tools.jar和dt.jar为类库路径。<br>注意：jdk1.5以上不需要这个配置.</p>
+<p>变量名 : <code>Path</code><br>变量值 ：往已有的Path路径后添加 <code>%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;</code><br>作用 : path变量的含义就是系统在任何路径下都可以识别java,javac命令.</p>
+<h2 id="验证环境变量是否配置成功"><a href="#验证环境变量是否配置成功" class="headerlink" title="验证环境变量是否配置成功"></a>验证环境变量是否配置成功</h2><p>打开命令行键入命令: <code>java -version</code>、<code>java</code>、<code>javac</code>几个命令，<br>出现以下信息，说明环境变量配置成功；</p>
+<p><img src="/2019/03/08/菜鸟话Java--java的安装/result.PNG" alt></p>
+<p>Java简单的命令介绍</p>
+<ul>
+<li>java -version : 显示当前Java的版本</li>
+<li>javac 类名 : javac程序是一个编译器，将<code>.java</code>文件编译成<code>.class</code>文件.</li>
+<li>java 类名 : java程序启动Java虚拟机,虚拟机执行编译器放在class文件中的字节码</li>
+</ul>
+<h2 id="使用IDE-集成开发环境"><a href="#使用IDE-集成开发环境" class="headerlink" title="使用IDE(集成开发环境)"></a>使用IDE(集成开发环境)</h2><p>IntelliJ IDEA是目前最好的Java IDE,具体的安装教程可以看<a href="https://www.cnblogs.com/jajian/p/7989032.html" target="_blank" rel="noopener">这里</a></p>
 
           
         

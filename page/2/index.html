@@ -341,7 +341,7 @@
 <h2 id="lambda表达式的构造器引用"><a href="#lambda表达式的构造器引用" class="headerlink" title="lambda表达式的构造器引用"></a>lambda表达式的构造器引用</h2><p>例如<code>A::new</code>是A的构造器引用，至于使用哪一个构造器，取决于上下文。</p>
 <h2 id="lambda表达式变量的作用域"><a href="#lambda表达式变量的作用域" class="headerlink" title="lambda表达式变量的作用域"></a>lambda表达式变量的作用域</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">requestMessage</span><span class="params">(String text,<span class="keyword">int</span> delay)</span></span>&#123;</span><br><span class="line">       ActionListener actionListener = e -&gt; &#123;</span><br><span class="line">           System.out.println(text);<span class="comment">//使用变量text</span></span><br><span class="line">           ...</span><br><span class="line">       &#125;;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p>可以把一个lambda表达式转化为包含一个方法的对象，这样自由变量的值就会复制到这个对象的实例变量中去</p>
-<p>注意：lambda表达式中捕获的变量必须是最终值；而且在lambda中声明于一个局部变量同名的参数或局部变量是<br>不合法的；在lambda表达式中使用this关键字时，是指创建这个lambda表达式的方法的this参数</p>
+<p>注意：lambda表达式中捕获的变量必须是最终值；而且在lambda中声明于一个局部变量同名的参数或局部变量是不合法的；在lambda表达式中使用this关键字时，是指创建这个lambda表达式的方法的this参数</p>
 <h2 id="常用的函数式接口"><a href="#常用的函数式接口" class="headerlink" title="常用的函数式接口"></a>常用的函数式接口</h2><table>
 <thead>
 <tr>
