@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述java8之后推出了新的time api. java.time包下有5个包组成(大部分人用到基础包和format包就足够了)  java.time – 包含值对象的基础包 java.time.chrono – 提供对不同的日历系统的访问 java.time.format – 格式化和解析时间和日期 java.time.temporal – 包括底层框架和扩展特性 java.time.zone">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java日期和时间api">
+<meta property="og:url" content="http://yoursite.com/2019/04/11/java日期和时间api/index.html">
+<meta property="og:site_name" content="我的个人博客">
+<meta property="og:description" content="概述java8之后推出了新的time api. java.time包下有5个包组成(大部分人用到基础包和format包就足够了)  java.time – 包含值对象的基础包 java.time.chrono – 提供对不同的日历系统的访问 java.time.format – 格式化和解析时间和日期 java.time.temporal – 包括底层框架和扩展特性 java.time.zone">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-11T02:26:11.839Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java日期和时间api">
+<meta name="twitter:description" content="概述java8之后推出了新的time api. java.time包下有5个包组成(大部分人用到基础包和format包就足够了)  java.time – 包含值对象的基础包 java.time.chrono – 提供对不同的日历系统的访问 java.time.format – 格式化和解析时间和日期 java.time.temporal – 包括底层框架和扩展特性 java.time.zone">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/11/java日期和时间api/">
+
+
+
+
+
+  <title>java日期和时间api | 我的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哪有什么胜利可言，挺着就代表着一切</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/java日期和时间api/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lichukuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java日期和时间api</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-11T08:57:30+08:00">
+                2019-04-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>java8之后推出了新的time api.</p>
+<p>java.time包下有5个包组成(大部分人用到基础包和format包就足够了)</p>
+<ul>
+<li>java.time – 包含值对象的基础包</li>
+<li>java.time.chrono – 提供对不同的日历系统的访问</li>
+<li>java.time.format – 格式化和解析时间和日期</li>
+<li>java.time.temporal – 包括底层框架和扩展特性</li>
+<li>java.time.zone – 包含时区支持的类</li>
+</ul>
+<p>注意：java.time包下所有类都是不可变的、线程安全的</p>
+<h2 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h2><p>java的<code>Date</code>和<code>Time API</code>规范要求Java使用的时间尺度为:</p>
+<ul>
+<li>每天<code>86400</code>秒</li>
+<li>每天正午与官方时间精准匹配</li>
+<li>在时间点上，以精确的方式与官方时间接近匹配</li>
+</ul>
+<h2 id="Instant"><a href="#Instant" class="headerlink" title="Instant"></a>Instant</h2><p>在<code>java</code>中，<code>Instant</code>表示时间线上的某一点。<code>、该时间线的原点为:穿过伦敦格林威治皇家天文台的本初子午线所处时区
+的</code>1970年1月1日的午夜`</p>
+<p>Instant的常用方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Instant <span class="title">now</span><span class="params">()</span> <span class="comment">//获取当前时间</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">getEpochSecond</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">toEpochMilli</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getNano</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">Instant <span class="title">plusMillis</span><span class="params">(<span class="keyword">long</span> millisToAdd)</span><span class="comment">//返回当前时间增加指定毫秒数后的时间</span></span></span><br><span class="line"><span class="function">Instant <span class="title">plusNanos</span><span class="params">(<span class="keyword">long</span> millisToAdd)</span><span class="comment">//返回当前时间增加指定纳秒数后的时间</span></span></span><br><span class="line"><span class="function">Instant <span class="title">plusSeconds</span><span class="params">(<span class="keyword">long</span> millisToAdd)</span><span class="comment">//返回当前时间增加指定秒数后的时间</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isAfter</span><span class="params">(Instant otherInstant)</span></span>;</span><br><span class="line"><span class="keyword">boolean</span> instant.isBefore(Instant otherInstant);</span><br><span class="line"></span><br><span class="line">MIN <span class="comment">//最小值，代表原点前的十亿年</span></span><br><span class="line">MAX <span class="comment">//最大值，代表公元 1000 000 000年的12月31日</span></span><br></pre></td></tr></table></figure>
+<p>实例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Instant instant = Instant.now();</span><br><span class="line">        System.out.println(instant.toString());</span><br><span class="line">        System.out.println(instant.getEpochSecond());<span class="comment">//返回从原点到现在的秒数</span></span><br><span class="line">        System.out.println(instant.getNano());<span class="comment">//当前一秒内的第几纳秒</span></span><br><span class="line">        System.out.println(instant.toEpochMilli());<span class="comment">//返回从原点到现在的毫秒数</span></span><br><span class="line">        System.out.println(instant.plusMillis(<span class="number">10000</span>));</span><br><span class="line">        System.out.println(instant.plusNanos(<span class="number">1000</span>));;</span><br><span class="line">        System.out.println(instant.plusSeconds(<span class="number">1000</span>));;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">结果:</span><br><span class="line"></span><br><span class="line"><span class="number">2019</span>-<span class="number">04</span>-<span class="number">11</span>T01:<span class="number">38</span>:<span class="number">22.067</span>Z</span><br><span class="line"><span class="number">1554946702</span></span><br><span class="line"><span class="number">67000000</span></span><br><span class="line"><span class="number">1554946702067</span></span><br><span class="line"><span class="number">2019</span>-<span class="number">04</span>-<span class="number">11</span>T01:<span class="number">38</span>:<span class="number">32.067</span>Z</span><br><span class="line"><span class="number">2019</span>-<span class="number">04</span>-<span class="number">11</span>T01:<span class="number">38</span>:<span class="number">22.067001</span>Z</span><br><span class="line"><span class="number">2019</span>-<span class="number">04</span>-<span class="number">11</span>T01:<span class="number">55</span>:<span class="number">02.067</span>Z</span><br></pre></td></tr></table></figure>
+<h2 id="Duration"><a href="#Duration" class="headerlink" title="Duration"></a>Duration</h2><p><code>Duration</code>是两个时刻之间的时间量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Instant start = Instant.now();</span><br><span class="line">run();<span class="comment">//延时方法</span></span><br><span class="line">Instant end = Instant.now();</span><br><span class="line">Duration t = Duration.between(start,end);</span><br><span class="line">System.out.println(t.toDays());<span class="comment">//获取时间经过的天数</span></span><br><span class="line">System.out.println(t.toHours());<span class="comment">//获取时间经过的小时数</span></span><br><span class="line">System.out.println(t.toMinutes());<span class="comment">//获取时间经过的分钟数</span></span><br><span class="line">System.out.println(t.getSeconds());<span class="comment">//获取时间经过的秒数</span></span><br><span class="line">System.out.println(t.toMillis());<span class="comment">//获取时间经过的毫秒数</span></span><br><span class="line">System.out.println(t.toNanos());<span class="comment">//获取时间经过的纳秒数</span></span><br><span class="line">System.out.println(t.toString());</span><br><span class="line">System.out.println(t.getNano());<span class="comment">//和Instant.getNano()方法相同</span></span><br><span class="line"></span><br><span class="line">Duration plus = t.plusDays(<span class="number">1</span>);<span class="comment">//在当前Duration加上指定天数的时间，其他plusXXX()不再介绍</span></span><br><span class="line">Duration min = t.minusDays(<span class="number">1</span>);<span class="comment">//在当前Duration减去指定天数的时间，其他minusXXX()不再介绍</span></span><br></pre></td></tr></table></figure>
+<h2 id="本地时间"><a href="#本地时间" class="headerlink" title="本地时间"></a>本地时间</h2><p>转载<a href="https://www.jianshu.com/p/19bd58b30660" target="_blank" rel="noopener">java 8的java.time包(非常值得推荐)</a></p>
+<ul>
+<li>LocalDateTime：存储了日期和时间</li>
+<li>LocalDate：只存储了日期</li>
+<li>LocalTime：只存储了时间，如：14:02:43.455。(后面的.455表示毫秒值的最后三位,使用.withNano(0)可把毫秒值设为0)</li>
+</ul>
+<p>java.time.LocalDateTime</p>
+<p>此类显示的是年月日时分秒(默认的格式为:2017-01-01T01:01:01.555)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">LocalDateTime now = LocalDateTime.now();</span><br><span class="line">        System.out.println(now.toString());</span><br><span class="line">        System.out.println(now.getYear());</span><br><span class="line">        System.out.println(now.getMonthValue());</span><br><span class="line">        System.out.println(now.getDayOfMonth());</span><br><span class="line">        System.out.println(now.getHour()); <span class="comment">//24小时制</span></span><br><span class="line">        System.out.println(now.getMinute());</span><br><span class="line">        System.out.println(now.getSecond());</span><br><span class="line">        System.out.println(now.getNano()); <span class="comment">//毫秒值的后三位作为前三位后面补6个零</span></span><br><span class="line"></span><br><span class="line">打印的结果为:  </span><br><span class="line"><span class="number">2017</span>-<span class="number">03</span>-<span class="number">21</span>T20:<span class="number">26</span>:<span class="number">18.317</span></span><br><span class="line"><span class="number">2017</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">21</span></span><br><span class="line"><span class="number">20</span></span><br><span class="line"><span class="number">26</span></span><br><span class="line"><span class="number">18</span></span><br><span class="line"><span class="number">317000000</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//能够自定义时间</span></span><br><span class="line">        LocalDateTime time = LocalDateTime.of(<span class="number">2017</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        System.out.println(time); <span class="comment">//2017-01-01T01:01:01</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用plus方法增加年份</span></span><br><span class="line">        LocalDateTime time = LocalDateTime.of(<span class="number">2017</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//改变时间后会返回一个新的实例nextYearTime</span></span><br><span class="line">        LocalDateTime nextYearTime = time.plusYears(<span class="number">1</span>); </span><br><span class="line"></span><br><span class="line">        System.out.println(nextYearTime); <span class="comment">//2018-01-01T01:01:01</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用minus方法减年份</span></span><br><span class="line">        LocalDateTime time = LocalDateTime.of(<span class="number">2017</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        LocalDateTime lastYearTime = time.minusYears(<span class="number">1</span>);</span><br><span class="line">        System.out.println(lastYearTime); <span class="comment">//2016-01-01T01:01:01</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用with方法设置月份</span></span><br><span class="line">        LocalDateTime time = LocalDateTime.of(<span class="number">2017</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        LocalDateTime changeTime = time.withMonth(<span class="number">12</span>);</span><br><span class="line">        System.out.println(changeTime); <span class="comment">//2017-12-01T01:01:01</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//判断当前年份是否闰年</span></span><br><span class="line">        System.out.println(<span class="string">"isLeapYear :"</span> + time.isLeapYear());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//判断当前日期属于星期几</span></span><br><span class="line">        LocalDateTime time = LocalDateTime.now();</span><br><span class="line">        DayOfWeek dayOfWeek = time.getDayOfWeek();</span><br><span class="line">        System.out.println(dayOfWeek); <span class="comment">//WEDNESDAY</span></span><br></pre></td></tr></table></figure>
+<p>LocalDate</p>
+<p>此类显示的是年月日(默认的格式为:2017-01-01)<br>用法与LocalDateTime类大致一样</p>
+<p>LocalTime</p>
+<p>此类显示的是时分秒和毫秒值的后三位(21:26:35.693)<br>用法与LocalDateTime类大致一样</p>
+<h2 id="TemporalAdjusters"><a href="#TemporalAdjusters" class="headerlink" title="TemporalAdjusters"></a>TemporalAdjusters</h2><p><code>TemporalAdjusters</code>是调节器，通过<code>with</code>方法来调节时间</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">ofDateAdjuster</span><span class="params">(UnaryOperator&lt;LocalDate&gt; dateBasedAdjuster)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">firstDayOfMonth</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">lastDayOfMonth</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">firstDayOfNextMonth</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">firstDayOfYear</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">lastDayOfYear</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">firstDayOfNextYear</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">firstInMonth</span><span class="params">(DayOfWeek dayOfWeek)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">lastInMonth</span><span class="params">(DayOfWeek dayOfWeek)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">dayOfWeekInMonth</span><span class="params">(<span class="keyword">int</span> ordinal, DayOfWeek dayOfWeek)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">next</span><span class="params">(DayOfWeek dayOfWeek)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">nextOrSame</span><span class="params">(DayOfWeek dayOfWeek)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">previous</span><span class="params">(DayOfWeek dayOfWeek)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">previousOrSame</span><span class="params">(DayOfWeek dayOfWeek)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LocalDate now = LocalDate.now();</span><br><span class="line">System.out.println(now.with(TemporalAdjusters.firstDayOfMonth()));</span><br></pre></td></tr></table></figure>
+<h2 id="DateTimeFormatter"><a href="#DateTimeFormatter" class="headerlink" title="DateTimeFormatter"></a>DateTimeFormatter</h2><p>转载<a href="https://www.jianshu.com/p/19bd58b30660" target="_blank" rel="noopener">java 8的java.time包(非常值得推荐)</a></p>
+<p>此类的功能与SimpleDateFormat类的功能类似,此类也是线程安全的,在写成时间处理工具类时,可作为静态成员变量,而不用每次都new一个SimpleDateFormat实例,此类是用来创建日期显示的模板,然后对于日期的格式化和解析还是使用LocalDateTime等类的parse静态方法和format方法,其模板属性格式是和SimpleDateFormat一样的,请看:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">G 年代标志符</span><br><span class="line">y 年</span><br><span class="line">M 月</span><br><span class="line">d 日</span><br><span class="line">h 时 (<span class="number">12</span>小时制)</span><br><span class="line">H 时 (<span class="number">24</span>小时制)</span><br><span class="line">m 分</span><br><span class="line">s 秒</span><br><span class="line">S 毫秒</span><br><span class="line">E 星期几</span><br><span class="line">D 一年中的第几天</span><br><span class="line">F 一月中第几个星期(以每个月<span class="number">1</span>号为第一周,<span class="number">8</span>号为第二周为标准计算)</span><br><span class="line">w 一年中第几个星期</span><br><span class="line">W 一月中第几个星期(不同于F的计算标准,是以星期为标准计算星期数,例如<span class="number">1</span>号是星期三,是当月的第一周,那么<span class="number">5</span>号为星期日就已经是当月的第二周了)</span><br><span class="line">a 上午 / 下午 标记符</span><br><span class="line">k 时 (<span class="number">24</span>小时制,其值与H的不同点在于,当数值小于<span class="number">10</span>时,前面不会有<span class="number">0</span>)</span><br><span class="line">K 时 (<span class="number">12</span>小时值,其值与h的不同点在于,当数值小于<span class="number">10</span>时,前面不会有<span class="number">0</span>)</span><br><span class="line">z 时区</span><br></pre></td></tr></table></figure>
+<p>对于此类使用先来个简单的新旧api对比演示:</p>
+<p>Date转String</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">//使用Date和SimpleDateFormat</span></span><br><span class="line">  SimpleDateFormat simpleDateFormat = </span><br><span class="line">                  <span class="keyword">new</span> SimpleDateFormat(<span class="string">"G yyyy年MM月dd号 E a hh时mm分ss秒"</span>);</span><br><span class="line">  </span><br><span class="line">  String format = simpleDateFormat.format(<span class="keyword">new</span> Date());</span><br><span class="line">  </span><br><span class="line">  System.out.println(format); </span><br><span class="line">  <span class="comment">//打印: 公元 2017年03月21号 星期二 下午 06时38分20秒</span></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  <span class="comment">//使用jdk1.8 LocalDateTime和DateTimeFormatter</span></span><br><span class="line">  LocalDateTime now = LocalDateTime.now();</span><br><span class="line">  DateTimeFormatter pattern = </span><br><span class="line">             DateTimeFormatter.ofPattern(<span class="string">"G yyyy年MM月dd号 E a hh时mm分ss秒"</span>);</span><br><span class="line">  String format = now.format(pattern);</span><br><span class="line">  System.out.println(format);</span><br><span class="line"><span class="comment">//打印: 公元 2017年03月21号 星期二 下午 06时38分20秒</span></span><br></pre></td></tr></table></figure>
+<p>String转Date</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//使用Date和SimpleDateFormat</span></span><br><span class="line">SimpleDateFormat simpleDateFormat = </span><br><span class="line">          <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd hh:mm:ss"</span>);</span><br><span class="line"></span><br><span class="line">Date date = simpleDateFormat.parse(<span class="string">"2017-12-03 10:15:30"</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(simpleDateFormat.format(date));</span><br><span class="line"><span class="comment">//打印 2017-12-03 10:15:30</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用jdk1.8 LocalDateTime和DateTimeFormatter</span></span><br><span class="line">DateTimeFormatter pattern = </span><br><span class="line">            DateTimeFormatter.ofPattern(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//严格按照ISO yyyy-MM-dd验证，03写成3都不行</span></span><br><span class="line">LocalDateTime dt = LocalDateTime.parse(<span class="string">"2017-12-03 10:15:30"</span>,pattern); </span><br><span class="line"></span><br><span class="line">System.out.println(dt.format(pattern));</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/09/Nio/" rel="next" title="nio">
+                <i class="fa fa-chevron-left"></i> nio
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/user.jpg" alt="lichukuan">
+            
+              <p class="site-author-name" itemprop="name">lichukuan</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">博客</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规范"><span class="nav-number">2.</span> <span class="nav-text">规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Instant"><span class="nav-number">3.</span> <span class="nav-text">Instant</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Duration"><span class="nav-number">4.</span> <span class="nav-text">Duration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地时间"><span class="nav-number">5.</span> <span class="nav-text">本地时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TemporalAdjusters"><span class="nav-number">6.</span> <span class="nav-text">TemporalAdjusters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DateTimeFormatter"><span class="nav-number">7.</span> <span class="nav-text">DateTimeFormatter</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lichukuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
