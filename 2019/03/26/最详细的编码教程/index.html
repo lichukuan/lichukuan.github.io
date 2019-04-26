@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="我的个人博客">
 <meta property="og:description" content="ASCIIASCII是美国(国家)信息交换标准(代)码，一种使用7个或8个二进制位进行编码的方案，最多可以给256(2^80)个字符(包括字母、数字、标点符号、控制字符及其他符号)分配(或指定)数值。基本的 ASCII 字符集共有 128 个字符，其中有 96 个可打印字符，包括常用的字母、数字、标点符号等，另外还有 32 个控制字符。 文件中每一个字都是美标形象码或空格码，这类文件称为“美标文本">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-26T13:38:18.386Z">
+<meta property="og:updated_time" content="2019-04-26T14:22:15.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="字符编码详解">
 <meta name="twitter:description" content="ASCIIASCII是美国(国家)信息交换标准(代)码，一种使用7个或8个二进制位进行编码的方案，最多可以给256(2^80)个字符(包括字母、数字、标点符号、控制字符及其他符号)分配(或指定)数值。基本的 ASCII 字符集共有 128 个字符，其中有 96 个可打印字符，包括常用的字母、数字、标点符号等，另外还有 32 个控制字符。 文件中每一个字都是美标形象码或空格码，这类文件称为“美标文本">
@@ -339,6 +339,13 @@
 <h2 id="Base64"><a href="#Base64" class="headerlink" title="Base64"></a>Base64</h2><p>有的电子邮件系统(比如国外信箱)不支持非英文字母(比如汉字)传输，这是历史原因造成的(认为只有美国会使用电子邮件?)。因为一个英文字母使用ASCII编码来存储，占存储器的1个字节(8位)，实际上只用了7位2进制来存储，第一位并没有使用，设置为0，所以，这样的系统认为凡是第一位是1的字节都是错误的。而有的编码方案(比如GB2312)不但使用多个字节编码一个字符，并且第一位经常是1，于是邮件系统就把1换成0，这样收到邮件的人就会发现邮件乱码。</p>
 <p>为了能让邮件系统正常的收发信件，就需要把由其他编码存储的符号转换成ASCII码来传输。比如，在一端发送GB2312编码－&gt;根据Base64规则－&gt;转换成ASCII码，接收端收到ASCII码－&gt;根据Base64规则－&gt;还原到GB2312编码。</p>
 <h2 id="BMP"><a href="#BMP" class="headerlink" title="BMP"></a>BMP</h2><p>UCS-4根据最高位为0的最高字节分成2^7=128个group。每个group再根据次高字节分为256个plane。每个plane根据第3个字节分为256行 (rows)，每行包含256个cells。当然同一行的cells只是最后一个字节不同，其余都相同。<br>group 0的plane 0被称作Basic Multilingual Plane, 即BMP。或者说UCS-4中，高两个字节为0的码位被称作BMP。<br>将UCS-4的BMP去掉前面的两个零字节就得到了UCS-2。在UCS-2的两个字节前加上两个零字节，就得到了UCS-4的BMP。而目前的UCS-4规范中还没有任何字符被分配在BMP之外</p>
+<p>更详细的可以看</p>
+<ul>
+<li><a href="http://www.qianxingzhem.com/post-1499.html" target="_blank" rel="noopener">网页编码就是那点事</a></li>
+<li><a href="https://juejin.im/entry/579aa02f7db2a2005a411523" target="_blank" rel="noopener">计算机程序的思维逻辑 (6) - 如何从乱码中恢复 (上)</a></li>
+<li><a href="https://juejin.im/post/5798b27d1532bc0060f128c0" target="_blank" rel="noopener">计算机程序的思维逻辑 (6) - 如何从乱码中恢复 (下)</a></li>
+<li><a href="https://juejin.im/post/579efcb02e958a00665d8185" target="_blank" rel="noopener">计算机程序的思维逻辑 (8) - char的真正含义</a></li>
+</ul>
 <p>参考：</p>
 <ul>
 <li><a href="http://www.fmddlmyy.cn/text6.html" target="_blank" rel="noopener">http://www.fmddlmyy.cn/text6.html</a></li>
@@ -461,7 +468,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">博客</span>
                 </a>
               </div>
@@ -472,7 +479,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

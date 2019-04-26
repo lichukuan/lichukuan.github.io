@@ -83,17 +83,17 @@
 
 
 
-<meta name="description" content="java是什么Java是由Sun Microsystems（后来被Oracle收购）公司于1995年5月推出的Java面向对象程序设计语言和Java平台的总称,是一个高级程序设计语言。 Java的主要特性 简单性 面向对象 分布式 健壮性 安全性 体系中立性 可移植性 解释型 高性能 多线程 动态性  具体的可以百度或在菜鸟教程上查看 Java的主要的应用场景 web后端 Android app开">
+<meta name="description" content="元注解元注解是一种可以注解到注解上的注解，是一种基本的注解，元注解有： 12345@Retention ：解释这个注解的存活时间@Documented ：将注解中的元素包含到Javadoc中去@Target ：指定注解的应用场景@Inherited ：指定注解是否会被子类使用，例如：重写父类的方法时，如果要重写的方法有注解，则重写的方法也会出现该注解@Repeatable() ：可重复（Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="菜鸟话Java——Java概述">
-<meta property="og:url" content="http://yoursite.com/2019/03/08/菜鸟话Java--Java概述/index.html">
+<meta property="og:title" content="java注解">
+<meta property="og:url" content="http://yoursite.com/2019/04/13/java注解/index.html">
 <meta property="og:site_name" content="我的个人博客">
-<meta property="og:description" content="java是什么Java是由Sun Microsystems（后来被Oracle收购）公司于1995年5月推出的Java面向对象程序设计语言和Java平台的总称,是一个高级程序设计语言。 Java的主要特性 简单性 面向对象 分布式 健壮性 安全性 体系中立性 可移植性 解释型 高性能 多线程 动态性  具体的可以百度或在菜鸟教程上查看 Java的主要的应用场景 web后端 Android app开">
+<meta property="og:description" content="元注解元注解是一种可以注解到注解上的注解，是一种基本的注解，元注解有： 12345@Retention ：解释这个注解的存活时间@Documented ：将注解中的元素包含到Javadoc中去@Target ：指定注解的应用场景@Inherited ：指定注解是否会被子类使用，例如：重写父类的方法时，如果要重写的方法有注解，则重写的方法也会出现该注解@Repeatable() ：可重复（Java">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-09T01:45:30.141Z">
+<meta property="og:updated_time" content="2019-04-13T07:55:06.670Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="菜鸟话Java——Java概述">
-<meta name="twitter:description" content="java是什么Java是由Sun Microsystems（后来被Oracle收购）公司于1995年5月推出的Java面向对象程序设计语言和Java平台的总称,是一个高级程序设计语言。 Java的主要特性 简单性 面向对象 分布式 健壮性 安全性 体系中立性 可移植性 解释型 高性能 多线程 动态性  具体的可以百度或在菜鸟教程上查看 Java的主要的应用场景 web后端 Android app开">
+<meta name="twitter:title" content="java注解">
+<meta name="twitter:description" content="元注解元注解是一种可以注解到注解上的注解，是一种基本的注解，元注解有： 12345@Retention ：解释这个注解的存活时间@Documented ：将注解中的元素包含到Javadoc中去@Target ：指定注解的应用场景@Inherited ：指定注解是否会被子类使用，例如：重写父类的方法时，如果要重写的方法有注解，则重写的方法也会出现该注解@Repeatable() ：可重复（Java">
 
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/08/菜鸟话Java--Java概述/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/13/java注解/">
 
 
 
 
 
-  <title>菜鸟话Java——Java概述 | 我的个人博客</title>
+  <title>java注解 | 我的个人博客</title>
   
 
 
@@ -236,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/菜鸟话Java--Java概述/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/13/java注解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lichukuan">
@@ -253,7 +253,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">菜鸟话Java——Java概述</h1>
+          <h1 class="post-title" itemprop="name headline">java注解</h1>
         
 
         <div class="post-meta">
@@ -265,8 +265,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-08T00:00:00+08:00">
-                2019-03-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-13T15:48:08+08:00">
+                2019-04-13
               </time>
             
 
@@ -325,104 +325,23 @@
       
 
       
-        <h2 id="java是什么"><a href="#java是什么" class="headerlink" title="java是什么"></a>java是什么</h2><p>Java是由Sun Microsystems（后来被Oracle收购）公司于1995年5月推出的Java面向对象程序设计语言和Java平台的总称,是一个高级程序设计语言。</p>
-<h2 id="Java的主要特性"><a href="#Java的主要特性" class="headerlink" title="Java的主要特性"></a>Java的主要特性</h2><ul>
-<li>简单性</li>
-<li>面向对象</li>
-<li>分布式</li>
-<li>健壮性</li>
-<li>安全性</li>
-<li>体系中立性</li>
-<li>可移植性</li>
-<li>解释型</li>
-<li>高性能</li>
-<li>多线程</li>
-<li>动态性</li>
+        <h2 id="元注解"><a href="#元注解" class="headerlink" title="元注解"></a>元注解</h2><p>元注解是一种可以注解到注解上的注解，是一种基本的注解，元注解有：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention</span> ：解释这个注解的存活时间</span><br><span class="line"><span class="meta">@Documented</span> ：将注解中的元素包含到Javadoc中去</span><br><span class="line"><span class="meta">@Target</span> ：指定注解的应用场景</span><br><span class="line"><span class="meta">@Inherited</span> ：指定注解是否会被子类使用，例如：重写父类的方法时，如果要重写的方法有注解，则重写的方法也会出现该注解</span><br><span class="line"><span class="meta">@Repeatable</span>() ：可重复（Java <span class="number">1.8</span> 才加进来的）</span><br></pre></td></tr></table></figure>
+<h3 id="Retention"><a href="#Retention" class="headerlink" title="@Retention"></a>@Retention</h3><p>@Retention取值如下：</p>
+<ul>
+<li>RetentionPolicy.SOURCE 注解只在源码阶段保留，在编译器进行编译时它将被丢弃忽视。例如（@Override）</li>
+<li>RetentionPolicy.CLASS 注解只被保留到编译进行的时候，它并不会被加载到 JVM 中。 例如（@NotNull）</li>
+<li>RetentionPolicy.RUNTIME 注解可以保留到程序运行的时候，它会被加载进入到 JVM 中，所以在程序运行时可以获取到它们.例如Retrofit2中的（@GET()）</li>
 </ul>
-<p>具体的可以百度或在菜鸟教程上查看</p>
-<h2 id="Java的主要的应用场景"><a href="#Java的主要的应用场景" class="headerlink" title="Java的主要的应用场景"></a>Java的主要的应用场景</h2><ul>
-<li>web后端</li>
-<li>Android app开发</li>
-</ul>
-<h2 id="Java各种术语介绍"><a href="#Java各种术语介绍" class="headerlink" title="Java各种术语介绍"></a>Java各种术语介绍</h2><table>
-<thead>
-<tr>
-<th></th>
-<th>术语名</th>
-<th>缩写</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>Java Development kit</td>
-<td>JDK</td>
-<td>编写Java程序的程序员使用的软件</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Java Runtime Environment</td>
-<td>JRE</td>
-<td>运行Java程序所必须的环境</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Server JRE</td>
-<td>—</td>
-<td>运行于服务器上的JRE</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Standard Edition</td>
-<td>SE</td>
-<td>java标准版,主要学习这个</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Enterprise Edition</td>
-<td>EE</td>
-<td>用于服务器应用，现在不常用</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Micro Edition</td>
-<td>ME</td>
-<td>用于手机和其他小型设备的Java平台，由于洛基亚手机破产后，现在不常用</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Java FX</td>
-<td>—</td>
-<td>用于图形化界面的一个替代工具包</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>OpenJDK</td>
-<td>—</td>
-<td>java se一个免费开源版本</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h2 id="java有关的问题"><a href="#java有关的问题" class="headerlink" title="java有关的问题"></a>java有关的问题</h2><h3 id="Java和JavaScript有什么关系？"><a href="#Java和JavaScript有什么关系？" class="headerlink" title="Java和JavaScript有什么关系？"></a>Java和JavaScript有什么关系？</h3><p>javaScript是一种在网页上使用的脚本语言，和Java没什么关系。</p>
-<h3 id="Java是解释型还是编译型"><a href="#Java是解释型还是编译型" class="headerlink" title="Java是解释型还是编译型"></a>Java是解释型还是编译型</h3><p>先了解下解释型和编译型的定义</p>
+<h3 id="Target"><a href="#Target" class="headerlink" title="@Target"></a>@Target</h3><p><code>@Target</code>的取值如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ElementType.ANNOTATION_TYPE 可以给一个注解进行注解</span><br><span class="line">ElementType.CONSTRUCTOR 可以给构造方法进行注解</span><br><span class="line">ElementType.FIELD 可以给属性进行注解</span><br><span class="line">ElementType.LOCAL_VARIABLE 可以给局部变量进行注解</span><br><span class="line">ElementType.METHOD 可以给方法进行注解</span><br><span class="line">ElementType.PACKAGE 可以给一个包进行注解（使用方法很特殊）</span><br><span class="line">ElementType.PARAMETER 可以给一个方法内的参数进行注解</span><br><span class="line">ElementType.TYPE 可以给一个类型进行注解，比如类、接口、枚举如果不声明则可以应用于所有的注解</span><br></pre></td></tr></table></figure>
+<h3 id="Repeatable"><a href="#Repeatable" class="headerlink" title="@Repeatable()"></a>@Repeatable()</h3><p>表示注解的值是否可以取多个</p>
+<h3 id="Inherited"><a href="#Inherited" class="headerlink" title="@Inherited"></a>@Inherited</h3><p>指定注解是否会被子类使用，比如如果一个超类被 @Inherited 注解过的注解进行注解的话，那么如果它的子类没有被任何注解应用的话，那么这个子类就继承了超类的注解</p>
+<h3 id="Documented"><a href="#Documented" class="headerlink" title="@Documented"></a>@Documented</h3><p>与文档有关的元注解，在生成javadoc文档的时候将该Annotation也写入到文档中</p>
+<h2 id="注解的定义"><a href="#注解的定义" class="headerlink" title="注解的定义"></a>注解的定义</h2><h2 id="注解的属性"><a href="#注解的属性" class="headerlink" title="注解的属性"></a>注解的属性</h2><p>注解的属性也叫做成员变量。注解只有成员变量，没有方法。注解的成员变量在注解的定义中以“无形参的方法”形式来声明，其方法名定义了该成员变量的名字，其返回值定义了该成员变量的类型</p>
 <blockquote>
-<p>定义:<br><br>编译型语言：把做好的源程序全部编译成二进制代码的可运行程序。然后，可直接运行这个程序。<br><br>解释型语言：把做好的源程序翻译一句，然后执行一句，直至结束<br><br>区别:<br><br>编译型语言，执行速度快、效率高；依靠编译器、跨平台性差些。<br><br>解释型语言，执行速度慢、效率低；依靠解释器、跨平台性好。<br></p>
+<p>需要注意的是，在注解中定义属性时它的类型必须是 8 种基本数据类型外加 类、接口、注解及它们的数组。</p>
 </blockquote>
-<p>java是解释型的语言，因为虽然java也需要编译，编译成.class文件，但是并不是机器可以识别的语言，而是字节码，<br>最终还是需要 jvm的解释，才能在各个平台执行，这同时也是java跨平台的原因。所以可是说java即是编译型的，也是解释型，<br>但是假如非要归类的话，从概念上的定义，恐怕java应该归到解释型的语言中。</p>
-<h3 id="JIT是什么"><a href="#JIT是什么" class="headerlink" title="JIT是什么"></a>JIT是什么</h3><p>JIT是Java即时编译器，通过把”热点代码”(即反复被使用的代码)编译成与本地平台相关的机器码，用来提高运行速度</p>
-<h3 id="jdk-jre-jvm是什么，以及它们之间的关系"><a href="#jdk-jre-jvm是什么，以及它们之间的关系" class="headerlink" title="jdk jre jvm是什么，以及它们之间的关系"></a>jdk jre jvm是什么，以及它们之间的关系</h3><p>jdk : jdk是Java开发工具包</p>
-<p>jre : jre是Java运行环境。没有jre,java程序就不能运行。</p>
-<p>jvm : jvm是java虚拟机，负责执行编译后的.class文件</p>
-<p>简单的说：jdk包括jre,jre包括jvm。具体的区别可以看<a href="http://www.cnblogs.com/xiaofeixiang/p/4085159.html" target="_blank" rel="noopener">这篇博客</a></p>
 
       
     </div>
@@ -447,8 +366,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/08/菜鸟话Java--java的安装/" rel="next" title="菜鸟话Java——Java安装">
-                <i class="fa fa-chevron-left"></i> 菜鸟话Java——Java安装
+              <a href="/2019/04/11/java日期和时间api/" rel="next" title="java日期和时间api">
+                <i class="fa fa-chevron-left"></i> java日期和时间api
               </a>
             
           </div>
@@ -457,8 +376,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/10/菜鸟话Java-java基本语法/" rel="prev" title="菜鸟话Java--java基本语法">
-                菜鸟话Java--java基本语法 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/26/android的存储路径/" rel="prev" title="android的存储路径">
+                android的存储路径 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -584,7 +503,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#java是什么"><span class="nav-number">1.</span> <span class="nav-text">java是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java的主要特性"><span class="nav-number">2.</span> <span class="nav-text">Java的主要特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java的主要的应用场景"><span class="nav-number">3.</span> <span class="nav-text">Java的主要的应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java各种术语介绍"><span class="nav-number">4.</span> <span class="nav-text">Java各种术语介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java有关的问题"><span class="nav-number">5.</span> <span class="nav-text">java有关的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java和JavaScript有什么关系？"><span class="nav-number">5.1.</span> <span class="nav-text">Java和JavaScript有什么关系？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java是解释型还是编译型"><span class="nav-number">5.2.</span> <span class="nav-text">Java是解释型还是编译型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JIT是什么"><span class="nav-number">5.3.</span> <span class="nav-text">JIT是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jdk-jre-jvm是什么，以及它们之间的关系"><span class="nav-number">5.4.</span> <span class="nav-text">jdk jre jvm是什么，以及它们之间的关系</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#元注解"><span class="nav-number">1.</span> <span class="nav-text">元注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Retention"><span class="nav-number">1.1.</span> <span class="nav-text">@Retention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Target"><span class="nav-number">1.2.</span> <span class="nav-text">@Target</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repeatable"><span class="nav-number">1.3.</span> <span class="nav-text">@Repeatable()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inherited"><span class="nav-number">1.4.</span> <span class="nav-text">@Inherited</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Documented"><span class="nav-number">1.5.</span> <span class="nav-text">@Documented</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注解的定义"><span class="nav-number">2.</span> <span class="nav-text">注解的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注解的属性"><span class="nav-number">3.</span> <span class="nav-text">注解的属性</span></a></li></ol></div>
             
 
           </div>
