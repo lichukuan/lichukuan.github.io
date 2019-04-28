@@ -233,6 +233,175 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/最详细的编码教程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lichukuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/26/最详细的编码教程/" itemprop="url">字符编码详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-26T20:11:47+08:00">
+                2019-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基础知识/" itemprop="url" rel="index">
+                    <span itemprop="name">基础知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h2><p>ASCII是美国(国家)信息交换标准(代)码，一种使用7个或8个二进制位进行编码的方案，最多可以给<code>256(2^80)</code>个字符<br>(包括字母、数字、标点符号、控制字符及其他符号)分配(或指定)数值。基本的 ASCII 字符集共有 <code>128</code> 个字符，其中有<br> <code>96</code> 个可打印字符，包括常用的字母、数字、标点符号等，另外还有 <code>32</code> 个控制字符。</p>
+<p>文件中每一个字都是美标形象码或空格码，这类文件称为“美标文本文件”，或略为“文本文件”，通常可在不同电脑系统间直接交换。<br>文件中含有控制码或非美标码的文件，通常不能在不同电脑系统间直接交换。这类文件有一个通称，叫“二进制文件”</p>
+<h2 id="ANSI"><a href="#ANSI" class="headerlink" title="ANSI"></a>ANSI</h2><p>为了扩充ASCII编码，以用于显示本国的语言，不同的国家和地区制定了不同的标准，由此产生了<code>GB2312</code>, <code>BIG5</code>, <code>JIS</code> 等各自的编码标准。这些使用 2 个字节来代表一个字符的各种汉字延伸编码方式，称为 <code>ANSI</code> 编码，又称为<code>MBCS（Muilti-Bytes Charecter Set，多字节字符集）</code>。在简体中文系统下，<code>ANSI</code> 编码代表 <code>GB2312</code> 编码，在日文操作系统下，<code>ANSI</code> 编码代表 <code>JIS</code> 编码，所以在中文 windows下要转码成<code>GB2312</code>,<code>GBK</code>(gb2312的扩展)只需要把文本保存为<code>ANSI</code> 编码即可。 不同 <code>ANSI</code> 编码之间互不兼容，当信息在国际间交流时，无法将属于两种语言的文字，存储在同一段 <code>ANSI</code> 编码的文本中。一个很大的缺点是，同一个编码值，在不同的编码体系里代表着不同的字。这样就容易造成混乱</p>
+<h2 id="GB2312"><a href="#GB2312" class="headerlink" title="GB2312"></a>GB2312</h2><p><code>GB2312</code>是<code>ANSI</code>编码里的一种，对<code>ANSI</code>编码最初始的<code>ASCII</code>编码进行扩充，为了满足国内在计算机中使用汉字的需要，中国国家标准总局发布了一系列的汉字字符集国家标准编码，统称为GB码，或国标码。其中最有影响的是于1980年发布的《信息交换用汉字编码字符集 基本集》，标准号为GB 2312-1980,因其使用非常普遍，也常被通称为国标码。GB2312编码通行于我国内地；新加坡等地也采用此编码。几乎所有的中文系统和国际化的软件都支持<code>GB2312</code>。<br><code>GB2312</code>是一个简体中文字符集，由<code>6763</code>个常用汉字和<code>682</code>个全角的非汉字字符组成</p>
+<h2 id="GBK"><a href="#GBK" class="headerlink" title="GBK"></a>GBK</h2><p><code>GB 2312</code>的出现，基本满足了汉字的计算机处理需要，但对于人名、古汉语等方面出现的罕用字，<code>GB 2312</code>不能处理，这导致了后来<code>GBK</code>及<code>GB 18030</code>汉字字符集的出现<br><code>GBK</code>共收入21886个汉字和图形符号，其中汉字（包括部首和构件）<code>21003</code>个，图形符号<code>883</code>个。<code>GBK</code>编码标准兼容<code>GB2312</code>，共收录汉字<code>21003</code>个、符号<code>883</code>个，并提供<code>1894</code>个造字码位，简、繁体字融于一库。<code>GB2312</code>码是中华人民共和国国家汉字信息交换用编码，全称《信息交换用汉字编码字符集——基本集》，1980年由国家标准总局发布。基本集共收入汉字<code>6763</code>个和非汉字图形字符<code>682</code>个，通行于中国大陆。新加坡等地也使用此编码。GBK是对GB2312-80的扩展.</p>
+<h2 id="Big5"><a href="#Big5" class="headerlink" title="Big5"></a>Big5</h2><p>在台湾、香港与澳门地区，使用的是繁体中文字符集。而1980年发布的<code>GB2312</code>面向简体中文字符集，并不支持繁体汉字。在这些使用繁体中文字符集的地区，一度出现过很多不同厂商提出的字符集编码，这些编码彼此互不兼容，造成了信息交流的困难。为统一繁体字符集编码，1984年，台湾五大厂商宏碁、神通、佳佳、零壹以及大众一同制定了一种繁体中文编码方案，因其来源被称为五大码，英文写作Big5，后来按英文翻译回汉字后，普遍被称为大五码。大五码是一种繁体中文汉字字符集，其中繁体汉字<code>13053</code>个，<code>808</code>个标点符号、希腊字母及特殊符号。</p>
+<h2 id="unicode"><a href="#unicode" class="headerlink" title="unicode"></a>unicode</h2><p>为什么电子邮件和网页都经常会出现乱码，就是因为信息的提供者可能是日文的ANSI编码体系和信息的读取者可能是中文的编码体系，他们对同一个二进制编码值进行显示，采用了不同的编码，导致乱码。这个问题促使了unicode码的诞生。<br>如果有一种编码，将世界上所有的符号都纳入其中，无论是英文、日文、还是中文等，大家都使用这个编码表，就不会出现编码不匹配现象。每个符号对应一个唯一的编码，乱码问题就不存在了。这就是Unicode编码。</p>
+<p><code>unicode</code>，中文叫万国码，统一码，是统一码联盟为了世界上大多数文字系统进行整理和编码。<br>和<code>unicode</code>类似，iso组织也在做同样的事情，iso开展了 <code>ISO/IEC 10646</code>项目，名字叫<code>“ Universal Multiple-Octet Coded Character Set”</code>，简称<code>UCS</code>。<br>后来，双方意识到时间上不需要2套通用的字符集，所以双方开始进行整合，到<code>unicode2.0</code>时，<code>unicode</code>的编码和<code>ucs</code>的编码都基本一致。<br>但是又略有不同。</p>
+<p><code>Unicode</code>深入人心，且<code>UTF-8</code>(Unicode中的一种)大行其道，<code>UCS</code>编码基本被等同于<code>UTF-16</code>，<code>UTF-32</code>了，所以目前UCS基本谈出人们的视野中。</p>
+<h2 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h2><p><code>Unicode</code>固然统一了编码方式，但是它的效率不高，比如<code>UCS-4</code>(Unicode的标准之一)规定用4个字节存储一个符号，那么每个英文字母前都必然有三个字节是0，这对存储和传输来说都很耗资源。<br>为了提高<code>Unicode</code>的编码效率，于是就出现了<code>UTF-8</code>编码。<code>UTF-8</code>可以根据不同的符号自动选择编码的长短。比如英文字母可以只用1个字节就够了。</p>
+<h2 id="UTF-16"><a href="#UTF-16" class="headerlink" title="UTF-16"></a>UTF-16</h2><p><code>UTF-16</code>是<code>Unicode</code>的其中一个使用方式,<code>UTF-16</code>比起<code>UTF-8</code>，好处在于大部分字符都以固定长度的字节 (2字节) 储存，但<code>UTF-16</code>却无法兼容于<code>ASCII</code>编码。</p>
+<h2 id="Base64"><a href="#Base64" class="headerlink" title="Base64"></a>Base64</h2><p>有的电子邮件系统(比如国外信箱)不支持非英文字母(比如汉字)传输，这是历史原因造成的(认为只有美国会使用电子邮件?)。因为一个英文字母使用ASCII编码来存储，占存储器的1个字节(8位)，实际上只用了7位2进制来存储，第一位并没有使用，设置为0，所以，这样的系统认为凡是第一位是1的字节都是错误的。而有的编码方案(比如GB2312)不但使用多个字节编码一个字符，并且第一位经常是1，于是邮件系统就把1换成0，这样收到邮件的人就会发现邮件乱码。</p>
+<p>为了能让邮件系统正常的收发信件，就需要把由其他编码存储的符号转换成ASCII码来传输。比如，在一端发送GB2312编码－&gt;根据Base64规则－&gt;转换成ASCII码，接收端收到ASCII码－&gt;根据Base64规则－&gt;还原到GB2312编码。</p>
+<h2 id="BMP"><a href="#BMP" class="headerlink" title="BMP"></a>BMP</h2><p>UCS-4根据最高位为0的最高字节分成2^7=128个group。每个group再根据次高字节分为256个plane。每个plane根据第3个字节分为256行 (rows)，每行包含256个cells。当然同一行的cells只是最后一个字节不同，其余都相同。<br>group 0的plane 0被称作Basic Multilingual Plane, 即BMP。或者说UCS-4中，高两个字节为0的码位被称作BMP。<br>将UCS-4的BMP去掉前面的两个零字节就得到了UCS-2。在UCS-2的两个字节前加上两个零字节，就得到了UCS-4的BMP。而目前的UCS-4规范中还没有任何字符被分配在BMP之外</p>
+<p>更详细的可以看</p>
+<ul>
+<li><a href="http://www.qianxingzhem.com/post-1499.html" target="_blank" rel="noopener">网页编码就是那点事</a></li>
+<li><a href="https://juejin.im/entry/579aa02f7db2a2005a411523" target="_blank" rel="noopener">计算机程序的思维逻辑 (6) - 如何从乱码中恢复 (上)</a></li>
+<li><a href="https://juejin.im/post/5798b27d1532bc0060f128c0" target="_blank" rel="noopener">计算机程序的思维逻辑 (6) - 如何从乱码中恢复 (下)</a></li>
+<li><a href="https://juejin.im/post/579efcb02e958a00665d8185" target="_blank" rel="noopener">计算机程序的思维逻辑 (8) - char的真正含义</a></li>
+</ul>
+<p>参考：</p>
+<ul>
+<li><a href="http://www.fmddlmyy.cn/text6.html" target="_blank" rel="noopener">http://www.fmddlmyy.cn/text6.html</a></li>
+<li><a href="https://zhidao.baidu.com/question/875623864035336132.html" target="_blank" rel="noopener">https://zhidao.baidu.com/question/875623864035336132.html</a></li>
+<li><a href="https://baike.baidu.com/item/字符编码/8446880?fr=aladdin" target="_blank" rel="noopener">https://baike.baidu.com/item/字符编码/8446880?fr=aladdin</a></li>
+<li><a href="https://baike.baidu.com/item/UTF-16/9032026?fr=aladdin" target="_blank" rel="noopener">https://baike.baidu.com/item/UTF-16/9032026?fr=aladdin</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/源码解析-CharSequence/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1706,157 +1875,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/23/菜鸟话Java-Number接口详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lichukuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/user.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/23/菜鸟话Java-Number接口详解/" itemprop="url">菜鸟话Java---Number接口详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-23T10:26:48+08:00">
-                2019-03-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Number类"><a href="#Number类" class="headerlink" title="Number类"></a>Number类</h2><p>转自<a href="http://www.breakyizhan.com/java/4446.html" target="_blank" rel="noopener">这里</a></p>
-<p>大多数时候，在使用java中的数字时，我们使用原始数据类型。但是，Java还在java.lang包中的抽象类Number下提供了各种数字包装子类。Number类下主要有6个子类。这些子类定义了一些在处理数字时经常使用的有用方法。byte, integer, double, short, float, long</p>
-<p>为什么要在原始数据上使用Number类对象？</p>
-<blockquote>
-<p>数字类定义的常量（如MIN_VALUE和MAX_VALUE）提供数据类型的上限和下限，非常有用。<br>Number类对象可以用作期望对象的方法的参数（通常用于处理数字集合）。<br>类方法可用于将值转换为其他基本类型以及从其他基本类型转换值，用于转换字符串和从字符串转换，以及用于在数字系统（十进制，八进制，十六进制，二进制）之间进行转换。</p>
-</blockquote>
-<h2 id="Number的所有子类通用的方法"><a href="#Number的所有子类通用的方法" class="headerlink" title="Number的所有子类通用的方法"></a>Number的所有子类通用的方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">xxx xxxValue（）：这里xxx表示原始数字数据类型（<span class="keyword">byte</span>，<span class="keyword">short</span>，<span class="keyword">int</span>，<span class="keyword">long</span>，<span class="keyword">float</span>，<span class="keyword">double</span>）。此方法用于将此 Number对象的值转换为指定的基本数据类型。 </span><br><span class="line">句法 ：</span><br><span class="line"><span class="keyword">byte</span> byteValue（）</span><br><span class="line"><span class="keyword">short</span> shortValue（）</span><br><span class="line"><span class="keyword">int</span> intValue（）</span><br><span class="line"><span class="keyword">long</span> longValue（）</span><br><span class="line"><span class="keyword">float</span> floatValue（）</span><br><span class="line"><span class="keyword">double</span> doubleValue（）</span><br><span class="line">参数： </span><br><span class="line">----</span><br><span class="line">返回：</span><br><span class="line">此对象表示的数值</span><br><span class="line">转换为指定类型后</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Java program to demonstrate xxxValue() method</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// Creating a Double Class object with value "6.9685"</span></span><br><span class="line">        Double d = <span class="keyword">new</span> Double(<span class="string">"6.9685"</span>);</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// Converting this Double(Number) object to </span></span><br><span class="line">        <span class="comment">// different primitive data types</span></span><br><span class="line">        <span class="keyword">byte</span> b = d.byteValue(); </span><br><span class="line">        <span class="keyword">short</span> s = d.shortValue(); </span><br><span class="line">        <span class="keyword">int</span> i = d.intValue(); </span><br><span class="line">        <span class="keyword">long</span> l = d.longValue(); </span><br><span class="line">        <span class="keyword">float</span> f = d.floatValue(); </span><br><span class="line">        <span class="keyword">double</span> d1 = d.doubleValue(); </span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"value of d after converting it to byte : "</span> + b);</span><br><span class="line">        System.out.println(<span class="string">"value of d after converting it to short : "</span> + s);</span><br><span class="line">        System.out.println(<span class="string">"value of d after converting it to int : "</span> + i);</span><br><span class="line">        System.out.println(<span class="string">"value of d after converting it to long : "</span> + l);</span><br><span class="line">        System.out.println(<span class="string">"value of d after converting it to float : "</span> + f);</span><br><span class="line">        System.out.println(<span class="string">"value of d after converting it to double : "</span> + d1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出：</span><br><span class="line">value of d after converting it to <span class="keyword">byte</span> : <span class="number">6</span></span><br><span class="line">value of d after converting it to <span class="keyword">short</span> : <span class="number">6</span></span><br><span class="line">value of d after converting it to <span class="keyword">int</span> : <span class="number">6</span></span><br><span class="line">value of d after converting it to <span class="keyword">long</span> : <span class="number">6</span></span><br><span class="line">value of d after converting it to <span class="keyword">float</span> : <span class="number">6.9685</span></span><br><span class="line">value of d after converting it to <span class="keyword">double</span> : <span class="number">6.9685</span></span><br></pre></td></tr></table></figure>
-<p>注意：转换时，可能会发生精度损失。例如，我们可以看到在从Double对象转换为int数据类型时，小数部分（“.9685”）已被省略。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1909,7 +1927,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">博客</span>
                 </a>
               </div>
@@ -1920,7 +1938,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
