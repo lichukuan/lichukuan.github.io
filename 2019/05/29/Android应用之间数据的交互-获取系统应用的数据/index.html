@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在Android应用开发中我们常常需要和其他应用进行交互，之前对这些问题没有仔细了解过，现在来做一下总结。 Android应用之间数据的交互方式：  获取系统应用的数据 提供数据给其他应用 应用之间的分享  下面介绍获取系统应用的数据 实例分析以获取联系人数据为例，代码如下： 1234567891011Cursor cursor=getContentResolver().query(Contact">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android应用之间数据的交互-获取系统应用的数据">
+<meta property="og:url" content="http://yoursite.com/2019/05/29/Android应用之间数据的交互-获取系统应用的数据/index.html">
+<meta property="og:site_name" content="我的个人博客">
+<meta property="og:description" content="在Android应用开发中我们常常需要和其他应用进行交互，之前对这些问题没有仔细了解过，现在来做一下总结。 Android应用之间数据的交互方式：  获取系统应用的数据 提供数据给其他应用 应用之间的分享  下面介绍获取系统应用的数据 实例分析以获取联系人数据为例，代码如下： 1234567891011Cursor cursor=getContentResolver().query(Contact">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/Android应用之间数据的交互-获取系统应用的数据/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/Android应用之间数据的交互-获取系统应用的数据/2.png">
+<meta property="og:updated_time" content="2019-06-16T16:07:35.170Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android应用之间数据的交互-获取系统应用的数据">
+<meta name="twitter:description" content="在Android应用开发中我们常常需要和其他应用进行交互，之前对这些问题没有仔细了解过，现在来做一下总结。 Android应用之间数据的交互方式：  获取系统应用的数据 提供数据给其他应用 应用之间的分享  下面介绍获取系统应用的数据 实例分析以获取联系人数据为例，代码如下： 1234567891011Cursor cursor=getContentResolver().query(Contact">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/29/Android应用之间数据的交互-获取系统应用的数据/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/29/Android应用之间数据的交互-获取系统应用的数据/">
+
+
+
+
+
+  <title>Android应用之间数据的交互-获取系统应用的数据 | 我的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哪有什么胜利可言，挺着就代表着一切</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/29/Android应用之间数据的交互-获取系统应用的数据/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lichukuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android应用之间数据的交互-获取系统应用的数据</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-29T23:57:07+08:00">
+                2019-05-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在Android应用开发中我们常常需要和其他应用进行交互，之前对这些问题没有仔细了解过，现在来做一下总结。</p>
+<p>Android应用之间数据的交互方式：</p>
+<ul>
+<li>获取系统应用的数据</li>
+<li>提供数据给其他应用</li>
+<li>应用之间的分享</li>
+</ul>
+<p>下面介绍获取系统应用的数据</p>
+<h2 id="实例分析"><a href="#实例分析" class="headerlink" title="实例分析"></a>实例分析</h2><p>以获取联系人数据为例，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Cursor cursor=getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>);</span><br><span class="line"> <span class="keyword">if</span> (cursor!=<span class="keyword">null</span>)&#123;</span><br><span class="line">     <span class="keyword">while</span>(cursor.moveToNext())&#123;</span><br><span class="line">         <span class="comment">//获取联系人的名字</span></span><br><span class="line">         String name=cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));</span><br><span class="line">         <span class="comment">//获取联系人的电话号码</span></span><br><span class="line">         String number=cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));</span><br><span class="line">         Log.d(<span class="string">"============"</span>,<span class="string">" name: "</span>+name+<span class="string">"  number="</span>+number);</span><br><span class="line">     &#125;</span><br><span class="line">     cursor.close();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>ContentResolver</code>类的<code>query(Uri uri,String[] projection,String selection,String[] selectionArgs,String sortOrder)</code>方法参数的介绍：<br><br><code>uri</code>用来指明要访问的数据的位置<br><br><code>projection</code>访问的列，如果为null，则表示访问所有列<br><br><code>selection</code>用于指定查询条件<br><br><code>selectionArgs</code>查询参数<br><br><code>sortOrder</code>排序顺序<br></p>
+</blockquote>
+<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p>那么<code>ContentResolver</code>是怎么通过<code>query</code>方法来获取联系人的数据的呢？下面我们来分析<code>ContentResolver</code>的源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="meta">@Nullable</span> <span class="function">Cursor <span class="title">query</span><span class="params">(@RequiresPermission.Read @NonNull Uri uri,</span></span></span><br><span class="line"><span class="function"><span class="params">            @Nullable String[] projection, @Nullable String selection,</span></span></span><br><span class="line"><span class="function"><span class="params">            @Nullable String[] selectionArgs, @Nullable String sortOrder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> query(uri, projection, selection, selectionArgs, sortOrder, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//2</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="meta">@Nullable</span> <span class="function">Cursor <span class="title">query</span><span class="params">(@RequiresPermission.Read @NonNull Uri uri,</span></span></span><br><span class="line"><span class="function"><span class="params">            @Nullable String[] projection, @Nullable String selection,</span></span></span><br><span class="line"><span class="function"><span class="params">            @Nullable String[] selectionArgs, @Nullable String sortOrder,</span></span></span><br><span class="line"><span class="function"><span class="params">            @Nullable CancellationSignal cancellationSignal)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//把查询参数封装在Bundle中</span></span><br><span class="line">        Bundle queryArgs = createSqlQueryBundle(selection, selectionArgs, sortOrder);</span><br><span class="line">        <span class="keyword">return</span> query(uri, projection, queryArgs, cancellationSignal);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//3</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="meta">@Nullable</span> <span class="function">Cursor <span class="title">query</span><span class="params">(<span class="keyword">final</span> @RequiresPermission.Read @NonNull Uri uri,</span></span></span><br><span class="line"><span class="function"><span class="params">            @Nullable String[] projection, @Nullable Bundle queryArgs,</span></span></span><br><span class="line"><span class="function"><span class="params">            @Nullable CancellationSignal cancellationSignal)</span> </span>&#123;</span><br><span class="line">        Preconditions.checkNotNull(uri, <span class="string">"uri"</span>);</span><br><span class="line">        <span class="comment">//获取不稳定的提供者 IContentProvider是IPC接口用来与内容提供者进行数据交互</span></span><br><span class="line">        IContentProvider unstableProvider = acquireUnstableProvider(uri);</span><br><span class="line">        <span class="keyword">if</span> (unstableProvider == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        IContentProvider stableProvider = <span class="keyword">null</span>;</span><br><span class="line">        Cursor qCursor = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ...<span class="comment">//省略些不重要的源码</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                qCursor = unstableProvider.query(mPackageName, uri, projection,</span><br><span class="line">                        queryArgs, remoteCancellationSignal);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (DeadObjectException e) &#123;</span><br><span class="line">                <span class="comment">// The remote process has died...  but we only hold an unstable</span></span><br><span class="line">                <span class="comment">// reference though, so we might recover!!!  Let's try!!!!</span></span><br><span class="line">                <span class="comment">// This is exciting!!1!!1!!!!1</span></span><br><span class="line">                unstableProviderDied(unstableProvider);</span><br><span class="line">                stableProvider = acquireProvider(uri);<span class="comment">//第一次创建的是不稳定的，如果失败就重试</span></span><br><span class="line">                <span class="keyword">if</span> (stableProvider == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                qCursor = stableProvider.query(</span><br><span class="line">                        mPackageName, uri, projection, queryArgs, remoteCancellationSignal);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (qCursor == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Force query execution.  Might fail and throw a runtime exception here.</span></span><br><span class="line">            qCursor.getCount();<span class="comment">//调用这个方法判断是否查询出错</span></span><br><span class="line">            <span class="keyword">long</span> durationMillis = SystemClock.uptimeMillis() - startTime;</span><br><span class="line">            maybeLogQueryToEventLog(durationMillis, uri, projection, queryArgs);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Wrap the cursor object into CursorWrapperInner object.</span></span><br><span class="line">            <span class="keyword">final</span> IContentProvider provider = (stableProvider != <span class="keyword">null</span>) ? stableProvider</span><br><span class="line">                    : acquireProvider(uri);</span><br><span class="line">            <span class="keyword">final</span> CursorWrapperInner wrapper = <span class="keyword">new</span> CursorWrapperInner(qCursor, provider);<span class="comment">//CursorWrapperInner是内部类</span></span><br><span class="line">            stableProvider = <span class="keyword">null</span>;</span><br><span class="line">            qCursor = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">return</span> wrapper;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">            <span class="comment">// Arbitrary and not worth documenting, as Activity</span></span><br><span class="line">            <span class="comment">// Manager will kill this process shortly anyway.</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;<span class="comment">//释放资源</span></span><br><span class="line">           ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> IContentProvider <span class="title">acquireUnstableProvider</span><span class="params">(Uri uri)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!SCHEME_CONTENT.equals(uri.getScheme())) &#123;<span class="comment">//SCHEME_CONTENT为content,如果uri的scheme为null则返回null</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String auth = uri.getAuthority();</span><br><span class="line">        <span class="keyword">if</span> (auth != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> acquireUnstableProvider(mContext, uri.getAuthority());<span class="comment">//这里调用的是ApplicationContentResolver的acquireUnstableProvider方法</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>ContentResolver</code>的源码中<code>query</code>有三个重载方法1，2，3，在实例中我们调用重载方法1，方法1中则直接调用方法2。在方法2中，封装了数据到<code>Bundle</code>中，并调用了方法3，真正的实现在方法3中。方法3中的核心方法是<code>acquireUnstableProvider(Uri uri)</code>,它获取<code>IContentProvider</code>(一个IPC 接口)，并通过<code>IContentProvider</code>来获取联系人的数据。而<code>acquireUnstableProvider(Uri uri)</code>调用的是<code>acquireUnstableProvider(Context c, String name)</code>方法，它是个抽象方法，具体的实现类是<code>ApplicationContentResolver</code>。</p>
+<p><code>ApplicationContentResolver</code>的<code>acquireUnstableProvider</code>方法源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> IContentProvider <span class="title">acquireUnstableProvider</span><span class="params">(Context c, String auth)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">return</span> mMainThread.acquireProvider(c,</span><br><span class="line">                 ContentProvider.getAuthorityWithoutUserId(auth),</span><br><span class="line">                 resolveUserIdFromAuthority(auth), <span class="keyword">false</span>);</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>ApplicationContentResolver</code>的<code>acquireUnstableProvider</code>方法调用了<code>ActivityThread</code>的<code>acquireProvider</code>方法，源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> IContentProvider <span class="title">acquireProvider</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params"> Context c, String auth, <span class="keyword">int</span> userId, <span class="keyword">boolean</span> stable)</span> </span>&#123;</span><br><span class="line"> <span class="comment">// 判断缓存中是否有对应的IContentProvider，有则直接返回</span></span><br><span class="line"><span class="keyword">final</span> IContentProvider provider = acquireExistingProvider(c, auth, userId, stable);</span><br><span class="line">       <span class="keyword">if</span> (provider != <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">return</span> provider;</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">        <span class="comment">// There is a possible race here.  Another thread may try to acquire</span></span><br><span class="line">        <span class="comment">// the same provider at the same time.  When this happens, we want to ensure</span></span><br><span class="line">        <span class="comment">// that the first one wins.</span></span><br><span class="line">        <span class="comment">// Note that we cannot hold the lock while acquiring and installing the</span></span><br><span class="line">        <span class="comment">// provider since it might take a long time to run and it could also potentially</span></span><br><span class="line">        <span class="comment">// be re-entrant in the case where the provider is in the same process.</span></span><br><span class="line">        ContentProviderHolder holder = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//通过AMS获取ContentProviderHolder， 处理在不同进程的情况，</span></span><br><span class="line">            <span class="comment">//如果在同一进程就让`holder.provider = null;`</span></span><br><span class="line">            holder = ActivityManager.getService().getContentProvider(</span><br><span class="line">                    getApplicationThread(), auth, userId, stable);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException ex) &#123;</span><br><span class="line">            <span class="keyword">throw</span> ex.rethrowFromSystemServer();</span><br><span class="line">        &#125;</span><br><span class="line">       <span class="comment">//失败</span></span><br><span class="line">       <span class="keyword">if</span> (holder == <span class="keyword">null</span>) &#123;</span><br><span class="line">            Slog.e(TAG, <span class="string">"Failed to find provider info for "</span> + auth);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Install provider will increment the reference count for us, and break</span></span><br><span class="line">        <span class="comment">// any ties in the race.</span></span><br><span class="line">        <span class="comment">//如果在同一进程，则进行相应的处理</span></span><br><span class="line">        holder = installProvider(c, holder, holder.info,</span><br><span class="line">                <span class="keyword">true</span> <span class="comment">/*noisy*/</span>, holder.noReleaseNeeded, stable);</span><br><span class="line">        <span class="keyword">return</span> holder.provider;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><code>ApplicationContentResolver</code>通过调用<code>ActivityThread的acquireProvider</code>方法来获取<code>ContentProvider</code>;<code>ActivityThread</code>先会判断缓存中是否存在要求的<code>IContentProvider</code>,<br>如果存在就直接返回，如果不存在就调用AMS的<code>getContentProviderImpl()</code>和<code>installProvider</code>来获取。</p>
+<p>关于AMS获取IContentProvider的详细流程，可以看<a href="https://juejin.im/entry/5bfcf8566fb9a049ba414362" target="_blank" rel="noopener">ContentProvider启动过程分析</a></p>
+<h2 id="ContactsContract详解"><a href="#ContactsContract详解" class="headerlink" title="ContactsContract详解"></a>ContactsContract详解</h2><p><code>ContactsContract</code>是存储联系人的数据表的常量字段，它有几个常用的内部类如下：</p>
+<ul>
+<li>ContactsContract.Data：数据表的常量，包含与原始联系人关联的数据点。 数据表的每一行通常用于存储单条联系信息（例如电话号码）及其相关元数据（例如，它是工作号码还是家庭号码）</li>
+<li>ContactsContract.CommonDataKinds：用于定义存储在ContactsContract.Data表中的公共数据类型的容器。</li>
+<li>ContactsContract.Contacts：联系人表的常量，包含代表同一个人的每个原始联系人聚合的记录</li>
+</ul>
+<blockquote>
+<p>联系人数据是存储在数据库中（具体位置在data/data/com.android.providers.contacts/databases中），根据其MIME类型来判断其位置所代表的意义。如<br><code>ContactsContract.CommonDataKinds.Phone.NUMBER</code>和<code>ContactsContract.CommonDataKinds.Email.ADDRESS</code>都表示<br><code>data1</code>,但是在数据库中不同的MIME类型的<code>data1</code>表示不同的数据。</p>
+</blockquote>
+<p>数据库中<code>data</code>表的字段和数据如下（字段太多，只截取了部分） </p>
+<p><img src="/2019/05/29/Android应用之间数据的交互-获取系统应用的数据/1.png" alt></p>
+<p>MIME类型如下</p>
+<p><img src="/2019/05/29/Android应用之间数据的交互-获取系统应用的数据/2.png" alt></p>
+<p>通过<code>MIME</code>类型来获取所需要的数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Uri p = ContactsContract.Data.CONTENT_URI;</span><br><span class="line">Cursor id = getActivity().getContentResolver().query(p,<span class="keyword">new</span> String[]&#123;ContactsContract.Data.CONTACT_ID&#125;,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>);</span><br><span class="line"><span class="keyword">while</span> (id.moveToNext())&#123;</span><br><span class="line">    Cursor cursor=getActivity().getContentResolver().query(p, <span class="keyword">null</span>,ContactsContract.Data.CONTACT_ID+<span class="string">"= ?"</span>, <span class="keyword">new</span> String[]&#123;id.getString(id.getColumnIndex(ContactsContract.Data.CONTACT_ID))&#125;, <span class="keyword">null</span>);</span><br><span class="line">    Person person = <span class="keyword">new</span> Person();</span><br><span class="line">    <span class="keyword">byte</span>[] image = <span class="keyword">null</span>;</span><br><span class="line">    StringBuilder builder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">while</span> (cursor.moveToNext())&#123;</span><br><span class="line">            String mime = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.MIMETYPE));</span><br><span class="line">            Log.d(<span class="string">"==========="</span>,<span class="string">"mime = "</span>+mime);</span><br><span class="line">            <span class="keyword">if</span> (mime.equals(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE))&#123;</span><br><span class="line">                builder.append(<span class="string">"name = "</span>+cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)));</span><br><span class="line">                builder.append(<span class="string">"number = "</span>+cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (mime.equals(ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE))&#123;</span><br><span class="line">            <span class="comment">//二进制数据一般放在data15中</span></span><br><span class="line">                image=cursor.getBlob(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Photo.DATA15));</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (mime.equals(ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE))&#123;</span><br><span class="line">                builder.append(<span class="string">"email = "</span>+cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)));</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (mime.equals(ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE))&#123;</span><br><span class="line">                builder.append(<span class="string">"address = "</span>+cursor.getString(cursor.getColumnIndex(ContactsContract.</span><br><span class="line">                        CommonDataKinds.StructuredPostal.STREET)));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    String con=builder.toString();</span><br><span class="line">    Log.d(<span class="string">"==========="</span>,con);</span><br><span class="line">    cursor.close();</span><br><span class="line">    &#125;</span><br><span class="line">id.close();</span><br></pre></td></tr></table></figure>
+<p><code>ContentResolver()</code>还有<code>insert</code>、<code>delete</code>、<code>update</code>方法，其用法与<code>query</code>类似，这里不再介绍。</p>
+<h2 id="获取其他系统应用数据"><a href="#获取其他系统应用数据" class="headerlink" title="获取其他系统应用数据"></a>获取其他系统应用数据</h2><h3 id="CalendarContract"><a href="#CalendarContract" class="headerlink" title="CalendarContract"></a>CalendarContract</h3><p><code>CalendarContract</code>是存储日历和事件相关信息字段表，与<code>ContactsContract</code>类似。<code>CalendarContract</code>也有几个内部类，常用的是<code>CalendarContract.Events</code>，包含诸如事件标题，位置，开始时间，结束时间等信息。<code>CalendarContract.Events</code>的使用如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">    Uri p = CalendarContract.Events.CONTENT_URI;</span><br><span class="line">    Cursor cursor=getActivity().getContentResolver().query(p, <span class="keyword">null</span>,<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">    <span class="keyword">while</span> (cursor.moveToNext())&#123;</span><br><span class="line">        StringBuilder builder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">       builder.append(<span class="string">"标题 : "</span>+cursor.getString(cursor.getColumnIndex(CalendarContract.Events.TITLE))+<span class="string">"\n"</span>)</span><br><span class="line">               .append(<span class="string">"起始时间 ："</span>+cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTSTART))+<span class="string">"\n"</span>)</span><br><span class="line">               .append(<span class="string">"结束时间 ："</span>+cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTEND))+<span class="string">"\n"</span>)</span><br><span class="line">               .append(<span class="string">"描述 : "</span>+cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DESCRIPTION))+<span class="string">"\n"</span>);</span><br><span class="line">        contents.add(builder.toString());</span><br><span class="line">    &#125;</span><br><span class="line">cursor.close();</span><br></pre></td></tr></table></figure></p>
+<p>更多关于<code>CalendarContract</code>的使用，可以查看官方文档。</p>
+<h3 id="MediaStore"><a href="#MediaStore" class="headerlink" title="MediaStore"></a>MediaStore</h3><p><code>MediaStore</code>包含内部和外部存储设备上所有可用媒体的元数据。其内部类如下：</p>
+<ul>
+<li>MediaStore.Audio：集装箱所有的音频内容。</li>
+<li>MediaStore.Files：媒体提供程序表，包含媒体存储中所有文件的索引，包括非媒体文件。</li>
+<li>MediaStore.Images：包含所有可用图像的元数据</li>
+<li>interface MediaStore.MediaColumns：大多数MediaProvider表的公共字段</li>
+<li>MediaStore.Video：包含所有可用视频的元数据</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; contents = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">Uri p1 = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;</span><br><span class="line">Cursor cursor1=getActivity().getContentResolver().query(p1, <span class="keyword">null</span>,<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line"><span class="keyword">while</span> (cursor1.moveToNext())&#123;</span><br><span class="line">    StringBuilder builder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    builder.append(<span class="string">"文件名 : "</span>+cursor1.getString(cursor1.getColumnIndex(MediaStore.Images.Media.TITLE))+<span class="string">"\n"</span>)</span><br><span class="line">            .append(<span class="string">"描述 ："</span>+cursor1.getString(cursor1.getColumnIndex(MediaStore.Images.Media.DESCRIPTION))+<span class="string">"\n"</span>)</span><br><span class="line">            .append(<span class="string">"大小 ："</span>+cursor1.getString(cursor1.getColumnIndex(MediaStore.Images.Media.SIZE))+<span class="string">"\n"</span>)</span><br><span class="line">            .append(<span class="string">"位置 : "</span>+cursor1.getString(cursor1.getColumnIndex(MediaStore.Images.Media.DATA))+<span class="string">"\n"</span>)</span><br><span class="line">            .append(<span class="string">"文件修改时间："</span>+cursor1.getString(cursor1.getColumnIndex(MediaStore.Images.Media.DATE_MODIFIED))+<span class="string">"\n"</span>)</span><br><span class="line">            .append(<span class="string">"DISPLAY_NAME ："</span>+cursor1.getString(cursor1.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME))+<span class="string">"\n"</span>)</span><br><span class="line">            .append(<span class="string">"时间 : "</span>+cursor1.getString(cursor1.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN))+<span class="string">"\n"</span>);</span><br><span class="line">    contents.add(builder.toString());</span><br><span class="line">&#125;</span><br><span class="line">cursor1.close();</span><br></pre></td></tr></table></figure>
+<h3 id="Settings"><a href="#Settings" class="headerlink" title="Settings"></a>Settings</h3><p><code>Settings</code>与<code>XXXContract</code>不同，它是通过xml文件来存储数据，在文件<code>/data/system/users/0/</code>目录下，获取设置的方式如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder builder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        ContentResolver contentResolver=getActivity().getContentResolver();</span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.JELLY_BEAN_MR1) &#123;</span><br><span class="line">            builder.append(<span class="string">"wifi是否开启："</span>+Settings.Global.getString(contentResolver,Settings.Global.WIFI_ON)+<span class="string">"\n"</span>)</span><br><span class="line">                   .append(<span class="string">"数据流量是否开启："</span>+Settings.Global.getString(contentResolver,Settings.Global.DATA_ROAMING)+<span class="string">"\n"</span>)</span><br><span class="line">                   .append(Settings.System.NOTIFICATION_SOUND+<span class="string">" "</span>+Settings.System.getString(contentResolver,Settings.System.NOTIFICATION_SOUND)).append(<span class="string">"\n"</span>)</span><br><span class="line">                    .append(Settings.System.SCREEN_BRIGHTNESS+<span class="string">" "</span>+Settings.System.getString(contentResolver,Settings.System.SCREEN_BRIGHTNESS)).append(<span class="string">"\n"</span>)</span><br><span class="line">                    .append(Settings.System.TEXT_SHOW_PASSWORD+<span class="string">" "</span>+Settings.System.getString(contentResolver,Settings.System.TEXT_SHOW_PASSWORD)).append(<span class="string">"\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Log.d(<span class="string">"=============="</span>,builder.toString());</span><br></pre></td></tr></table></figure></p>
+<p>更多关于<code>Setting</code>的内容可以看<a href="https://blog.csdn.net/myfriend0/article/details/59107989" target="_blank" rel="noopener">Android系统APP之SettingsProvider</a></p>
+<blockquote>
+<p>注意：以上的操作都是需要申请权限的</p>
+</blockquote>
+<h3 id="异步处理"><a href="#异步处理" class="headerlink" title="异步处理"></a>异步处理</h3><p>如果请求数据的操作太过耗时，可能造成ANR，因此需要异步处理。异步处理的方式有：</p>
+<ul>
+<li>Thread + Handler </li>
+<li>AsyncTask </li>
+<li><a href="https://juejin.im/post/5a27c56e51882535cd4ab5af" target="_blank" rel="noopener">Loader</a></li>
+<li>RxJava</li>
+</ul>
+<p>参考文章：<br></p>
+<ul>
+<li><a href="https://juejin.im/entry/5bfcf8566fb9a049ba414362" target="_blank" rel="noopener">https://juejin.im/entry/5bfcf8566fb9a049ba414362</a></li>
+<li><a href="https://blog.csdn.net/myfriend0/article/details/59107989" target="_blank" rel="noopener">https://blog.csdn.net/myfriend0/article/details/59107989</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/22/java内存溢出异常/" rel="next" title="java内存溢出异常">
+                <i class="fa fa-chevron-left"></i> java内存溢出异常
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/05/TCP-IP的学习总结/" rel="prev" title="TCP/IP的学习总结">
+                TCP/IP的学习总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/user.jpg" alt="lichukuan">
+            
+              <p class="site-author-name" itemprop="name">lichukuan</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">博客</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实例分析"><span class="nav-number">1.</span> <span class="nav-text">实例分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本流程"><span class="nav-number">2.</span> <span class="nav-text">基本流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ContactsContract详解"><span class="nav-number">3.</span> <span class="nav-text">ContactsContract详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取其他系统应用数据"><span class="nav-number">4.</span> <span class="nav-text">获取其他系统应用数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CalendarContract"><span class="nav-number">4.1.</span> <span class="nav-text">CalendarContract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MediaStore"><span class="nav-number">4.2.</span> <span class="nav-text">MediaStore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Settings"><span class="nav-number">4.3.</span> <span class="nav-text">Settings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步处理"><span class="nav-number">4.4.</span> <span class="nav-text">异步处理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lichukuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

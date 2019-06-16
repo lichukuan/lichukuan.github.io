@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SQLite的基本知识SQLite常用的数据类型   字段 作用     char(n) 固定n长度的字串   varchar(n) 长度不固定的字符串,n表示最大的长度   nchar(n) 同char，不同的是可以用来存储中文   nvarchar(n) 同varchar，不同的是可以用来存储中文   text 存储文本   blob 存储二进制文件   int 整形   integer 整形">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLite的使用和实现一个简单的数据库框架">
+<meta property="og:url" content="http://yoursite.com/2019/06/11/SQLite的使用和实现一个简单的数据库框架/index.html">
+<meta property="og:site_name" content="我的个人博客">
+<meta property="og:description" content="SQLite的基本知识SQLite常用的数据类型   字段 作用     char(n) 固定n长度的字串   varchar(n) 长度不固定的字符串,n表示最大的长度   nchar(n) 同char，不同的是可以用来存储中文   nvarchar(n) 同varchar，不同的是可以用来存储中文   text 存储文本   blob 存储二进制文件   int 整形   integer 整形">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/6/9/16b3cc545772bec2?w=1065&h=310&f=jpeg&s=40933">
+<meta property="og:updated_time" content="2019-06-16T16:08:01.897Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQLite的使用和实现一个简单的数据库框架">
+<meta name="twitter:description" content="SQLite的基本知识SQLite常用的数据类型   字段 作用     char(n) 固定n长度的字串   varchar(n) 长度不固定的字符串,n表示最大的长度   nchar(n) 同char，不同的是可以用来存储中文   nvarchar(n) 同varchar，不同的是可以用来存储中文   text 存储文本   blob 存储二进制文件   int 整形   integer 整形">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2019/6/9/16b3cc545772bec2?w=1065&h=310&f=jpeg&s=40933">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/11/SQLite的使用和实现一个简单的数据库框架/">
+
+
+
+
+
+  <title>SQLite的使用和实现一个简单的数据库框架 | 我的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哪有什么胜利可言，挺着就代表着一切</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/11/SQLite的使用和实现一个简单的数据库框架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lichukuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SQLite的使用和实现一个简单的数据库框架</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-11T23:57:41+08:00">
+                2019-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="SQLite的基本知识"><a href="#SQLite的基本知识" class="headerlink" title="SQLite的基本知识"></a>SQLite的基本知识</h2><h3 id="SQLite常用的数据类型"><a href="#SQLite常用的数据类型" class="headerlink" title="SQLite常用的数据类型"></a>SQLite常用的数据类型</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>char(n)</td>
+<td>固定<code>n</code>长度的字串</td>
+</tr>
+<tr>
+<td>varchar(n)</td>
+<td>长度不固定的字符串,<code>n</code>表示最大的长度</td>
+</tr>
+<tr>
+<td>nchar(n)</td>
+<td>同char，不同的是可以用来存储中文</td>
+</tr>
+<tr>
+<td>nvarchar(n)</td>
+<td>同varchar，不同的是可以用来存储中文</td>
+</tr>
+<tr>
+<td>text</td>
+<td>存储文本</td>
+</tr>
+<tr>
+<td>blob</td>
+<td>存储二进制文件</td>
+</tr>
+<tr>
+<td>int</td>
+<td>整形</td>
+</tr>
+<tr>
+<td>integer</td>
+<td>整形</td>
+</tr>
+<tr>
+<td>bigint</td>
+<td>整形</td>
+</tr>
+<tr>
+<td>float</td>
+<td>单精度类型</td>
+</tr>
+<tr>
+<td>double</td>
+<td>双精度浮点</td>
+</tr>
+</tbody>
+</table>
+<p>这里<code>int</code>、<code>integer</code>、<code>bigint</code>的具体区别，还没弄明白。如果有哪个大佬了解，请在评论区指导一下😄😄</p>
+<h3 id="创建和删除数据表"><a href="#创建和删除数据表" class="headerlink" title="创建和删除数据表"></a>创建和删除数据表</h3><p>创建表的为语法：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> database_name.table_name(</span><br><span class="line">   column1 datatype  primary <span class="keyword">key</span>(one <span class="keyword">or</span> more <span class="keyword">columns</span>),</span><br><span class="line">   column2 datatype,</span><br><span class="line">   column3 datatype,</span><br><span class="line">   .....</span><br><span class="line">   columnN datatype,</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>删除数据表的语法为<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> database_name.table_name;</span><br></pre></td></tr></table></figure></p>
+<h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><p>插入数据表的语法为：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> table_name [(column1, column2, column3,...columnN)]  </span><br><span class="line"><span class="keyword">values</span> (value1, value2, value3,...valueN);</span><br><span class="line">或</span><br><span class="line">//注意：这种方式要确保值的顺序与列在表中的顺序一致</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> table_name <span class="keyword">values</span> (value1,value2,value3,...valueN);</span><br></pre></td></tr></table></figure></p>
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><p>删除数据的语法为：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> table_name [条件];</span><br></pre></td></tr></table></figure></p>
+<p>如果没有删除数据的条件，默认删除所有数据；如果指定了条件，则删除符合条件的<br>数据</p>
+<h3 id="更新数据"><a href="#更新数据" class="headerlink" title="更新数据"></a>更新数据</h3><p>语法为：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> table_name</span><br><span class="line"><span class="keyword">set</span> column1 = value1, column2 = value2...., columnN = valueN [条件];</span><br></pre></td></tr></table></figure></p>
+<h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><p>语法为：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查询指定字段（列）的值</span><br><span class="line"><span class="keyword">SELECT</span> column1, column2, columnN <span class="keyword">FROM</span> table_name;</span><br><span class="line">或</span><br><span class="line">//查询所有字段的值</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> table_name;</span><br></pre></td></tr></table></figure></p>
+<h3 id="SQLite的逻辑运算符"><a href="#SQLite的逻辑运算符" class="headerlink" title="SQLite的逻辑运算符"></a>SQLite的逻辑运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AND</code></td>
+<td>AND 运算符允许在一个 SQL 语句的 WHERE 子句中的多个条件的存在</td>
+</tr>
+<tr>
+<td><code>BETWEEN</code></td>
+<td>BETWEEN 运算符用于在给定最小值和最大值范围内的一系列值中搜索值</td>
+</tr>
+<tr>
+<td><code>EXISTS</code></td>
+<td>EXISTS 运算符用于在满足一定条件的指定表中搜索行的存在</td>
+</tr>
+<tr>
+<td><code>IN</code></td>
+<td>IN 运算符用于把某个值与一系列指定列表的值进行比较</td>
+</tr>
+<tr>
+<td><code>NOT IN</code></td>
+<td>IN 运算符的对立面，用于把某个值与不在一系列指定列表的值进行比较</td>
+</tr>
+<tr>
+<td><code>LIKE</code></td>
+<td>LIKE 运算符用于把某个值与使用通配符运算符的相似值进行比较</td>
+</tr>
+<tr>
+<td><code>GLOB</code></td>
+<td>GLOB 运算符用于把某个值与使用通配符运算符的相似值进行比较。GLOB 与 LIKE 不同之处在于，它是大小写敏感的</td>
+</tr>
+<tr>
+<td><code>NOT</code></td>
+<td>NOT 运算符是所用的逻辑运算符的对立面。比如 NOT EXISTS、NOT BETWEEN、NOT IN，等等。它是否定运算符</td>
+</tr>
+<tr>
+<td><code>OR</code></td>
+<td>OR 运算符用于结合一个 SQL 语句的 WHERE 子句中的多个条件</td>
+</tr>
+<tr>
+<td><code>IS NULL</code></td>
+<td>NULL 运算符用于把某个值与 NULL 值进行比较</td>
+</tr>
+<tr>
+<td><code>IS</code></td>
+<td>IS 运算符与 = 相似</td>
+</tr>
+<tr>
+<td><code>IS NOT</code></td>
+<td><code>IS NOT</code> 运算符与 != 相似</td>
+</tr>
+<tr>
+<td>`</td>
+<td></td>
+<td>`</td>
+<td>连接两个不同的字符串，得到一个新的字符串</td>
+</tr>
+<tr>
+<td><code>UNIQUE</code></td>
+<td>UNIQUE 运算符搜索指定表中的每一行，确保唯一性（无重复）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="where"><a href="#where" class="headerlink" title="where"></a>where</h3><p><code>where</code>用来过滤数据的，例如<code>select * from employee where salary &gt;= 65000;</code>是指查询工资高于65000的员工的数据，使用<code>where salary &gt;= 65000;</code>来过滤数据</p>
+<h3 id="and-or"><a href="#and-or" class="headerlink" title="and/or"></a>and/or</h3><p><code>and</code>相当于逻辑与运算，只有条件全为真时，结果才为真；<code>or</code>相当于逻辑或运算，只要其中一个条件为真，结果就为真。</p>
+<h3 id="LIKE"><a href="#LIKE" class="headerlink" title="LIKE"></a>LIKE</h3><p><code>LIKE</code>运算符是用来匹配通配符指定模式的文本值。如果搜索表达式与模式表达式匹配，LIKE 运算符将返回真（true），也就是 1。这里有两个通配符与 LIKE 运算符一起使用：</p>
+<ul>
+<li>百分号 （%）</li>
+<li>下划线 （_）</li>
+</ul>
+<p>百分号<code>（%）</code>代表零个、一个或多个数字或字符。下划线<code>（_）</code>代表一个单一的数字或字符。这些符号可以被组合使用。</p>
+<p>下面一些实例演示了 带有 ‘%’ 和 ‘_’ 运算符的 LIKE 子句不同的地方：<br>|语句|描述|<br>|—-|—-|<br>|WHERE SALARY LIKE ‘200%’|查找以 200 开头的任意值|<br>|WHERE SALARY LIKE ‘%200%’|查找任意位置包含 200 的任意值|<br>|WHERE SALARY LIKE ‘<em>00%’|查找第二位和第三位为 00 的任意值|<br>|WHERE SALARY LIKE ‘2</em>%_%’|查找以 2 开头，且长度至少为 3 个字符的任意值|<br>|WHERE SALARY LIKE ‘%2’|查找以 2 结尾的任意值|<br>|WHERE SALARY LIKE ‘_2%3’|查找第二位为 2，且以 3 结尾的任意值|<br>|WHERE SALARY LIKE ‘2___3’|查找长度为 5 位数，且以 2 开头以 3 结尾的任意值|</p>
+<h3 id="GLOB"><a href="#GLOB" class="headerlink" title="GLOB"></a>GLOB</h3><p><code>GLOB</code> 运算符是用来匹配通配符指定模式的文本值。如果搜索表达式与模式表达式匹配，<code>GLOB</code> 运算符将返回真（true），也就是 1。与 <code>LIKE</code> 运算符不同的是，<code>GLOB</code> 是大小写敏感的，对于下面的通配符，它遵循 UNIX 的语法。</p>
+<ul>
+<li>星号 （*）</li>
+<li>问号 （?）</li>
+</ul>
+<p>星号<code>（*）</code>代表零个、一个或多个数字或字符。问号<code>（?）</code>代表一个单一的数字或字符。这些符号可以被组合使用。</p>
+<table>
+<thead>
+<tr>
+<th>语句</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WHERE SALARY GLOB ‘200*’</td>
+<td>查找以 200 开头的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY GLOB ‘<em>200</em>‘</td>
+<td>查找任意位置包含 200 的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY GLOB ‘?00*’</td>
+<td>查找第二位和第三位为 00 的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY GLOB ‘2??’</td>
+<td>查找以 2 开头，且长度至少为 3 个字符的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY GLOB ‘*2’</td>
+<td>查找以 2 结尾的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY GLOB ‘?2*3’</td>
+<td>查找第二位为 2，且以 3 结尾的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY GLOB ‘2???3’</td>
+<td>查找长度为 5 位数，且以 2 开头以 3 结尾的任意值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="LIMIT"><a href="#LIMIT" class="headerlink" title="LIMIT"></a>LIMIT</h3><p>子句用于限制由 SELECT 语句返回的数据数量</p>
+<h3 id="ORDER-BY"><a href="#ORDER-BY" class="headerlink" title="ORDER BY"></a>ORDER BY</h3><p>子句是用来基于一个或多个列按升序或降序顺序排列数据。</p>
+<p>ORDER BY 子句的基本语法如下：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">column</span>-<span class="keyword">list</span> </span><br><span class="line"><span class="keyword">FROM</span> table_name </span><br><span class="line">[<span class="keyword">WHERE</span> condition] </span><br><span class="line">[<span class="keyword">ORDER</span> <span class="keyword">BY</span> column1, column2, .. columnN] [<span class="keyword">ASC</span> | <span class="keyword">DESC</span>];//ASC升序排序,DESC降序排序</span><br></pre></td></tr></table></figure></p>
+<h3 id="GROUP-BY"><a href="#GROUP-BY" class="headerlink" title="GROUP BY"></a>GROUP BY</h3><p>子句用于与 SELECT 语句一起使用，来对相同的数据进行分组。<br>在 SELECT 语句中，GROUP BY 子句放在 WHERE 子句之后，放在 ORDER BY 子句之前</p>
+<h3 id="HAVING"><a href="#HAVING" class="headerlink" title="HAVING"></a>HAVING</h3><p>子句允许指定条件来过滤将出现在最终结果中的分组结果。<br>WHERE 子句在所选列上设置条件，而 HAVING 子句则在由 GROUP BY 子句创建的分组上设置条件。</p>
+<h3 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h3><p>关键字与 SELECT 语句一起使用，来消除所有重复的记录，并只获取唯一一次记录。<br>有可能出现一种情况，在一个表中有多个重复的记录。当提取这样的记录时，DISTINCT 关键字就显得特别有意义，它只获取唯一一次记录，而不是获取重复记录。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> <span class="keyword">name</span> <span class="keyword">from</span> company;</span><br></pre></td></tr></table></figure></p>
+<h2 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h2><blockquote>
+<p>操作数据库，要使用SQLiteOpenHelper，由于SQLiteOpenHelper是抽象类，使用要实现它，并重写它的 onCreate(), onUpgrade()方法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyDatabase</span> <span class="keyword">extends</span> <span class="title">SQLiteOpenHelper</span> </span>&#123;</span><br><span class="line">    <span class="comment">//创建表</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String CreateTable_my=<span class="string">"create Table user("</span> +</span><br><span class="line">            <span class="string">"id primary key, name text, sex text , age integer, password text)"</span>;</span><br><span class="line"></span><br><span class="line">    Context myContext;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> context</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> name    创建数据库的名字</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> factory 用于返回自定义的Cursor，一般填null</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> version 表示当前数据库的版本号，可用于对数据库进行升级</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Mydatabase</span><span class="params">(Context context, String name, SQLiteDatabase.CursorFactory factory, <span class="keyword">int</span> version)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, name, factory, version);</span><br><span class="line">        myContext=context;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(SQLiteDatabase sqLiteDatabase)</span> </span>&#123;</span><br><span class="line">          sqLiteDatabase.execSQL(CreateTable_my);<span class="comment">//创建表</span></span><br><span class="line">          Toast.makeText(myContext, <span class="string">"数据表创建成功"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onUpgrade</span><span class="params">(SQLiteDatabase sqLiteDatabase, <span class="keyword">int</span> i, <span class="keyword">int</span> i1)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>创建MyDatabase的对象</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//first.db是数据库名</span><br><span class="line">private Mydatabase base=new Mydatabase(DatabaseActivity.this,&quot;first.db&quot;,null,1);</span><br></pre></td></tr></table></figure>
+<p>生成数据库(会在<code>/data/data/&lt;package name&gt;/databases/</code>目录下建立数据库)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">base.getWritableDatabase();</span><br><span class="line">//或者</span><br><span class="line">base.getReadableDatabase()</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>两个方法的不同处：<br><br><code>getWritableDatabase()</code>返回一个可对数据库进行读写操作的对象，会抛出异常<br><br><code>getReadableDatabase()</code>返回一个以只读方法打开的数据库，不会抛出异常</p>
+</blockquote>
+<h3 id="添加表"><a href="#添加表" class="headerlink" title="添加表"></a>添加表</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mydatabase</span> <span class="keyword">extends</span> <span class="title">SQLiteOpenHelper</span> </span>&#123;</span><br><span class="line"><span class="comment">//用户表</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String CreateTable_user=<span class="string">"create Table user("</span> +</span><br><span class="line">            <span class="string">"id primary key, name text, sex text , age integer, password text)"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建另一个表，班级表</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String CreateTable_me=<span class="string">"create Table clazz("</span> +</span><br><span class="line">            <span class="string">"id primary key, className text, teacher text)"</span>;</span><br><span class="line"></span><br><span class="line">    Context myContext;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> context</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> name    创建数据库的名字</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> factory 用于返回自定义的Cursor，一般填null</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> version 表示当前数据库的版本号，可用于对数据库进行升级</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Mydatabase</span><span class="params">(Context context, String name, SQLiteDatabase.CursorFactory factory, <span class="keyword">int</span> version)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, name, factory, version);</span><br><span class="line">        myContext=context;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(SQLiteDatabase sqLiteDatabase)</span> </span>&#123;</span><br><span class="line">          sqLiteDatabase.execSQL(CreateTable_user);</span><br><span class="line">          sqLiteDatabase.execSQL(CreateTable_me);</span><br><span class="line">          Toast.makeText(myContext, <span class="string">"数据库创建成功"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//当 version 中的值改变时，会调用这个方法，通过这个方法，删除原来的表，再调用onCreate()方法生成两个表</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onUpgrade</span><span class="params">(SQLiteDatabase sqLiteDatabase, <span class="keyword">int</span> i, <span class="keyword">int</span> i1)</span> </span>&#123;</span><br><span class="line">           sqLiteDatabase.execSQL(<span class="string">"drop table if exists user"</span>);</span><br><span class="line">           sqLiteDatabase.execSQL(<span class="string">"drop table if exists clazz"</span>);</span><br><span class="line">           onCreate(sqLiteDatabase);</span><br><span class="line">           Toast.makeText(myContext, <span class="string">"成功"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="操作表"><a href="#操作表" class="headerlink" title="操作表"></a>操作表</h3><ul>
+<li>添加数据</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通过getWritableDatabase()获取SQLiteOpenHelper来操作数据库</span></span><br><span class="line">SQLiteDatabase database= base.getWritableDatabase();</span><br><span class="line">                ContentValues values=<span class="keyword">new</span> ContentValues();</span><br><span class="line">                values.put(<span class="string">"name"</span>,<span class="string">"小明"</span>);</span><br><span class="line">                values.put(<span class="string">"sex"</span>,<span class="string">"男"</span>);</span><br><span class="line">                values.put(<span class="string">"password"</span>,<span class="string">"12hjfgikldgislk"</span>);</span><br><span class="line">                values.put(<span class="string">"age"</span>,<span class="number">18</span>);</span><br><span class="line">                <span class="comment">//参数 1.表的名字 2.用于未指定添加数据的情况下给某些可为空的列自动赋值NULL </span></span><br><span class="line">                <span class="comment">//3. ContentValues 对象</span></span><br><span class="line">                database.insert(<span class="string">"user"</span>,<span class="keyword">null</span>,values);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>更新数据</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SQLiteDatabase database= base.getWritableDatabase();</span><br><span class="line">                ContentValues values=<span class="keyword">new</span> ContentValues();</span><br><span class="line">                values.put(<span class="string">"name"</span>,<span class="string">"小军"</span>);  </span><br><span class="line">                <span class="comment">//后面的两个参数是操作的限制条件</span></span><br><span class="line">                database.update(<span class="string">"user"</span>,values,<span class="string">"age=?"</span>,<span class="keyword">new</span> String[]&#123;<span class="string">"18"</span>&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除数据</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQLiteDatabase database= base.getWritableDatabase();</span><br><span class="line"><span class="comment">//后面的两个参数是操作的限制条件,用来约束删除哪几行，如果不指定就删除所有行</span></span><br><span class="line">database.delete(<span class="string">"user"</span>,<span class="keyword">null</span>,<span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查询数据</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">SQLiteDatabase database=base.getWritableDatabase();</span><br><span class="line">Cursor cursor= database.query(<span class="string">"user"</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>);</span><br><span class="line"><span class="keyword">if</span> (cursor.moveToFirst())&#123;</span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">        Log.d(<span class="string">"name:"</span>,cursor.getString(cursor.getColumnIndex(<span class="string">"name"</span>)));</span><br><span class="line">        Log.d(<span class="string">"age:"</span>,cursor.getString(cursor.getColumnIndex(<span class="string">"age"</span>)));</span><br><span class="line">        Log.d(<span class="string">"sex:"</span>,cursor.getString(cursor.getColumnIndex(<span class="string">"sex"</span>)));</span><br><span class="line">        Log.d(<span class="string">"password:"</span>,cursor.getString(cursor.getColumnIndex(<span class="string">"password"</span>)));</span><br><span class="line">    &#125;<span class="keyword">while</span> (cursor.moveToNext());</span><br><span class="line">&#125;</span><br><span class="line">cursor.close();</span><br></pre></td></tr></table></figure>
+<p>query的参数如下：<br><img src="https://user-gold-cdn.xitu.io/2019/6/9/16b3cc545772bec2?w=1065&amp;h=310&amp;f=jpeg&amp;s=40933" alt></p>
+<ul>
+<li>使用sql直接对数据库进行操作</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQLiteDatabase database=base.getWritableDatabase();</span><br><span class="line">database.execSQL();</span><br><span class="line">database.rawQuery();<span class="comment">//只有查询数据的时候才调用这个方法</span></span><br></pre></td></tr></table></figure>
+<h2 id="仿照LitePal实现一个简易的数据库框架SimpleDatabase"><a href="#仿照LitePal实现一个简易的数据库框架SimpleDatabase" class="headerlink" title="仿照LitePal实现一个简易的数据库框架SimpleDatabase"></a>仿照<code>LitePal</code>实现一个简易的数据库框架<code>SimpleDatabase</code></h2><h3 id="SimpleDatabase的使用"><a href="#SimpleDatabase的使用" class="headerlink" title="SimpleDatabase的使用"></a><code>SimpleDatabase</code>的使用</h3><ol>
+<li>先在<code>asset</code>文件中创建<code>my_database.xml</code></li>
+</ol>
+<p><code>my_database.xml</code>如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">database</span> <span class="attr">name</span>=<span class="string">"test.db"</span> <span class="attr">version</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--class属性是数据表Bean的全路径 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">"com.example.mylibrary.Employee"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">database</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>Employee</code>的源码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">char</span> sex;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">char</span> <span class="title">getSex</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> sex;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSex</span><span class="params">(<span class="keyword">char</span> sex)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.sex = sex;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//使用id作为员工的唯一标识</span></span><br><span class="line">        <span class="keyword">return</span> Integer.toString(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：<code>SimpleDatabase</code>通过<code>toString</code>来区别两个对象是否为同一对象，如<code>Employee</code>就使用<code>id</code>作为标识符。</p>
+<ol start="2">
+<li><p>在<code>AndroidManifest.xml</code>中加入<code>android:name=&quot;com.example.databaselibrary.MyApplication&quot;</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">...</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:name</span>=<span class="string">"com.example.databaselibrary.MyApplication"</span></span></span><br><span class="line"><span class="tag">        &gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>SimpleDatabase</code></p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        SimpleDatabase.newInstance().create();<span class="comment">//初始化</span></span><br><span class="line">        </span><br><span class="line">         Employee employee =<span class="keyword">new</span> Employee();</span><br><span class="line">                employee.setId(<span class="number">1</span>);</span><br><span class="line">                employee.setName(<span class="string">"a"</span>);</span><br><span class="line">                employee.setSex(<span class="string">'男'</span>);</span><br><span class="line">                SimpleDatabase.saveAndUpdate(employee);</span><br><span class="line"></span><br><span class="line">                Employee employee1 =<span class="keyword">new</span> Employee();</span><br><span class="line">                employee1.setId(<span class="number">2</span>);</span><br><span class="line">                employee1.setName(<span class="string">"b"</span>);</span><br><span class="line">                employee1.setSex(<span class="string">'男'</span>);</span><br><span class="line">                SimpleDatabase.saveAndUpdate(employee1);</span><br><span class="line"></span><br><span class="line">                Employee employee2 =<span class="keyword">new</span> Employee();</span><br><span class="line">                employee2.setId(<span class="number">3</span>);</span><br><span class="line">                employee2.setName(<span class="string">"c"</span>);</span><br><span class="line">                employee2.setSex(<span class="string">'女'</span>);</span><br><span class="line">                SimpleDatabase.saveAndUpdate(employee2);</span><br><span class="line"></span><br><span class="line">                List&lt;Employee&gt; l=SimpleDatabase.select(Employee.class,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>);</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;l.size() ; i++) &#123;</span><br><span class="line">                    Employee e=l.get(i);</span><br><span class="line">                    Log.d(<span class="string">"==============="</span>,e.getName());</span><br><span class="line">                    Log.d(<span class="string">"==============="</span>,e.getSex()+<span class="string">""</span>);</span><br><span class="line">                    Log.d(<span class="string">"==============="</span>,e.getId()+<span class="string">""</span>);</span><br><span class="line">                &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><p>首先读取配置信息，获取数据库和表的信息<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 解析xml文件</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XMLParser</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> String RESOURCES=<span class="string">"my_database.xml"</span>;<span class="comment">//配置数据库信息的xml名字</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> String TABLE=<span class="string">"table"</span>;<span class="comment">//xml属性常量</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> String VERSION=<span class="string">"version"</span>;<span class="comment">//xml属性常量</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> String DATABASE=<span class="string">"database"</span>;<span class="comment">//xml属性常量</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> String NAME=<span class="string">"name"</span>;<span class="comment">//xml属性常量</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Context context;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String,String&gt; map=<span class="keyword">null</span>;<span class="comment">//用来存储数据库信息</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; tables=<span class="keyword">null</span>;<span class="comment">//用来存储表信息</span></span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">XMLParser</span><span class="params">()</span></span>&#123;</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        context=MyApplication.getContext();</span><br><span class="line">        map=<span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">2</span>);</span><br><span class="line">        tables=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//解析数据</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">parse</span><span class="params">()</span> <span class="keyword">throws</span> IOException, XmlPullParserException </span>&#123;</span><br><span class="line"></span><br><span class="line">        XmlPullParserFactory factory=XmlPullParserFactory.newInstance();</span><br><span class="line"></span><br><span class="line">        XmlPullParser xmlPullParser=factory.newPullParser();</span><br><span class="line">       <span class="comment">//从asset文件下读取my_database.xml的信息</span></span><br><span class="line">        xmlPullParser.setInput(<span class="keyword">new</span> InputStreamReader(context.getAssets().open(RESOURCES)));</span><br><span class="line">        <span class="keyword">int</span> type=xmlPullParser.getEventType();</span><br><span class="line">        <span class="keyword">while</span>(type!=XmlPullParser.END_DOCUMENT)&#123;</span><br><span class="line">                <span class="keyword">if</span> (xmlPullParser.getEventType()==XmlResourceParser.START_TAG)&#123;<span class="comment">//如果为开始标签</span></span><br><span class="line">                    String name=xmlPullParser.getName();</span><br><span class="line">                    <span class="keyword">switch</span> (name)&#123;</span><br><span class="line">                        <span class="keyword">case</span> DATABASE:<span class="comment">//标签为&lt;database&gt;</span></span><br><span class="line">                            parseDatabase(xmlPullParser);</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        <span class="keyword">case</span> TABLE:<span class="comment">//标签为&lt;table&gt;</span></span><br><span class="line">                            parseTable(xmlPullParser);</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                xmlPullParser.next();<span class="comment">//下一个标签</span></span><br><span class="line">                type=xmlPullParser.getEventType();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//解析数据库信息</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">parseDatabase</span><span class="params">(XmlPullParser xmlPullParser)</span>  </span>&#123;</span><br><span class="line">        String databaseName=<span class="keyword">null</span>;</span><br><span class="line">        String version=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (xmlPullParser.getAttributeCount()==<span class="number">2</span>)&#123;</span><br><span class="line">            String value_1=xmlPullParser.getAttributeName(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">if</span> (NAME.equals(value_1))&#123;</span><br><span class="line">                databaseName=xmlPullParser.getAttributeValue(<span class="number">0</span>);</span><br><span class="line">                version=xmlPullParser.getAttributeValue(<span class="number">1</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                databaseName=xmlPullParser.getAttributeValue(<span class="number">1</span>);</span><br><span class="line">                version=xmlPullParser.getAttributeValue(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> MyException(<span class="string">"database标签的参数错误"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(DATABASE,databaseName);</span><br><span class="line">        map.put(VERSION,version);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//解析表格信息</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">parseTable</span><span class="params">(XmlPullParser xmlPullParser)</span> </span>&#123;</span><br><span class="line">        String className=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (xmlPullParser.getAttributeCount()==<span class="number">1</span>)&#123;</span><br><span class="line">            className=xmlPullParser.getAttributeValue(<span class="number">0</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> MyException(<span class="string">"table参数错误"</span>);</span><br><span class="line">        tables.add(className);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, String&gt; <span class="title">getMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getTables</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> tables;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>创建数据库的类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyDatabase</span> <span class="keyword">extends</span> <span class="title">SQLiteOpenHelper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> onDatabaseUpdateListener listener=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MyDatabase"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyDatabase</span><span class="params">(Context context, String name, SQLiteDatabase.CursorFactory factory, <span class="keyword">int</span> version,onDatabaseUpdateListener listener)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, name, factory, version);</span><br><span class="line">        <span class="keyword">this</span>.listener=listener;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(SQLiteDatabase db)</span> </span>&#123;</span><br><span class="line">        String[] createTables = listener.onCreate();</span><br><span class="line">            <span class="keyword">for</span> (String s: createTables)&#123;</span><br><span class="line">                db.execSQL(s);</span><br><span class="line">                Log.d(<span class="string">"======建表语句"</span>,s);</span><br><span class="line">            &#125;</span><br><span class="line">        Log.d(<span class="string">"======"</span>,<span class="string">"onCreate执行"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onUpgrade</span><span class="params">(SQLiteDatabase db, <span class="keyword">int</span> oldVersion, <span class="keyword">int</span> newVersion)</span> </span>&#123;</span><br><span class="line">        String[] deleteTable = listener.update(db);</span><br><span class="line">        Log.d(<span class="string">"======"</span>,<span class="string">"onUpgrade执行"</span>);</span><br><span class="line">           <span class="keyword">if</span> (deleteTable !=<span class="keyword">null</span>)&#123;</span><br><span class="line">               <span class="keyword">for</span> (String s: deleteTable)&#123;</span><br><span class="line">                   db.execSQL(s);</span><br><span class="line">                   Log.d(<span class="string">"=====删表语句"</span>,s);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           onCreate(db);</span><br><span class="line">           listener.onCreateLater(db);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">onDatabaseUpdateListener</span></span>&#123;</span><br><span class="line">        String[] update(SQLiteDatabase db);<span class="comment">//数据库版本更新时调用</span></span><br><span class="line">        String[] onCreate();<span class="comment">//创建新的表时调用</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span>  <span class="title">onCreateLater</span><span class="params">(SQLiteDatabase db)</span></span>;<span class="comment">//创建完表时调用</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>完成数据库操作的实现类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 实现数据的操作和数据库的创建</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleDatabase</span> <span class="keyword">implements</span> <span class="title">MyDatabase</span>.<span class="title">onDatabaseUpdateListener</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> String NAME=<span class="string">"SimpleDatabase.xml"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> String OLD=<span class="string">"old"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> String TABLE=<span class="string">"table_"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> String NUMBER=<span class="string">"number"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//MyDatabaseHelper是一个辅助类，用来生成创建数据库和表所需要的数据</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> MyDatabaseHelper databaseHelper=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> SQLiteDatabase db=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> Map&lt;String,Cursor&gt; savedData=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    String simpleNames[]=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"SimpleDatabase"</span>;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> SimpleDatabase simpleDatabase=<span class="keyword">new</span> SimpleDatabase();</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">SimpleDatabase</span><span class="params">()</span></span>&#123;</span><br><span class="line">       init();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">       databaseHelper=<span class="keyword">new</span> MyDatabaseHelper();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询指定的数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T&gt; List&lt;T&gt; <span class="title">select</span><span class="params">(Class&lt;T&gt; clazz,String columnNames[],String where,</span></span></span><br><span class="line"><span class="function"><span class="params">                                String args[],String groupBy, String having, String orderBy)</span></span>&#123;</span><br><span class="line">        List&lt;T&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        Cursor cursor= db.query(clazz.getSimpleName(),columnNames,where,args,groupBy,having,orderBy);</span><br><span class="line">        <span class="keyword">while</span>(cursor.moveToNext())&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                T t = clazz.newInstance();</span><br><span class="line">                Field fields[]=clazz.getDeclaredFields();</span><br><span class="line">                <span class="keyword">for</span> (Field f:fields) &#123;</span><br><span class="line">                        f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">                        String fieldName = f.getName();</span><br><span class="line">                        String fieldValue = cursor.getColumnName(cursor.getColumnIndex(fieldName));</span><br><span class="line">                        <span class="comment">//由于getColumnName（）只会返回String类型，所以这里需要getInitialTypeValue()</span></span><br><span class="line">                        <span class="comment">//获取初始类型的值</span></span><br><span class="line">                        f.set(t,getInitialTypeValue(f.getType().getSimpleName(),fieldValue));</span><br><span class="line">                &#125;</span><br><span class="line">                list.add(t);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InstantiationException | IllegalAccessException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cursor.close();</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Object <span class="title">getInitialTypeValue</span><span class="params">(String type,String value)</span></span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (type)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"int"</span>:</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"integer"</span>:</span><br><span class="line">                <span class="keyword">return</span> Integer.valueOf(value);</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"boolean"</span>:</span><br><span class="line">                <span class="keyword">return</span> Boolean.valueOf(value);</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"float"</span>:</span><br><span class="line">                <span class="keyword">return</span> Float.valueOf(value);</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"double"</span>:</span><br><span class="line">                <span class="keyword">return</span> Double.valueOf(value);</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"String"</span>:</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"Character"</span>:</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"char"</span>:</span><br><span class="line">               <span class="keyword">return</span> value;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询指定的数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Cursor <span class="title">select</span><span class="params">(Object obj,String columnNames[],String where,String args[])</span></span>&#123;</span><br><span class="line">       String tableName=obj.getClass().getSimpleName();</span><br><span class="line">       <span class="keyword">return</span> db.query(tableName,columnNames,where,args,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 如果不存在数据库就创建，如果已经存在，则直接结束</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">create</span><span class="params">()</span></span>&#123;</span><br><span class="line">       String name=databaseHelper.getName();</span><br><span class="line">       String version=databaseHelper.getVersion();</span><br><span class="line">       <span class="keyword">if</span> (databaseHelper.check(getOldVersion(),Integer.valueOf(version)))<span class="comment">//如果需要更新</span></span><br><span class="line">           saveDataInSharedPreferences(Integer.valueOf(version));</span><br><span class="line">       Log.d(<span class="string">"========="</span>,<span class="string">"name"</span>+name);</span><br><span class="line">       MyDatabase database = <span class="keyword">new</span> MyDatabase(MyApplication.getContext(), name, <span class="keyword">null</span>, Integer.valueOf(version), SimpleDatabase.<span class="keyword">this</span>);</span><br><span class="line">       db= database.getWritableDatabase();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SimpleDatabase <span class="title">newInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> simpleDatabase;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 存储批量数据</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> list</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IllegalAccessException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(List&lt;Object&gt; list)</span>  </span>&#123;</span><br><span class="line">       <span class="keyword">for</span> (Object o:list) &#123;</span><br><span class="line">           save(o);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 存储单个数据到表中</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IllegalAccessException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(Object o)</span>  </span>&#123;</span><br><span class="line">           Class clazz=o.getClass();</span><br><span class="line">           Field fields[]=clazz.getDeclaredFields();</span><br><span class="line">           ContentValues values=<span class="keyword">new</span> ContentValues();</span><br><span class="line">           values.put(<span class="string">"simple_database_id"</span>,o.toString());</span><br><span class="line">           <span class="keyword">for</span> (Field f:fields) &#123;</span><br><span class="line">               <span class="keyword">try</span> &#123;</span><br><span class="line">                      f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">                      <span class="keyword">if</span> (f.get(o)!=<span class="keyword">null</span>&amp;&amp;!<span class="string">"serialVersionUID"</span>.equals(f.getName())) &#123;</span><br><span class="line">                          values.put(f.getName(), f.get(o).toString());</span><br><span class="line">                          Log.d(<span class="string">"========value"</span>, f.get(o).toString());</span><br><span class="line">                      &#125;</span><br><span class="line">               &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">                   e.printStackTrace();</span><br><span class="line">                   Log.wtf(TAG,<span class="string">"类中所以的数据应该设置值"</span>);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           db.insert(clazz.getSimpleName(),<span class="keyword">null</span>,values);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">saveAndUpdate</span><span class="params">(Object o)</span></span>&#123;</span><br><span class="line">       Class clazz=o.getClass();</span><br><span class="line">       String id=o.toString();</span><br><span class="line">       Field fields[]=clazz.getDeclaredFields();</span><br><span class="line">       ContentValues values=<span class="keyword">new</span> ContentValues();</span><br><span class="line">       values.put(<span class="string">"simple_database_id"</span>,o.toString());</span><br><span class="line">       <span class="keyword">for</span> (Field f:fields) &#123;</span><br><span class="line">           <span class="keyword">try</span> &#123;</span><br><span class="line">               f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">               <span class="keyword">if</span> (f.get(o)!=<span class="keyword">null</span>&amp;&amp;!<span class="string">"serialVersionUID"</span>.equals(f.getName())) &#123;</span><br><span class="line">                   values.put(f.getName(), f.get(o).toString());</span><br><span class="line">                   Log.d(<span class="string">"========value"</span>, f.get(o).toString());</span><br><span class="line">               &#125;</span><br><span class="line">           &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">               e.printStackTrace();</span><br><span class="line">               Log.wtf(TAG,<span class="string">"类中所以的数据应该设置值"</span>);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       Cursor cursor=select(o,<span class="keyword">null</span>,<span class="string">"simple_database_id=?"</span>,<span class="keyword">new</span> String[]&#123;id&#125;);</span><br><span class="line">       <span class="keyword">if</span> (cursor.getCount()==<span class="number">0</span>)&#123;<span class="comment">//插入</span></span><br><span class="line">           db.insert(clazz.getSimpleName(),<span class="keyword">null</span>,values);</span><br><span class="line">       &#125;<span class="keyword">else</span> &#123;<span class="comment">//更新</span></span><br><span class="line">           db.update(clazz.getSimpleName(),values,<span class="string">"simple_database_id=?"</span>,<span class="keyword">new</span> String[]&#123;id&#125;);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除表中所有的数据</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(Object o)</span></span>&#123;</span><br><span class="line">       Class clazz=o.getClass();</span><br><span class="line">       delete(clazz.getSimpleName(),<span class="string">"simple_database_id=?"</span>,o.toString());</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除表中指定的数据</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> name</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> where</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> arg</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String name,String where,String... arg)</span></span>&#123;</span><br><span class="line">       db.delete(name,where,arg);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 如果版本更新，则存储最新的版本</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> version 版本号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">saveDataInSharedPreferences</span><span class="params">(<span class="keyword">int</span> version)</span></span>&#123;</span><br><span class="line">       <span class="comment">//获取SharedPreferences的Editor对象来执行储存操作</span></span><br><span class="line">       SharedPreferences.Editor editor=MyApplication.getContext().getSharedPreferences(NAME,<span class="number">0</span>).edit();</span><br><span class="line">       editor.putInt(OLD,version);</span><br><span class="line">       editor.apply();<span class="comment">//最后一定要调用这个方法，完成数据的储存</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *存储过去的表名</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> names</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">saveDataInSharedPreferences</span><span class="params">(String[] names)</span></span>&#123;</span><br><span class="line">        <span class="comment">//获取SharedPreferences的Editor对象来执行储存操作</span></span><br><span class="line">        SharedPreferences.Editor editor=MyApplication.getContext().getSharedPreferences(NAME,<span class="number">0</span>).edit();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;names.length;i++)&#123;</span><br><span class="line">            editor.putString(TABLE+i,names[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        editor.putInt(NUMBER,names.length);</span><br><span class="line">        editor.apply();<span class="comment">//最后一定要调用这个方法，完成数据的储存</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取上一次的数据库的版本</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getOldVersion</span><span class="params">()</span></span>&#123;</span><br><span class="line">       SharedPreferences get=MyApplication.getContext().getSharedPreferences(NAME,<span class="number">0</span>);</span><br><span class="line">       <span class="keyword">return</span> get.getInt(OLD,<span class="number">0</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String[] getOldTableName()&#123;</span><br><span class="line">        SharedPreferences get=MyApplication.getContext().getSharedPreferences(NAME,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> length=get.getInt(NUMBER,-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span> (length==-<span class="number">1</span>)</span><br><span class="line">            Log.wtf(TAG,<span class="string">"原有表格不存在"</span>);</span><br><span class="line">        String names[]=<span class="keyword">new</span> String[length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;length;i++)&#123;</span><br><span class="line">            names[i]=get.getString(TABLE+i,<span class="string">""</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> names;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String[] update(SQLiteDatabase db) &#123;<span class="comment">//在删除表之前把表的数据保存起来</span></span><br><span class="line">        simpleNames=getOldTableName();</span><br><span class="line">        savedData=<span class="keyword">new</span> HashMap&lt;&gt;(simpleNames.length);</span><br><span class="line">        <span class="keyword">for</span> (String name:simpleNames) &#123;</span><br><span class="line">            Cursor cursor=db.query(name,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>);</span><br><span class="line">            savedData.put(name,cursor);</span><br><span class="line">        &#125;</span><br><span class="line">        Cursor cursor=savedData.get(simpleNames[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">if</span> (cursor.moveToFirst())&#123;</span><br><span class="line">            String sex=cursor.getString(cursor.getColumnIndex(<span class="string">"sex"</span>));</span><br><span class="line">            Log.d(<span class="string">"===============update"</span>,<span class="string">"sex="</span>+sex);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> databaseHelper.getDeleteTable();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String[] onCreate() &#123;</span><br><span class="line">        saveDataInSharedPreferences(databaseHelper.getSimpleTableName());</span><br><span class="line">        <span class="keyword">return</span> databaseHelper.getCreateTable();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreateLater</span><span class="params">(SQLiteDatabase db)</span> </span>&#123;</span><br><span class="line">        recoverAllData(db);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 恢复所有的数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">recoverAllData</span><span class="params">(SQLiteDatabase db)</span></span>&#123;</span><br><span class="line">       List&lt;String&gt; deleteTable=checkWhichTableDisappear(databaseHelper.getTables());</span><br><span class="line">       List&lt;String&gt; nowTable=Arrays.asList(simpleNames);</span><br><span class="line">       nowTable.remove(deleteTable);</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nowTable.size();i++)&#123;</span><br><span class="line">          Cursor cursor=savedData.get(nowTable.get(i));</span><br><span class="line">          ContentValues values=<span class="keyword">new</span> ContentValues();</span><br><span class="line">           <span class="keyword">if</span> (cursor.moveToFirst())&#123;</span><br><span class="line">               <span class="keyword">do</span>&#123;</span><br><span class="line">                   String columnNames[]=cursor.getColumnNames();</span><br><span class="line">                   <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;columnNames.length;j++)</span><br><span class="line">                         values.put(columnNames[j],cursor.getString(cursor.getColumnIndex(columnNames[j])));</span><br><span class="line">               &#125;<span class="keyword">while</span> (cursor.moveToNext());</span><br><span class="line">               db.insert(nowTable.get(i),<span class="keyword">null</span>,values);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">        <span class="keyword">for</span> (String n:simpleNames) &#123;<span class="comment">//释放所有的资源</span></span><br><span class="line">            savedData.get(n).close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 检查有哪些表被删除</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> newTable</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> List&lt;String&gt; <span class="title">checkWhichTableDisappear</span><span class="params">(List&lt;String&gt; newTable)</span></span>&#123;</span><br><span class="line">            String deleteTable[]=<span class="keyword">new</span> String[simpleNames.length];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;i&lt;simpleNames.length;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span> (!newTable.contains(simpleNames[i]))&#123;</span><br><span class="line">                    deleteTable[j]=simpleNames[i];</span><br><span class="line">                    j++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          <span class="keyword">return</span> Arrays.asList(deleteTable);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>SimpleDatabase</code>的主要作用是在<code>my_database.xml</code>中的配置更改时，能自动更新数据库；插入和更新时，通过<code>saveAndUpdate(Object o)</code>使用对象来实现插入和更新操作（当数据库中不存在同一条数据时，就插入；当数据库中存在同一条数据时，就更新）；查询时，通过</p>
+<p><code>List&lt;T&gt; select(Class&lt;T&gt; clazz,String columnNames[],String where,String args[],String groupBy, String having, String orderBy)</code>获取包含查询结果对象的集合；删除时，通过<code>delete(Object o)</code>使用对象来实现删除操作。</p>
+<p>实现原理：</p>
+<p><code>SimpleDatabase</code>通过实现<code>MyDatabase</code>的<code>onDatabaseUpdateListener</code>接口，监听<code>MyDatabase</code>的<code>onCreate</code>和<code>onUpgrade</code>方法。在<code>onCreate</code>被调用时，调用<code>onDatabaseUpdateListener.onCreate</code>来存储之前的表名（如果修改了配置文件的话），并返回创建表的sql语句集合（可能创建多个表），之后在<code>MyDatabase.onCreate</code>中创建表。当<code>onUpgrade</code>被调用时，调用<code>onDatabaseUpdateListener.update</code>来存储当前数据库中的数据，并返回删除表的sql语句集合，删除成功后创建新的表，之后调用<code>onDatabaseUpdateListener.onCreateLater</code>方法将之前存储的数据重新存储到数据库中。</p>
+<p><code>SimpleDatabase</code>中的<code>select</code>、<code>delete</code>、<code>saveAndUpdate</code>方法是通过反射实现的，具体可以看注释。</p>
+<p>其他类的实现很简单，具体可以看源码：</p>
+<ul>
+<li><p>MyApplication类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取系统的context</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Context context;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate();</span><br><span class="line">        context = getApplicationContext();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Context <span class="title">getContext</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> context;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>MyDatabaseHelper类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 生成创建数据库和表所需要的数据</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyDatabaseHelper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String version=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; tables=<span class="keyword">null</span>;<span class="comment">//存储完整类名</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String,Table[]&gt; maps=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String createTable[]=<span class="keyword">null</span>;<span class="comment">//存储建表语句</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String deleteTable[]=<span class="keyword">null</span>;<span class="comment">//存储删除表的语句</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> ok=<span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MyDatabaseHelper"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyDatabaseHelper</span><span class="params">()</span></span>&#123;</span><br><span class="line">       init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        XMLParser xmlParser=<span class="keyword">null</span>;</span><br><span class="line">        xmlParser=<span class="keyword">new</span> XMLParser();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            xmlParser.parse();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException | XmlPullParserException  e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        name=xmlParser.getMap().get(XMLParser.DATABASE);</span><br><span class="line">        version=xmlParser.getMap().get(XMLParser.VERSION);</span><br><span class="line">        tables=xmlParser.getTables();</span><br><span class="line">        maps=<span class="keyword">new</span> HashMap&lt;&gt;(tables.size());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 检查是否需要更新</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> old 之前的版本</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> now 现在的版本</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> old,<span class="keyword">int</span> now)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (now&gt;old) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                parseTable();</span><br><span class="line">                ok=<span class="keyword">true</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解析类的数据,在version改变时调用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> ClassNotFoundException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">parseTable</span><span class="params">()</span> <span class="keyword">throws</span> ClassNotFoundException </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (String name:tables)&#123;</span><br><span class="line">            Class table=Class.forName(name);</span><br><span class="line">            Field[] field=table.getDeclaredFields();</span><br><span class="line">            Table info[]=<span class="keyword">new</span> Table[field.length];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;field.length;i++)&#123;</span><br><span class="line">                Table t=<span class="keyword">new</span> Table();</span><br><span class="line">                t.setProperty(field[i].getName());</span><br><span class="line">                t.setType(field[i].getType().getSimpleName());</span><br><span class="line">                info[i]=t;</span><br><span class="line">            &#125;</span><br><span class="line">            maps.put(name,info);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成建表语句</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">generateTable</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;tables.size();i++)&#123;</span><br><span class="line">            Table table[]=maps.get(tables.get(i));</span><br><span class="line">            StringBuilder stringBuilder=<span class="keyword">new</span> StringBuilder();</span><br><span class="line">            String simpleName=getSimpleName(tables.get(i));</span><br><span class="line">            stringBuilder.append(<span class="string">"create table "</span>+simpleName+<span class="string">"( "</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;table.length;j++)&#123;</span><br><span class="line">                Table t=table[j];</span><br><span class="line">                <span class="keyword">if</span> (t!=<span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">if</span> (!Table.OTHER.equals(t.getType()))</span><br><span class="line">                    stringBuilder.append(<span class="string">" , "</span>+t.getProperty()+<span class="string">" "</span>+t.getType());</span><br><span class="line">            &#125;</span><br><span class="line">            String string=stringBuilder.append(<span class="string">")"</span>).toString();</span><br><span class="line">            string=string.replaceFirst(<span class="string">","</span>,<span class="string">""</span>);</span><br><span class="line">            createTable[i]=string;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成删除表的语句</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">deleteTable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; tables.size(); i++) &#123;</span><br><span class="line">            deleteTable[i]=<span class="string">"drop table if exists "</span>+getSimpleName(tables.get(i));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取简单类名，不包括包</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> name 带有包名的类名</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 不包含包名的类名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getSimpleName</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">       <span class="keyword">int</span> position= name.lastIndexOf(<span class="string">'.'</span>);</span><br><span class="line">       <span class="keyword">return</span> name.substring(position+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getVersion</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> version;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String[] getCreateTable() &#123;</span><br><span class="line">        <span class="keyword">if</span> (!ok)</span><br><span class="line">            Log.e(TAG,<span class="string">"必须先调用check()"</span>);</span><br><span class="line">        createTable=<span class="keyword">new</span> String[tables.size()];</span><br><span class="line">        generateTable();</span><br><span class="line">        <span class="keyword">return</span> createTable;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String[] getDeleteTable() &#123;</span><br><span class="line">        <span class="keyword">if</span> (!ok)</span><br><span class="line">            Log.e(TAG,<span class="string">"必须先调用check()"</span>);</span><br><span class="line">        deleteTable=<span class="keyword">new</span> String[tables.size()];</span><br><span class="line">        deleteTable();</span><br><span class="line">        <span class="keyword">return</span> deleteTable;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getTables</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> tables;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String[] getSimpleTableName() &#123;</span><br><span class="line"></span><br><span class="line">        String simpleTableName[]=<span class="keyword">new</span> String[tables.size()];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;tables.size();i++) &#123;</span><br><span class="line"></span><br><span class="line">            String simpleName = getSimpleName(tables.get(i));</span><br><span class="line"></span><br><span class="line">            simpleTableName[i] = simpleName;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> simpleTableName;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>MyException</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyException</span> <span class="keyword">extends</span> <span class="title">RuntimeException</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyException</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Table类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 存储每个字段对应的属性和名字</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Table</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> String INTEGER=<span class="string">"integer"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> String TEXT=<span class="string">"text"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> String REAL=<span class="string">"real"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> String BLOB=<span class="string">"blob"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> String INT=<span class="string">"int"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> String CHAR=<span class="string">"char"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> String FLOAT=<span class="string">"float"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> String DOUBLE=<span class="string">"double"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> String STRING=<span class="string">"String"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> String BOOLEAN=<span class="string">"boolean"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> String OTHER=<span class="string">"other"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String property;<span class="comment">//对应的属性</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String type;<span class="comment">//对应的属性的类型</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getProperty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> property;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setProperty</span><span class="params">(String property)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.property = property;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> type;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setType</span><span class="params">(String type)</span> </span>&#123;</span><br><span class="line">        checkProperty(type);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkProperty</span><span class="params">(String property)</span></span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (property)&#123;</span><br><span class="line">            <span class="keyword">case</span> INT:</span><br><span class="line">            <span class="keyword">case</span> BOOLEAN:</span><br><span class="line">                type=INTEGER;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> FLOAT:</span><br><span class="line">            <span class="keyword">case</span> DOUBLE:</span><br><span class="line">                type=REAL;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> STRING:</span><br><span class="line">            <span class="keyword">case</span> CHAR:</span><br><span class="line">                type=TEXT;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                 type=OTHER;</span><br><span class="line">                 <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>参考<a href="https://www.runoob.com/sqlite/sqlite-tutorial.html" target="_blank" rel="noopener">菜鸟教程</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/05/TCP-IP的学习总结/" rel="next" title="TCP/IP的学习总结">
+                <i class="fa fa-chevron-left"></i> TCP/IP的学习总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/user.jpg" alt="lichukuan">
+            
+              <p class="site-author-name" itemprop="name">lichukuan</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">博客</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLite的基本知识"><span class="nav-number">1.</span> <span class="nav-text">SQLite的基本知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLite常用的数据类型"><span class="nav-number">1.1.</span> <span class="nav-text">SQLite常用的数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建和删除数据表"><span class="nav-number">1.2.</span> <span class="nav-text">创建和删除数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入数据"><span class="nav-number">1.3.</span> <span class="nav-text">插入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除数据"><span class="nav-number">1.4.</span> <span class="nav-text">删除数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新数据"><span class="nav-number">1.5.</span> <span class="nav-text">更新数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询数据"><span class="nav-number">1.6.</span> <span class="nav-text">查询数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLite的逻辑运算符"><span class="nav-number">1.7.</span> <span class="nav-text">SQLite的逻辑运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#where"><span class="nav-number">1.8.</span> <span class="nav-text">where</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#and-or"><span class="nav-number">1.9.</span> <span class="nav-text">and/or</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LIKE"><span class="nav-number">1.10.</span> <span class="nav-text">LIKE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GLOB"><span class="nav-number">1.11.</span> <span class="nav-text">GLOB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LIMIT"><span class="nav-number">1.12.</span> <span class="nav-text">LIMIT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ORDER-BY"><span class="nav-number">1.13.</span> <span class="nav-text">ORDER BY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GROUP-BY"><span class="nav-number">1.14.</span> <span class="nav-text">GROUP BY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HAVING"><span class="nav-number">1.15.</span> <span class="nav-text">HAVING</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DISTINCT"><span class="nav-number">1.16.</span> <span class="nav-text">DISTINCT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建数据库"><span class="nav-number">2.</span> <span class="nav-text">创建数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加表"><span class="nav-number">2.1.</span> <span class="nav-text">添加表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作表"><span class="nav-number">2.2.</span> <span class="nav-text">操作表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#仿照LitePal实现一个简易的数据库框架SimpleDatabase"><span class="nav-number">3.</span> <span class="nav-text">仿照LitePal实现一个简易的数据库框架SimpleDatabase</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SimpleDatabase的使用"><span class="nav-number">3.1.</span> <span class="nav-text">SimpleDatabase的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现原理"><span class="nav-number">3.2.</span> <span class="nav-text">实现原理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lichukuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
